@@ -11,6 +11,18 @@ const RAIZ = __dirname;
 const AGENDA = path.join(RAIZ, 'agenda.json');
 const FEITOS = path.join(RAIZ, 'publicados.json');
 
+// Trava de concorrente. Vai embutida aqui porque o Actions so tem este repositorio.
+const BLOQUEADOS = ['mup', 'draacoun', 'digubigule'];
+const REGEX_BLOQ = BLOQUEADOS.map(t => new RegExp('(^|[^a-z0-9])' + t + '([^a-z0-9]|$)', 'i'));
+function checaBloqueio(alvo, rotulo) {
+  const texto = typeof alvo === 'string' ? alvo : JSON.stringify(alvo);
+  for (let i = 0; i < REGEX_BLOQ.length; i++) {
+    if (REGEX_BLOQ[i].test(texto)) {
+      throw new Error('BLOQUEADO por concorrente ("' + BLOQUEADOS[i] + '") em ' + rotulo);
+    }
+  }
+}
+
 const SECO = process.argv.includes('--ensaio');
 const token = process.env.META_TOKEN || (() => {
   const alt = path.resolve(RAIZ, '..', 'EldrynSocial', 'config.json');
@@ -74,6 +86,7 @@ async function esperaContainer(id) {
   for (const s of vencidos) {
     const url = agenda.baseUrl + '/midia/' + s.arquivo;
     console.log('\n>', s.post, '(' + s.hora + ')', s.tipo, url);
+    checaBloqueio(s, s.post);
     if (SECO) { console.log('  (ensaio)'); continue; }
 
     try {
