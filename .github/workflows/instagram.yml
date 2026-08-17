@@ -1,0 +1,39 @@
+name: Publica no Instagram
+
+on:
+  schedule:
+    # a cada 10 minutos; o script so publica o que ja venceu o horario
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Publicar o que venceu
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+        run: node publica_instagram.js
+
+      - name: Guardar o que foi publicado
+        run: |
+          if [ -n "$(git status --porcelain publicados.json)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add publicados.json
+            git commit -m "registra publicacao no instagram"
+            git push
+          fi
