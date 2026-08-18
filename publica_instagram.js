@@ -85,17 +85,39 @@ async function esperaContainer(id) {
 
   for (const s of vencidos) {
     const url = agenda.baseUrl + '/midia/' + s.arquivo;
-    console.log('\n>', s.post, '(' + s.hora + ')', s.tipo, url);
+    console.log('\n>', s.post, '(' + s.hora + ')', s.tipo,
+      s.tipo === 'carrossel' ? s.arquivos.length + ' fotos' : url);
     checaBloqueio(s, s.post);
     if (SECO) { console.log('  (ensaio)'); continue; }
 
     try {
-      const params = { caption: s.texto };
-      if (s.tipo === 'video') { params.media_type = 'REELS'; params.video_url = url; }
-      else { params.image_url = url; }
-
-      const cont = await graph('/' + ig.id + '/media', params, 'POST');
-      console.log('  container', cont.id);
+      let cont;
+      if (s.tipo === 'carrossel') {
+        // carrossel: um container por foto marcado como is_carousel_item, e
+        // depois um container pai do tipo CAROUSEL amarrando todos eles.
+        const filhos = [];
+        for (const arq of s.arquivos) {
+          const f = await graph('/' + ig.id + '/media', {
+            image_url: agenda.baseUrl + '/midia/' + arq,
+            is_carousel_item: 'true',
+          }, 'POST');
+          await esperaContainer(f.id);
+          filhos.push(f.id);
+          console.log('    item', arq, '->', f.id);
+        }
+        cont = await graph('/' + ig.id + '/media', {
+          media_type: 'CAROUSEL',
+          children: filhos.join(','),
+          caption: s.texto,
+        }, 'POST');
+        console.log('  carrossel', cont.id, 'com', filhos.length, 'fotos');
+      } else {
+        const params = { caption: s.texto };
+        if (s.tipo === 'video') { params.media_type = 'REELS'; params.video_url = url; }
+        else { params.image_url = url; }
+        cont = await graph('/' + ig.id + '/media', params, 'POST');
+        console.log('  container', cont.id);
+      }
       await esperaContainer(cont.id);
 
       const pub = await graph('/' + ig.id + '/media_publish', { creation_id: cont.id }, 'POST');
