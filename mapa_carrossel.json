@@ -1,29 +1,26 @@
 [
   {
-    "post": "mod-saurians-dinos",
+    "post": "x08-blovienn-railway",
     "hora": "10:00",
-    "arquivos": [
-      "mod-saurians-dinos_1.jpg",
-      "mod-saurians-dinos_2.jpg",
-      "mod-saurians-dinos_3.jpg",
-      "mod-saurians-dinos_4.jpg",
-      "mod-saurians-dinos_5.jpg"
-    ]
+    "tipo": "video",
+    "arquivo": "x08-blovienn-railway.mp4"
   },
   {
-    "post": "mod-mob-trophies",
+    "post": "mod-perfect-dodges",
     "hora": "12:30",
-    "arquivos": [
-      "mod-mob-trophies_1.jpg",
-      "mod-mob-trophies_2.jpg",
-      "mod-mob-trophies_3.jpg",
-      "mod-mob-trophies_4.jpg",
-      "mod-mob-trophies_5.jpg"
-    ]
+    "tipo": "video",
+    "arquivo": "mod-perfect-dodges.mp4"
+  },
+  {
+    "post": "reddit-evil-fortress",
+    "hora": "15:00",
+    "tipo": "video",
+    "arquivo": "reddit-evil-fortress.mp4"
   },
   {
     "post": "mod-wildtale-carrossel",
-    "hora": "15:00",
+    "hora": "17:30",
+    "tipo": "carrossel",
     "arquivos": [
       "mod-wildtale-carrossel_1.jpg",
       "mod-wildtale-carrossel_2.jpg",
@@ -33,24 +30,15 @@
     ]
   },
   {
-    "post": "mod-aetherhaven",
-    "hora": "17:30",
-    "arquivos": [
-      "mod-aetherhaven_1.jpg",
-      "mod-aetherhaven_2.jpg",
-      "mod-aetherhaven_3.jpg",
-      "mod-aetherhaven_4.jpg",
-      "mod-aetherhaven_5.jpg"
-    ]
+    "post": "x13-lunaronin-airship",
+    "hora": "20:00",
+    "tipo": "video",
+    "arquivo": "x13-lunaronin-airship.mp4"
   },
   {
-    "post": "mod-skyreach-ravines",
-    "hora": "20:00",
-    "arquivos": [
-      "mod-skyreach-ravines_1.jpg",
-      "mod-skyreach-ravines_2.jpg",
-      "mod-skyreach-ravines_3.jpg",
-      "mod-skyreach-ravines_4.jpg"
-    ]
+    "post": "reddit-hyblend-tool",
+    "hora": "21:30",
+    "tipo": "video",
+    "arquivo": "reddit-hyblend-tool.mp4"
   }
 ]
