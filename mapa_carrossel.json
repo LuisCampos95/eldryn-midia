@@ -1,0 +1,56 @@
+[
+  {
+    "post": "mod-saurians-dinos",
+    "hora": "10:00",
+    "arquivos": [
+      "mod-saurians-dinos_1.jpg",
+      "mod-saurians-dinos_2.jpg",
+      "mod-saurians-dinos_3.jpg",
+      "mod-saurians-dinos_4.jpg",
+      "mod-saurians-dinos_5.jpg"
+    ]
+  },
+  {
+    "post": "mod-mob-trophies",
+    "hora": "12:30",
+    "arquivos": [
+      "mod-mob-trophies_1.jpg",
+      "mod-mob-trophies_2.jpg",
+      "mod-mob-trophies_3.jpg",
+      "mod-mob-trophies_4.jpg",
+      "mod-mob-trophies_5.jpg"
+    ]
+  },
+  {
+    "post": "mod-wildtale-carrossel",
+    "hora": "15:00",
+    "arquivos": [
+      "mod-wildtale-carrossel_1.jpg",
+      "mod-wildtale-carrossel_2.jpg",
+      "mod-wildtale-carrossel_3.jpg",
+      "mod-wildtale-carrossel_4.jpg",
+      "mod-wildtale-carrossel_5.jpg"
+    ]
+  },
+  {
+    "post": "mod-aetherhaven",
+    "hora": "17:30",
+    "arquivos": [
+      "mod-aetherhaven_1.jpg",
+      "mod-aetherhaven_2.jpg",
+      "mod-aetherhaven_3.jpg",
+      "mod-aetherhaven_4.jpg",
+      "mod-aetherhaven_5.jpg"
+    ]
+  },
+  {
+    "post": "mod-skyreach-ravines",
+    "hora": "20:00",
+    "arquivos": [
+      "mod-skyreach-ravines_1.jpg",
+      "mod-skyreach-ravines_2.jpg",
+      "mod-skyreach-ravines_3.jpg",
+      "mod-skyreach-ravines_4.jpg"
+    ]
+  }
+]
