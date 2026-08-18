@@ -116,12 +116,59 @@
       "arquivo": "x13-lunaronin-airship.mp4"
     },
     {
-      "post": "reddit-hyblend-tool",
-      "hora": "21:30",
+      "post": "rc31",
+      "hora": "10:00",
+      "quandoUtc": "2026-08-19T13:00:00.000Z",
+      "texto": "🔨 TEM UM CARNAVAL DE VERÃO COM ACERTA-GOBLIN NO HYTALE\n\nUm minigame de parque de diversão onde o goblin sobe do buraco e você tem que martelar antes dele voltar.\n\n🎥 Wakkaloon\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame",
       "tipo": "video",
-      "quandoUtc": "2026-08-19T00:30:00.000Z",
-      "texto": "🛠️ FERRAMENTA NOVA DEIXA IMPORTAR MODELO E ANIMAÇÃO PRO HYTALE\n\nO Hyblend é uma ferramenta que importa qualquer modelo e animação do Hytale, facilitando bastante a vida de quem cria mod com personagem e criatura customizados.\n\n🎥 Kaayky_rpg\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
-      "arquivo": "reddit-hyblend-tool.mp4"
+      "arquivo": "rc31.mp4"
+    },
+    {
+      "post": "rc26",
+      "hora": "12:30",
+      "quandoUtc": "2026-08-19T15:30:00.000Z",
+      "texto": "🌃 UM CRIADOR MONTOU UM BAIRRO DE CIDADE NEON NO HYTALE\n\nUm quarteirão inteiro de rua japonesa, com prédio de vários andares, letreiro aceso e movimento de cidade grande.\n\n🔹 Ar-condicionado pendurado na janela, sacada com roupa e antena no telhado.\n🔹 Máquina de venda ligada na calçada, cone de obra e bueiro na rua.\n🔹 Placa vertical em japonês, faixa de pedestre e fiação passando por cima de tudo.\n\n📷 sora_sabi\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleBuilds",
+      "tipo": "carrossel",
+      "arquivo": "rc26_1.jpg",
+      "arquivos": [
+        "rc26_1.jpg",
+        "rc26_2.jpg",
+        "rc26_3.jpg",
+        "rc26_4.jpg",
+        "rc26_5.jpg"
+      ]
+    },
+    {
+      "post": "rc35",
+      "hora": "15:00",
+      "quandoUtc": "2026-08-19T18:00:00.000Z",
+      "texto": "⚔️ UM MOD TROUXE O ABISMO ESPIRAL DE GENSHIN PRO HYTALE\n\nO desafio em andar do Genshin Impact virou mod, com sala de combate que você limpa pra descer pro próximo nível.\n\n🎥 Airijko\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleMods",
+      "tipo": "video",
+      "arquivo": "rc35.mp4"
+    },
+    {
+      "post": "rc27",
+      "hora": "17:30",
+      "quandoUtc": "2026-08-19T20:30:00.000Z",
+      "texto": "🧊 O WORLDGEN V2 TÁ GERANDO PICO DE GELO GIGANTE NO HYTALE\n\nA nova geração de mundo criou um mar congelado com torres de gelo saindo da água, altas o bastante pra sumir na neblina.\n\n🔹 A água aparece quebrada em placa de gelo solta, uma diferente da outra.\n🔹 Os picos nascem em grupo e cada um tem formato próprio, nada repetido.\n\nÉ o tipo de paisagem que o worldgen antigo não conseguia montar sozinho.\n\n📷 AnyEconomy8588\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "imagem",
+      "arquivo": "rc27.jpg"
+    },
+    {
+      "post": "rc22",
+      "hora": "20:00",
+      "quandoUtc": "2026-08-19T23:00:00.000Z",
+      "texto": "🛠️ UMA FERRAMENTA NOVA IMPORTA QUALQUER MODELO E ANIMAÇÃO DO HYTALE\n\nO Hyblend puxa modelo e animação do jogo direto pro Blender, o que facilita muito a vida de quem cria mod com criatura e personagem próprio.\n\n🔹 Serve tanto pra estudar como o jogo monta as coisas quanto pra criar em cima do que já existe.\n\n🎥 Kaayky_rpg\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleMods",
+      "tipo": "video",
+      "arquivo": "rc22.mp4"
+    },
+    {
+      "post": "rc13",
+      "hora": "21:30",
+      "quandoUtc": "2026-08-20T00:30:00.000Z",
+      "texto": "🏛️ OLHA A CASA DO GEOMANTE CONSTRUÍDA NO HYTALE\n\nUma construção temática de mago de pedra, montada com material que combina com a função de quem mora nela.\n\n🔹 A rocha aparece trabalhada, não é bloco jogado pra encher parede.\n🔹 O interior foi decorado seguindo o mesmo tema, não só a fachada.\n\n📷 YLASRO\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleBuilds",
+      "tipo": "imagem",
+      "arquivo": "rc13.jpg"
     }
   ]
 }
