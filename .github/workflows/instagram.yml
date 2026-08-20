@@ -23,23 +23,15 @@ jobs:
         with:
           node-version: '20'
 
+      # O script comita e empurra o registro ele mesmo (reivindicar/gravarResultado
+      # em publica_instagram.js), a cada post, na hora. Isso nao e so estilo: e a
+      # trava contra publicar em dobro. Em 20/08/2026 duas execucoes (o cron de
+      # 10min e um workflow_dispatch manual) fizeram checkout quase juntas, as
+      # duas viram "ainda nao publicado" e postaram o MESMO conteudo duas vezes -
+      # so foi possivel porque o commit acontecia so no FIM, depois de publicar.
+      # Reivindicar (commitar) ANTES de chamar a API do Instagram fecha essa
+      # brecha: quem perde a corrida do commit desiste sem nunca publicar.
       - name: Publicar o que venceu
         env:
           META_TOKEN: ${{ secrets.META_TOKEN }}
         run: node publica_instagram.js
-
-      - name: Guardar o que foi publicado
-        # sempre roda, mesmo se um item da agenda falhar (aspect ratio, video
-        # que nao processa etc). O script salva a cada sucesso e sai com erro
-        # se ALGUM item falhou, o que sem isso pulava este passo inteiro e
-        # deixava um post que JA publicou de verdade sem registro -> proxima
-        # execucao tentava publicar ele de novo, duplicado.
-        if: always()
-        run: |
-          if [ -n "$(git status --porcelain publicados.json)" ]; then
-            git config user.name  "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add publicados.json
-            git commit -m "registra publicacao no instagram"
-            git push
-          fi
