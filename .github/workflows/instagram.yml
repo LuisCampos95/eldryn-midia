@@ -29,6 +29,12 @@ jobs:
         run: node publica_instagram.js
 
       - name: Guardar o que foi publicado
+        # sempre roda, mesmo se um item da agenda falhar (aspect ratio, video
+        # que nao processa etc). O script salva a cada sucesso e sai com erro
+        # se ALGUM item falhou, o que sem isso pulava este passo inteiro e
+        # deixava um post que JA publicou de verdade sem registro -> proxima
+        # execucao tentava publicar ele de novo, duplicado.
+        if: always()
         run: |
           if [ -n "$(git status --porcelain publicados.json)" ]; then
             git config user.name  "github-actions[bot]"
