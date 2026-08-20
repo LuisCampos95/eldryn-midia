@@ -169,6 +169,45 @@
       "texto": "🏛️ OLHA A CASA DO GEOMANTE CONSTRUÍDA NO HYTALE\n\nUma construção temática de mago de pedra, montada com material que combina com a função de quem mora nela.\n\n🔹 A rocha aparece trabalhada, não é bloco jogado pra encher parede.\n🔹 O interior foi decorado seguindo o mesmo tema, não só a fachada.\n\n📷 YLASRO\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleBuilds #HytaleNews",
       "tipo": "imagem",
       "arquivo": "rc13.jpg"
+    },
+    {
+      "post": "rc123",
+      "hora": "12:30",
+      "quandoUtc": "2026-08-20T15:30:00.000Z",
+      "texto": "🗡️ O TANJIRO, DE DEMON SLAYER, GANHOU VERSÃO DE PERSONAGEM NO HYTALE\n\nEstá tudo lá. O haori xadrez verde e preto, a katana na cintura e a caixa de madeira nas costas. Dá pra reconhecer de longe.\n\n📷 Netherzapdos\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "carrossel",
+      "arquivo": "rc123_1.jpg",
+      "arquivos": [
+        "rc123_1.jpg",
+        "rc123_2.jpg",
+        "rc123_3.jpg",
+        "rc123_4.jpg",
+        "rc123_5.jpg"
+      ]
+    },
+    {
+      "post": "rc148",
+      "hora": "12:40",
+      "quandoUtc": "2026-08-20T15:40:00.000Z",
+      "texto": "SAIU A PARTE 13 DA PRE-RELEASE DO UPDATE 6, E CORRIGIU VARIOS PROBLEMAS CHATOS DO HYTALE\n\nA décima terceira parte da pre-release trouxe uma leva grande de correções. Os destaques pra quem já tá jogando:\n\n🔹 Portal não fecha mais assim que você se afasta do dispositivo, o mundo fica aberto e reconecta quando você volta\n🔹 Corrigido o bug que duplicava item em situações específicas\n🔹 Consertaram um crash que travava mundo muito grande depois de rodar por muito tempo, e o processo ficou mais rápido de quebra\n🔹 Instalar um mod não cancela mais o download dos outros, agora entra numa fila\n🔹 Bloco mole grande, tipo o casulo de aranha, agora pode ser derrubado com flecha\n🔹 Baú Grande de Kweebec conta como bloco de madeira pra quebrar, machado é a ferramenta certa\n🔹 Vários vazamentos de memória fechados, sessão longa deve ficar mais estável\n🔹 Superfície transparente, tipo vidro e água, parou de perder nitidez\n\nPatch notes completo com todas as correções no site oficial do Hytale.\n\n🔧 Hytale\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "imagem",
+      "arquivo": "rc148.jpg"
+    },
+    {
+      "post": "rc132",
+      "hora": "15:00",
+      "quandoUtc": "2026-08-20T18:00:00.000Z",
+      "texto": "🔫 BOTARAM ARMA DE FOGO PRA FUNCIONAR DENTRO DO HYTALE\n\nO Hyguns tem bancada pra fabricar, mira com ponto vermelho e contador de munição na tela. São oito armas diferentes na barra de itens.\n\n🔹 E aí, arma de fogo combina com o Hytale ou estraga a ideia do jogo?\n\n🎥 TheScar_3\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "video",
+      "arquivo": "rc132.mp4"
+    },
+    {
+      "post": "rc146",
+      "hora": "17:30",
+      "quandoUtc": "2026-08-20T20:30:00.000Z",
+      "texto": "🐉 DÁ PRA MANDAR SEU DRAGÃO DE GELO LUTAR POR VOCÊ NESSE MOD DE HYTALE\n\nAntes a criatura domada só servia de montaria pra voar. Com a atualização do Animal Husbandry / Tamework, ela entra na briga no seu lugar.\n\n🎥 Alechilles\n\n⭐ Use nosso código de criador BRASIL ou HYBR ao comprar no site do Hytale\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "video",
+      "arquivo": "rc146.mp4"
     }
   ]
 }
