@@ -10,7 +10,7 @@ const GRAPH = 'https://graph.facebook.com/v21.0';
 const IG_PERMITIDO = 'brasilhytale';
 // Link no proprio post derruba alcance. No primeiro comentario nao penaliza,
 // entao o IP de verdade so entra aqui, nunca na legenda.
-const COMENTARIO_IP = 'IP: eldryn.com.br 🎮';
+const COMENTARIO_IP = '🎮 IP do nosso servidor: eldryn.com.br';
 const RAIZ = __dirname;
 const AGENDA = path.join(RAIZ, 'agenda.json');
 const FEITOS = path.join(RAIZ, 'publicados.json');

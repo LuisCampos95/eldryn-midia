@@ -19,7 +19,7 @@ const RAIZ = __dirname;
 const GRAPH = 'https://graph.facebook.com/v21.0';
 const FILA = path.join(RAIZ, 'facebook_pendente.json');
 const COMENTADOS = path.join(RAIZ, 'facebook_comentados.json');
-const COMENTARIO_IP = 'IP: eldryn.com.br 🎮';
+const COMENTARIO_IP = '🎮 IP do nosso servidor: eldryn.com.br';
 
 const token = process.env.META_TOKEN || (() => {
   const alt = path.resolve(RAIZ, '..', 'EldrynSocial', 'config.json');
