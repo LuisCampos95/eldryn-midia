@@ -35,3 +35,15 @@ jobs:
         env:
           META_TOKEN: ${{ secrets.META_TOKEN }}
         run: node publica_instagram.js
+
+      # Facebook agenda NATIVO (a gente manda uma vez, a Graph API publica
+      # sozinha na hora marcada), entao precisa de poller pra comentar o IP
+      # depois que o post ja esta no ar. A fila (facebook_pendente.json) vem
+      # do repo privado EldrynSocial, pode ter mudado desde o checkout.
+      - name: Atualizar antes do comentario do Facebook
+        run: git pull --rebase
+
+      - name: Comentar IP nos posts do Facebook que ja saíram
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+        run: node comentar_facebook.js
