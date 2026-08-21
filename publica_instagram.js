@@ -8,6 +8,9 @@ const { execFileSync } = require('child_process');
 
 const GRAPH = 'https://graph.facebook.com/v21.0';
 const IG_PERMITIDO = 'brasilhytale';
+// Link no proprio post derruba alcance. No primeiro comentario nao penaliza,
+// entao o IP de verdade so entra aqui, nunca na legenda.
+const COMENTARIO_IP = 'IP: eldryn.com.br 🎮';
 const RAIZ = __dirname;
 const AGENDA = path.join(RAIZ, 'agenda.json');
 const FEITOS = path.join(RAIZ, 'publicados.json');
@@ -220,6 +223,15 @@ async function esperaContainer(id) {
       const pub = await graph('/' + ig.id + '/media_publish', { creation_id: cont.id }, 'POST');
       console.log('  PUBLICADO', pub.id);
       gravarResultado(s.post, s.hora, pub.id);
+
+      // Comentario com o IP nao pode derrubar a publicacao se falhar, o post
+      // ja esta no ar de qualquer jeito.
+      try {
+        await graph('/' + pub.id + '/comments', { message: COMENTARIO_IP }, 'POST');
+        console.log('  comentario do IP ok');
+      } catch (e) {
+        console.log('  AVISO: nao consegui comentar o IP (' + e.message + ')');
+      }
     } catch (e) {
       console.log('  FALHOU:', e.message);
       process.exitCode = 1;
