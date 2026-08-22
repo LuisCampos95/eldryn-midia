@@ -262,8 +262,13 @@
       "hora": "15:00",
       "quandoUtc": "2026-08-22T18:00:00.000Z",
       "texto": "🪂 PLANADOR, PULO NA PAREDE E TIROLESA EM UM MOD SÓ DE MOVIMENTO\n\nZephyr refaz a movimentação base do jogo inteira.\n\n🔹 Planador pra atravessar o mapa pelo ar\n🔹 Pulo na parede e pulo duplo\n🔹 Dash e esquiva\n🔹 Gancho que puxa você até onde mirar\n🔹 Tirolesa ligando dois pontos\n🔹 Dano que cresce conforme a velocidade do impacto\n\n📷 narwhals\n\n🎮 Bora jogar no Eldryn! Nosso servidor Survival.\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
-      "tipo": "imagem",
-      "arquivo": "rc176.jpg"
+      "tipo": "carrossel",
+      "arquivo": "rc176_1.jpg",
+      "arquivos": [
+        "rc176_1.jpg",
+        "rc176_2.jpg",
+        "rc176_3.jpg"
+      ]
     }
   ]
 }
