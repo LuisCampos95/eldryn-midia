@@ -423,6 +423,19 @@
       "arquivo": "rc203.jpg"
     },
     {
+      "post": "rc205",
+      "hora": "15:00",
+      "quandoUtc": "2026-08-29T18:00:00.000Z",
+      "texto": "🧑‍🌾 DÁ PRA COLOCAR UM NPC COM A SKIN DE QUALQUER JOGADOR SÓ DIGITANDO O NICK DELE\n\nO QuestLines Denizens é um sistema completo de NPC que roda no motor nativo do jogo, sem precisar de plugin de terceiro. Você cria o personagem por um editor dentro do jogo e ele passa a viver na sua cidade.\n\n🔹 Mais de 340 modelos prontos de NPC pra escolher\n🔹 Controle de equipamento, arma na mão, escala, plaquinha de nome e aparência\n🔹 Skin de qualquer jogador, basta digitar o nome de usuário\n🔹 Animação e emote que dá pra tocar, deixar em repetição ou limpar quando quiser\n🔹 Abas separadas de comportamento, interação, profissão e horário, então o NPC patrulha, guarda, corta lenha ou entrega missão\n🔹 Varinha de posicionamento pra criar rápido e marcador no mapa do mundo\n\n📷 RedStoner\n\n🎮 Bora jogar no Eldryn! Nosso servidor Survival.\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "carrossel",
+      "arquivo": "rc205_1.jpg",
+      "arquivos": [
+        "rc205_1.jpg",
+        "rc205_2.jpg",
+        "rc205_3.jpg"
+      ]
+    },
+    {
       "post": "rc202",
       "hora": "19:00",
       "quandoUtc": "2026-08-29T22:00:00.000Z",
