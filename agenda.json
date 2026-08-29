@@ -521,12 +521,38 @@
       "arquivo": "rc207_1.jpg"
     },
     {
+      "post": "rc223",
+      "hora": "12:30",
+      "quandoUtc": "2026-08-30T15:30:00.000Z",
+      "texto": "🌪️ ABRIU UM PORTAL PRA UM VILAREJO KWEEBEC AMALDIÇOADO, E VOCÊ TEM 15 MINUTOS LÁ DENTRO\n\nUm modder pegou as ferramentas novas de encontro que vieram no Update 6 e está refazendo as lutas de chefe dele com elas. O resultado é um evento com portal, tempo contado e chefe com nome próprio.\n\n🔹 O lugar se chama Vilarejo Kweebec Abandonado, um fragmento de Orbis à parte\n🔹 O relógio marca 15 minutos até o portal fechar, então a luta tem pressa\n🔹 O chefe é o Bramblekin Enfurecido, com barra de vida no topo da tela\n🔹 As ferramentas de encontro chegaram no Update 6 e servem pra montar briga de vários NPCs com roteiro\n\n🎥 69bananaphone\n\n🎮 Bora jogar no Eldryn! Nosso servidor Survival.\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "carrossel",
+      "arquivo": "rc223_1.jpg",
+      "arquivos": [
+        "rc223_1.jpg",
+        "rc223_2.jpg",
+        "rc223_3.jpg"
+      ]
+    },
+    {
       "post": "rc209",
       "hora": "15:00",
       "quandoUtc": "2026-08-30T18:00:00.000Z",
       "texto": "🎰 CAÇA-NÍQUEL E MÁQUINA DE GARRA FUNCIONANDO DE VERDADE, COM MODELO MEDIEVAL\n\nO ZetoGambling põe máquina de cassino no servidor, com a estética certa pro jogo. São feitas de madeira, ferro forjado, latão e runa decorativa, e mantêm animação própria de alavanca, rolo e garra.\n\n🔹 Caça-níquel e máquina de garra, as duas funcionais\n🔹 A recompensa é configurada dentro do jogo, sem mexer em arquivo\n🔹 Aceita item como prêmio e também comando de console\n🔹 Mudança vale na hora, sem precisar reiniciar o servidor\n🔹 Receita de craft opcional pra cada máquina\n\n📷 Zeto_Glitch\n\n🎮 Bora jogar no Eldryn! Nosso servidor Survival.\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
       "tipo": "imagem",
       "arquivo": "rc209_1.jpg"
+    },
+    {
+      "post": "rc224",
+      "hora": "16:00",
+      "quandoUtc": "2026-08-30T19:00:00.000Z",
+      "texto": "🎮 SAIU UM PACOTE DE MINIGAME FEITO SÓ COM AS FERRAMENTAS QUE VÊM NO PRÓPRIO JOGO\n\nO Foxy Trigger Minigames usa os volumes de gatilho, aquela ferramenta de criativo que o Update 6 ampliou, pra montar minigame de verdade dentro do Hytale. Sem código, só com o que já vem na caixa.\n\n🔹 Arena com aviso de vento chegando, e uma parede que pisca mostrando de onde ele vem\n🔹 Chão em xadrez que serve de área de disputa\n🔹 Tudo montado com volume de gatilho, então dá pra qualquer um copiar a ideia no próprio mundo\n\n🎥 foxy_cca\n\n🎮 Bora jogar no Eldryn! Nosso servidor Survival.\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "carrossel",
+      "arquivo": "rc224_1.jpg",
+      "arquivos": [
+        "rc224_1.jpg",
+        "rc224_2.jpg",
+        "rc224_3.jpg"
+      ]
     },
     {
       "post": "rc206",
