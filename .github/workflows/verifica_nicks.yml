@@ -12,6 +12,15 @@ on:
       max_rps:
         description: 'requisicoes por segundo (educacao com a API)'
         default: '8'
+  # Push tambem dispara (so quando o verificador muda), porque o
+  # workflow_dispatch de branch novo demora a registrar na API. O commit
+  # de resultado vem do GITHUB_TOKEN, que nao redispara workflow.
+  push:
+    branches:
+      - claude/verificar-nicks-3-digitos-hi0md7
+    paths:
+      - verifica_nicks_hytale.js
+      - .github/workflows/verifica_nicks.yml
 
 permissions:
   contents: write
@@ -43,6 +52,6 @@ jobs:
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add nicks
           if git diff --cached --quiet; then echo 'nada pra gravar'; exit 0; fi
-          git commit -m "resultado: nicks de 3 caracteres do Hytale (${{ inputs.charset }})"
+          git commit -m "resultado: nicks de 3 caracteres do Hytale (${{ inputs.charset || 'letras+numeros' }})"
           git pull --rebase origin ${{ github.ref_name }}
           git push origin HEAD:${{ github.ref_name }}
