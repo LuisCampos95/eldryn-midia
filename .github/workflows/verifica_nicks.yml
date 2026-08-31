@@ -1,0 +1,48 @@
+name: Verifica nicks Hytale
+
+# Manual: roda uma varredura de nicks de 3 caracteres e comita o resultado
+# (nicks/nicks_livres.json + nicks/RESULTADO.md) no proprio branch. Roda no
+# Actions porque o runner tem rede aberta pra falar com a API do PlayerDB.
+on:
+  workflow_dispatch:
+    inputs:
+      charset:
+        description: 'letras | numeros | letras+numeros | tudo | teste'
+        default: 'letras+numeros'
+      max_rps:
+        description: 'requisicoes por segundo (educacao com a API)'
+        default: '8'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: verifica-nicks
+  cancel-in-progress: false
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Varrer nicks
+        env:
+          CHARSET: ${{ inputs.charset }}
+          MAX_RPS: ${{ inputs.max_rps }}
+        run: node verifica_nicks_hytale.js
+
+      - name: Gravar resultado no branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add nicks
+          if git diff --cached --quiet; then echo 'nada pra gravar'; exit 0; fi
+          git commit -m "resultado: nicks de 3 caracteres do Hytale (${{ inputs.charset }})"
+          git pull --rebase origin ${{ github.ref_name }}
+          git push origin HEAD:${{ github.ref_name }}
