@@ -2,66 +2,76 @@
 
 ```
 charset=letras+numeros max_rps=8 trabalhadores=8
-candidatas: 30 (sonda: 18)
---- https://accounts.hytale.com./{n}
+candidatas: 20
+--- https://accounts.hytale.com/api/account/username-reservations/availability?username={n} [servidor]
+    kkk -> disp=null [200 200-html-spa] <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=dev
+--- https://accounts.hytale.com/api/account/username-reservations/availability?username={n} [cru]
+    kkk -> disp=null [200 200-html-spa] <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=dev
+--- https://accounts.hytale.com/api/account/username-reservations/availability?username={n} [xhr]
+    kkk -> disp=null [200 200-html-spa] <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=dev
+--- https://backend.accounts.hytale.com/api/account/username-reservations/availability?username={n} [servidor]
+    kkk -> disp=false [404 st404] 404 page not found 
+    bob -> disp=false [404 st404] 404 page not found 
+    kry -> disp=false [404 st404] 404 page not found 
+    cherryjimbo -> disp=false [404 st404] 404 page not found 
+    amostra de 30 aleatorios: livres=0 nulos=0 ex-livres=
+    reprovada na amostra
+--- https://backend.accounts.hytale.com/api/account/username-reservations/availability?username={n} [cru]
+    kkk -> disp=false [404 st404] 404 page not found 
+    bob -> disp=false [404 st404] 404 page not found 
+    kry -> disp=false [404 st404] 404 page not found 
+    cherryjimbo -> disp=false [404 st404] 404 page not found 
+    amostra de 30 aleatorios: livres=0 nulos=0 ex-livres=
+    reprovada na amostra
+--- https://backend.accounts.hytale.com/api/account/username-reservations/availability?username={n} [xhr]
+    kkk -> disp=false [404 st404] 404 page not found 
+    bob -> disp=false [404 st404] 404 page not found 
+    kry -> disp=false [404 st404] 404 page not found 
+    cherryjimbo -> disp=false [404 st404] 404 page not found 
+    amostra de 30 aleatorios: livres=0 nulos=0 ex-livres=
+    reprovada na amostra
+--- https://backend.accounts.hytale.com/account/username-reservations/availability?username={n} [servidor]
+    kkk -> disp=false [404 st404] 404 page not found 
+    bob -> disp=false [404 st404] 404 page not found 
+    kry -> disp=false [404 st404] 404 page not found 
+    cherryjimbo -> disp=false [404 st404] 404 page not found 
+    amostra de 30 aleatorios: livres=0 nulos=0 ex-livres=
+    reprovada na amostra
+--- https://backend.accounts.hytale.com/account/username-reservations/availability?username={n} [cru]
+    kkk -> disp=false [404 st404] 404 page not found 
+    bob -> disp=false [404 st404] 404 page not found 
+    kry -> disp=false [404 st404] 404 page not found 
+    cherryjimbo -> disp=false [404 st404] 404 page not found 
+    amostra de 30 aleatorios: livres=0 nulos=0 ex-livres=
+    reprovada na amostra
+--- https://backend.accounts.hytale.com/account/username-reservations/availability?username={n} [xhr]
+    kkk -> disp=false [404 st404] 404 page not found 
+    bob -> disp=false [404 st404] 404 page not found 
+    kry -> disp=false [404 st404] 404 page not found 
+    cherryjimbo -> disp=false [404 st404] 404 page not found 
+    amostra de 30 aleatorios: livres=0 nulos=0 ex-livres=
+    reprovada na amostra
+--- https://accounts.hytale.com/{n} [json]
     kkk -> disp=null [200 sem-json:200] <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=dev
---- https://accounts.hytale.com.?username={n}
+--- https://accounts.hytale.com?username={n} [json]
     kkk -> disp=null [200 sem-json:200] <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=dev
---- https://accounts.hytale.com/api/account/username-reservations/availability/{n}
+--- https://accounts.hytale.com/api/account/username-reservations/availability/{n} [json]
     kkk -> disp=null [200 sem-json:200] <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=dev
---- https://accounts.hytale.com/api/account/username-reservations/availability?username={n}
+--- https://accounts.hytale.com/api/account/username-reservations/availability?username={n} [json]
     kkk -> disp=null [200 sem-json:200] <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=dev
---- https://backend.accounts.hytale.com/{n}
+--- https://backend.accounts.hytale.com/{n} [json]
     kkk -> disp=true [404 404-sem-json] 404 page not found 
---- https://backend.accounts.hytale.com?username={n}
+--- https://backend.accounts.hytale.com?username={n} [json]
     kkk -> disp=true [404 404-sem-json] 404 page not found 
---- https://backend.accounts.hytale.com/self-service/login/{n}
-    kkk -> disp=true [404 404-sem-json] 404 page not found 
---- https://backend.accounts.hytale.com/self-service/login?username={n}
-    kkk -> disp=null [400 bool=null] {"error":{"code":400,"status":"Bad Request","reason":"The flow query parameter is missing or malform
---- https://backend.accounts.hytale.com/self-service/login/browser/{n}
-    kkk -> disp=true [404 404-sem-json] 404 page not found 
---- https://backend.accounts.hytale.com/self-service/login/browser?username={n}
-    kkk -> disp=null [200 bool=null] {"id":"834194b7-7c6b-4bfc-9634-e689ff74de5c","organization_id":null,"type":"browser","expires_at":"2
---- https://github.com/DRagssss/hytale-api/{n}
-    kkk -> disp=null [404 bool=null] {"error":"Not Found"}
---- https://github.com/DRagssss/hytale-api?username={n}
-    kkk -> disp=true [200 bool=true] {"meta":{"title":"GitHub - DRagssss/hytale-api: Hytale API Python wrapper"},"payload":{"codeViewRepo
---- https://github.com/DRagssss/hytale-api.git/{n}
-    kkk -> disp=null [404 bool=null] {"error":"Not Found"}
---- https://github.com/DRagssss/hytale-api.git?username={n}
-    kkk -> disp=true [200 bool=true] {"meta":{"title":"GitHub - DRagssss/hytale-api: Hytale API Python wrapper"},"payload":{"codeViewRepo
---- https://github.com/DRagssss/hytale-api/issues/{n}
-    kkk -> disp=null [406 sem-json:406] 
---- https://github.com/DRagssss/hytale-api/issues?username={n}
-    kkk -> disp=null [406 sem-json:406] 
---- https://github.com/hytale-tools/api/{n}
-    kkk -> disp=null [404 bool=null] {"error":"Not Found"}
---- https://github.com/hytale-tools/api?username={n}
-    kkk -> disp=true [200 bool=true] {"meta":{"title":"GitHub - hytale-tools/api"},"payload":{"codeViewRepoRoute":{"path":"/","refInfo":{
---- https://hytale.tools/api/search/{n}
+--- https://hytale.tools/check/{n} [json]
     kkk -> disp=null [500 bool=null] {"error":"Only HTML requests are supported here"}
---- https://hytale.tools/api/username/{n}
+--- https://api.hytale.tools/check/{n} [json]
+    kkk -> disp=true [404 404-sem-json] Not Found
+--- https://hytale.tools/api/check/{n} [json]
     kkk -> disp=null [500 bool=null] {"error":"Only HTML requests are supported here"}
---- https://hytale.tools/api/check/{n}
+--- https://hytl.tools/api/player/{n} [json]
     kkk -> disp=null [500 bool=null] {"error":"Only HTML requests are supported here"}
---- https://api.hytale.tools/search/{n}
-    kkk -> disp=true [404 404-sem-json] Not Found
---- https://api.hytale.tools/username/{n}
-    kkk -> disp=true [404 404-sem-json] Not Found
---- https://api.hytale.tools/check/{n}
-    kkk -> disp=true [404 404-sem-json] Not Found
---- https://hytl.tools/api/player/{n}
-    kkk -> disp=null [500 bool=null] {"error":"Only HTML requests are supported here"}
---- https://api.hytl.tools/player/{n}
-    kkk -> disp=true [404 404-sem-json] Not Found
---- https://accounts.hytale.com/api/username/available?username={n}
-    kkk -> disp=null [200 sem-json:200] <!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=dev
---- https://api.hytale.com/username/available?username={n}
-    kkk -> disp=null [0 rede:fetch failed] 
---- https://account-data.hytale.com/username/{n}
-    kkk -> disp=true [404 404-sem-json] 404 page not found 
---- https://playerdb.co/api/player/hytale/{n}
+--- https://playerdb.co/api/player/hytale/{n} [json]
     kkk -> disp=true [400 hytale.not_found] {"message":"No Hytale player could be found with the given identifier.","code":"hytale.not_found","d
 ```
 NENHUMA fonte qualificada.
