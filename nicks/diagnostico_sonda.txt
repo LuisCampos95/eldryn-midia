@@ -1,0 +1,15 @@
+http://localhost
+https://accounts.hytale.com.
+https://accounts.hytale.com/api/account/username-reservations/availability
+https://backend.accounts.hytale.com
+https://backend.accounts.hytale.com/self-service/login
+https://backend.accounts.hytale.com/self-service/login/browser
+https://bun.com
+https://cdn.hytale.com/variants/
+https://facebook.github.io/watchman/
+https://github.com/DRagssss/hytale-api
+https://github.com/DRagssss/hytale-api.git
+https://github.com/DRagssss/hytale-api/issues
+https://github.com/hytale-tools/api
+https://hytale.com
+https://hytale.com/news/2025/12/hytale-s-1st-faq
