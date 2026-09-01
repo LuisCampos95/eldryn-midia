@@ -100,6 +100,21 @@ jobs:
           head -80 "$GITHUB_WORKSPACE/sonda_urls.txt" > "$GITHUB_WORKSPACE/nicks/diagnostico_sonda.txt"
           exit 0
 
+      # A pagina usa TanStack Start (server functions/RPC): a checagem de
+      # disponibilidade so acontece depois de hidratar no navegador, entao
+      # nao da pra ver so lendo o HTML inicial (a sonda anterior confirmou
+      # isso). Abre num Chromium headless de verdade e grava toda chamada
+      # de rede que a pagina faz, pra achar o endpoint real.
+      - name: Sondar rede com navegador
+        run: |
+          set +e
+          npm install --no-save playwright@1
+          npx playwright install --with-deps chromium
+          node sonda_rede.js > nicks/diagnostico_rede.txt 2>&1
+          echo "== diagnostico_rede.txt =="
+          cat nicks/diagnostico_rede.txt
+          exit 0
+
       - name: Qualificar fonte e varrer
         env:
           CHARSET: ${{ inputs.charset }}
