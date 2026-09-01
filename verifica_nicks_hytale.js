@@ -120,7 +120,18 @@ async function consultar(nick, tentativa = 0, vezes429 = 0) {
   let resp;
   let corpo = '';
   try {
-    resp = await fetch(urlServerFn(nick), { headers: { 'User-Agent': UA, Accept: '*/*' } });
+    resp = await fetch(urlServerFn(nick), {
+      headers: {
+        'User-Agent': UA,
+        // sem esses dois o servidor devolve 200 com corpo vazio - achado
+        // comparando um fetch() de dentro do navegador (falha) com um
+        // fetch() replicando os cabecalhos exatos que o browser manda
+        // pro _serverFn (funciona, mesmo sem cookie de sessao).
+        Accept: 'application/x-tss-framed, application/x-ndjson, application/json',
+        'X-Tsr-Serverfn': 'true',
+        Referer: 'https://hytale.tools/search/' + encodeURIComponent(nick),
+      },
+    });
     corpo = await resp.text();
   } catch (e) {
     if (tentativa < 3) { await esperar(1000 * 2 ** tentativa); return consultar(nick, tentativa + 1, vezes429); }
