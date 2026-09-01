@@ -1,98 +1,78 @@
 // Varre nicks de 3 caracteres do Hytale e grava em nicks/ os que estao
 // livres pra registrar.
 //
-// Historico: a v1 (so PlayerDB) deu falso-livre - kkk, bob e outros
-// apareceram livres estando reservados, porque o PlayerDB so enxerga
-// conta criada. A v2 qualificava fontes mas so lia corpo JSON. A sonda
-// da v2 achou no codigo-fonte do proprio hytale.tools (repo publico
-// hytale-tools/api, src/index.ts) a fonte da verdade:
+// Historico: v1 (PlayerDB) e v2/v3 (chutes de endpoint oficial) deram
+// falso-livre - kkk e bob apareceram livres estando reservados. A causa:
+// o PlayerDB so enxerga conta ja criada, nao a lista de reservas do
+// Hytale; e o endpoint oficial do proprio Hytale (accounts.hytale.com)
+// bloqueia chamada direta (devolve o SPA). A v4 usa a fonte que o
+// hytale.tools DE FATO usa, capturada com um Chromium headless
+// inspecionando a rede da pagina https://hytale.tools/search/{n}:
 //
-//   fetch('https://accounts.hytale.com/api/account/username-reservations/'
-//     + 'availability?username=...')  ->  disponivel = resposta 200
+//   GET https://hytale.tools/_serverFn/<hash>?payload=<json>
+//   -> {"status":"available"} pro livre, {"status":"reserved_by_hytale"}
+//      (ou outro texto) pro indisponivel - o mesmo texto que a pagina
+//      mostra em "Status: ...".
 //
-// ou seja, semantica por STATUS HTTP, sem corpo. So que a chamada direta
-// do runner recebeu o HTML do SPA (200 pra tudo) - depende de cabecalho/
-// roteamento. Entao a v3 qualifica uma MATRIZ: caminhos oficiais (host do
-// site e host backend.accounts descoberto) x jogos de cabecalho, alem das
-// candidatas JSON da comunidade. Controles continuam mandando: kkk e bob
-// (Luis conferiu que estao indisponiveis em 01/09/2026), kry e
-// cherryjimbo precisam sair ocupados, e a amostra aleatoria precisa ter
-// algum livre. Sem fonte qualificada -> grava nicks/diagnostico.md e
-// falha sem lista errada.
+// Antes de varrer, qualifica essa fonte contra nicks confirmados
+// indisponiveis (kkk e bob, conferidos pelo Luis em 01/09/2026; kry e
+// cherryjimbo) e uma amostra aleatoria. Se o hash do _serverFn tiver
+// mudado (o hytale.tools faz deploy novo), a qualificacao reprova e o
+// script aborta sem gravar lista errada, em vez de adivinhar de novo.
 
 const fs = require('fs');
 const path = require('path');
 
 const RAIZ = __dirname;
 const SAIDA = path.join(RAIZ, 'nicks');
-const UA_NAVEGADOR = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
+const UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
 
+// Capturado ao vivo pela sonda (sonda_rede.js) em 01/09/2026. Pode mudar
+// se o hytale.tools fizer deploy novo - por isso a qualificacao roda
+// sempre antes de confiar.
+const HASH_SERVER_FN = 'c6e3ad339620d6a1afc87fa427d880f62ae966183f767beb52aaaf65cc91867a';
+
+// CHARSET=letras+numeros (padrao) | letras | numeros | tudo
 const CHARSET = (process.env.CHARSET || 'letras+numeros').toLowerCase().trim();
-const MAX_RPS = Math.max(1, Math.min(15, Number(process.env.MAX_RPS) || 8));
-const TRABALHADORES = Math.max(2, Math.min(12, Math.round(MAX_RPS)));
+// Mais conservador que as tentativas anteriores: aqui a gente bate no
+// backend de producao real do hytale.tools (o mesmo que atende usuario
+// navegando o site), nao numa API dedicada a bulk. Padrao baixo de proposito.
+const MAX_RPS = Math.max(1, Math.min(10, Number(process.env.MAX_RPS) || 4));
+const TRABALHADORES = Math.max(2, Math.min(8, Math.round(MAX_RPS)));
 
 const LETRAS = 'abcdefghijklmnopqrstuvwxyz';
 const NUMEROS = '0123456789';
 
-// Nicks que com certeza NAO estao livres (fonte que discordar esta errada).
 const CONTROLES_OCUPADOS = ['kkk', 'bob', 'kry', 'cherryjimbo'];
 
-// Caminhos oficiais (semantica por status: 200 = livre), como no codigo do
-// hytale.tools. O segundo/terceiro usam o host backend.accounts.hytale.com
-// que a sonda achou (e um Ory Kratos; o SPA fica no accounts.hytale.com).
-const CAMINHOS_STATUS = [
-  'https://accounts.hytale.com/api/account/username-reservations/availability?username={n}',
-  'https://backend.accounts.hytale.com/api/account/username-reservations/availability?username={n}',
-  'https://backend.accounts.hytale.com/account/username-reservations/availability?username={n}',
-];
-const JOGOS_CABECALHO = [
-  ['servidor', { 'User-Agent': 'Bun/1.2 eldryn-midia-verifica-nicks', Accept: '*/*' }],
-  ['cru', {}],
-  ['xhr', { 'User-Agent': UA_NAVEGADOR, Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest', Referer: 'https://accounts.hytale.com/' }],
-];
+function urlServerFn(nick) {
+  const payload = { t: { t: 10, i: 0, p: { k: ['data'], v: [{ t: 1, s: nick }] }, o: 0 }, f: 63, m: [] };
+  return 'https://hytale.tools/_serverFn/' + HASH_SERVER_FN + '?payload=' + encodeURIComponent(JSON.stringify(payload));
+}
 
-// Candidatas JSON da comunidade (o /check/:username existe no repo do site).
-const CANDIDATAS_JSON_FIXAS = [
-  'https://hytale.tools/check/{n}',
-  'https://api.hytale.tools/check/{n}',
-  'https://hytale.tools/api/check/{n}',
-  'https://hytl.tools/api/player/{n}',
-  'https://playerdb.co/api/player/hytale/{n}', // baseline v1: deve reprovar
-];
-
-const HOSTS_IGNORADOS = /github\.com|localhost|bun\.com|facebook\.github|cdn\.hytale\.com|^https:\/\/hytale\.com/i;
-
-function montarCandidatas() {
-  const lista = [];
-  for (const caminho of CAMINHOS_STATUS) {
-    for (const [nomeJogo, cabecalhos] of JOGOS_CABECALHO) {
-      lista.push({ molde: caminho, cabecalhos, modo: 'status', nome: caminho + ' [' + nomeJogo + ']' });
+// A resposta e uma serializacao estilo "seroval": {p:{k:[chaves...],
+// v:[{t:tipo,s:valor}...]}}. Acha o campo "status" (texto igual ao que a
+// pagina mostra: "available", "reserved_by_hytale" etc) dentro do
+// primeiro resultado (j.p.v[0].p).
+function extrairStatus(corpo) {
+  let j;
+  try { j = JSON.parse(corpo); }
+  catch {
+    // defesa contra corpo cortado por 1-2 bytes (observado so em captura
+    // via Playwright na sonda; nao esperado no fetch() normal do script)
+    let ok = false;
+    for (let extra = 1; extra <= 3 && !ok; extra++) {
+      try { j = JSON.parse(corpo + '}'.repeat(extra)); ok = true; } catch { /* tenta mais */ }
     }
+    if (!ok) return null;
   }
-  const vistos = new Set();
-  const addJson = (molde) => {
-    if (vistos.has(molde)) return;
-    vistos.add(molde);
-    lista.push({ molde, cabecalhos: { 'User-Agent': UA_NAVEGADOR, Accept: 'application/json' }, modo: 'json', nome: molde + ' [json]' });
-  };
-  // da sonda (sonda_urls.txt), filtrando lixo
-  const arq = path.join(RAIZ, 'sonda_urls.txt');
-  if (fs.existsSync(arq)) {
-    for (let u of fs.readFileSync(arq, 'utf8').split('\n')) {
-      u = u.trim().replace(/["',;)\]]+$/, '').replace(/\.$/, '');
-      if (!/^https:\/\//.test(u) || HOSTS_IGNORADOS.test(u)) continue;
-      if (!/api|avail|check|username|player|search|account|name/i.test(u)) continue;
-      if (/\.(js|css|png|jpe?g|svg|woff2?|ico|map|webp)(\?|$)/i.test(u)) continue;
-      if (/self-service|\/login/.test(u)) continue; // fluxo de login do kratos, nao e busca
-      if (u.includes('{n}')) { addJson(u); continue; }
-      if (/kkk|kry/i.test(u)) { addJson(u.replace(/kkk|kry/gi, '{n}')); continue; }
-      const base = u.replace(/\/+$/, '');
-      addJson(base + '/{n}');
-      addJson(base + '?username={n}');
-    }
-  }
-  for (const m of CANDIDATAS_JSON_FIXAS) addJson(m);
-  return lista.slice(0, 45);
+  const resultado = j && j.p && Array.isArray(j.p.v) ? j.p.v[0] : null;
+  const dentro = resultado && resultado.p;
+  if (!dentro || !Array.isArray(dentro.k) || !Array.isArray(dentro.v)) return null;
+  const idx = dentro.k.indexOf('status');
+  if (idx === -1) return null;
+  const val = dentro.v[idx];
+  return val && typeof val.s === 'string' ? val.s : null;
 }
 
 function gerarNicks() {
@@ -109,7 +89,6 @@ function gerarNicks() {
   return tudo;
 }
 
-// amostra deterministica (LCG) pra etapa 2 da qualificacao
 function amostraAleatoria(qtd) {
   let s = 987654321;
   const rnd = () => { s = (s * 1103515245 + 12345) % 2147483648; return s / 2147483648; };
@@ -135,73 +114,33 @@ async function minhaVez() {
   }
 }
 
-function interpretarJson(status, texto) {
-  let json = null;
-  try { json = JSON.parse(texto); } catch { /* sem JSON */ }
-  if (json !== null && typeof json === 'object') {
-    let disp = null;
-    let estado = '';
-    const anda = (o) => {
-      if (!o || typeof o !== 'object') return;
-      for (const [k, v] of Object.entries(o)) {
-        if (typeof v === 'boolean' && disp === null) {
-          if (/avail|dispon|free|livre/i.test(k)) disp = v;
-          else if (/taken|exist|registered|reserved|ocupad|in_?use/i.test(k)) disp = !v;
-        } else if (typeof v === 'string' && !estado && /^(status|state|result|availability)$/i.test(k)) {
-          if (/^(available|free|livre)$/i.test(v)) { estado = v.toLowerCase(); if (disp === null) disp = true; }
-          else if (/taken|reserved|unavailable|blocked|registered|ocupado/i.test(v)) { estado = v.toLowerCase(); if (disp === null) disp = false; }
-        } else if (v && typeof v === 'object') anda(v);
-      }
-    };
-    anda(json);
-    if (disp === null) {
-      if (json.success === true && json.data && json.data.player) { disp = false; estado = 'player.found'; }
-      else if (/not.?found/i.test(String(json.code || ''))) { disp = true; estado = String(json.code); }
-    }
-    return { disp, rotulo: estado || ('bool=' + disp) };
-  }
-  if (status === 404) return { disp: true, rotulo: '404-sem-json' };
-  return { disp: null, rotulo: 'sem-json:' + status };
-}
-
-// Semantica do endpoint oficial (copiada do hytale.tools): 200 = livre.
-// Recusas claras de negocio (404/409/410/422/400) = ocupado/reservado.
-// 401/403/5xx/HTML no 200 = nao da pra afirmar (WAF, auth, queda).
-function interpretarStatus(status, texto) {
-  if (status === 200) {
-    if (/<!doctype|<html/i.test(texto.slice(0, 200))) return { disp: null, rotulo: '200-html-spa' };
-    return { disp: true, rotulo: '200' };
-  }
-  if ([400, 404, 409, 410, 422, 451].includes(status)) return { disp: false, rotulo: 'st' + status };
-  return { disp: null, rotulo: 'st' + status };
-}
-
 let total429 = 0;
-async function consultar(cand, nick, tentativa = 0, vezes429 = 0) {
+async function consultar(nick, tentativa = 0, vezes429 = 0) {
   await minhaVez();
-  const url = cand.molde.replace('{n}', encodeURIComponent(nick));
   let resp;
   let corpo = '';
   try {
-    resp = await fetch(url, { headers: cand.cabecalhos, redirect: 'follow' });
+    resp = await fetch(urlServerFn(nick), { headers: { 'User-Agent': UA, Accept: '*/*' } });
     corpo = await resp.text();
   } catch (e) {
-    if (tentativa < 3) { await esperar(1000 * 2 ** tentativa); return consultar(cand, nick, tentativa + 1, vezes429); }
-    return { disp: null, rotulo: 'rede:' + e.message.slice(0, 60), status: 0, trecho: '' };
+    if (tentativa < 3) { await esperar(1000 * 2 ** tentativa); return consultar(nick, tentativa + 1, vezes429); }
+    return { disp: null, status: null, status_http: 0, rotulo: 'rede:' + e.message.slice(0, 60) };
   }
   if (resp.status === 429) {
     total429 += 1;
-    if (vezes429 >= 20) return { disp: null, rotulo: '429 insistente', status: 429, trecho: '' };
+    if (vezes429 >= 20) return { disp: null, status: null, status_http: 429, rotulo: '429 insistente' };
     const apos = Number(resp.headers.get('retry-after')) || 5;
     pausadoAte = Math.max(pausadoAte, Date.now() + apos * 1000);
-    return consultar(cand, nick, tentativa, vezes429 + 1);
+    return consultar(nick, tentativa, vezes429 + 1);
   }
   if (resp.status >= 500 && tentativa < 3) {
     await esperar(1000 * 2 ** tentativa);
-    return consultar(cand, nick, tentativa + 1, vezes429);
+    return consultar(nick, tentativa + 1, vezes429);
   }
-  const lido = cand.modo === 'status' ? interpretarStatus(resp.status, corpo) : interpretarJson(resp.status, corpo);
-  return { disp: lido.disp, rotulo: lido.rotulo, status: resp.status, trecho: corpo.replace(/\s+/g, ' ').slice(0, 160) };
+  if (resp.status !== 200) return { disp: null, status: null, status_http: resp.status, rotulo: 'http' + resp.status + ': ' + corpo.slice(0, 120) };
+  const status = extrairStatus(corpo);
+  if (status === null) return { disp: null, status: null, status_http: 200, rotulo: 'sem-status: ' + corpo.slice(0, 150) };
+  return { disp: status === 'available', status, status_http: 200, rotulo: status };
 }
 
 const diario = [];
@@ -209,35 +148,28 @@ function anota(linha) { console.log(linha); diario.push(linha); }
 function gravarDiagnostico(extra) {
   fs.mkdirSync(SAIDA, { recursive: true });
   fs.writeFileSync(path.join(SAIDA, 'diagnostico.md'),
-    '# Diagnostico da qualificacao de fontes\n\n```\n' + diario.join('\n') + '\n```\n' + (extra || '') + '\n');
+    '# Diagnostico da qualificacao\n\n```\n' + diario.join('\n') + '\n```\n' + (extra || '') + '\n');
 }
 
 async function qualificar() {
-  const candidatas = montarCandidatas();
-  anota('candidatas: ' + candidatas.length);
-  const amostra = amostraAleatoria(30);
-  for (const cand of candidatas) {
-    anota('--- ' + cand.nome);
-    let passou = true;
-    for (const nick of CONTROLES_OCUPADOS) {
-      const r = await consultar(cand, nick);
-      anota('    ' + nick + ' -> disp=' + r.disp + ' [' + r.status + ' ' + r.rotulo + '] ' + r.trecho.slice(0, 100));
-      if (r.disp !== false) { passou = false; break; }
-    }
-    if (!passou) continue;
-    let livresAmostra = 0;
-    let nulos = 0;
-    const exemplos = [];
-    for (const nick of amostra) {
-      const r = await consultar(cand, nick);
-      if (r.disp === true) { livresAmostra += 1; if (exemplos.length < 5) exemplos.push(nick); }
-      else if (r.disp === null) nulos += 1;
-    }
-    anota('    amostra de 30 aleatorios: livres=' + livresAmostra + ' nulos=' + nulos + ' ex-livres=' + exemplos.join(','));
-    if (livresAmostra >= 2 && nulos <= 5) { anota('    QUALIFICADA'); return cand; }
-    anota('    reprovada na amostra');
+  anota('endpoint: ' + urlServerFn('{n}'));
+  for (const nick of CONTROLES_OCUPADOS) {
+    const r = await consultar(nick);
+    anota('    ' + nick + ' -> disp=' + r.disp + ' status=' + r.status + ' [' + r.status_http + '] ' + r.rotulo);
+    if (r.disp !== false) { anota('    REPROVADO: controle deveria vir indisponivel'); return false; }
   }
-  return null;
+  const amostra = amostraAleatoria(20);
+  let livres = 0, nulos = 0;
+  const exemplos = [];
+  for (const nick of amostra) {
+    const r = await consultar(nick);
+    if (r.disp === true) { livres += 1; if (exemplos.length < 5) exemplos.push(nick); }
+    else if (r.disp === null) nulos += 1;
+  }
+  anota('    amostra de 20 aleatorios: livres=' + livres + ' nulos=' + nulos + ' ex-livres=' + exemplos.join(','));
+  if (livres < 1 || nulos > 4) { anota('    REPROVADO na amostra'); return false; }
+  anota('    QUALIFICADA');
+  return true;
 }
 
 function gravar(resultado) {
@@ -247,7 +179,7 @@ function gravar(resultado) {
   const md = [
     '# Nicks de 3 caracteres livres no Hytale',
     '',
-    'Verificado em ' + resultado.verificado_em + ' - fonte qualificada: `' + resultado.fonte + '`',
+    'Verificado em ' + resultado.verificado_em + ' via hytale.tools (mesmo endpoint que o site usa).',
     'Controles conferidos como indisponiveis antes da varredura: ' + CONTROLES_OCUPADOS.join(', ') + '.',
     '',
     '- Livres: **' + resultado.livres.length + '** (nicks_livres.txt tem so os nomes, um por linha)',
@@ -260,15 +192,15 @@ function gravar(resultado) {
 
 async function principal() {
   anota('charset=' + CHARSET + ' max_rps=' + MAX_RPS + ' trabalhadores=' + TRABALHADORES);
-  const fonte = await qualificar();
-  gravarDiagnostico(fonte ? 'Fonte escolhida: ' + fonte.nome : 'NENHUMA fonte qualificada.');
-  if (!fonte) {
-    console.error('nenhuma fonte passou nos controles; nao vou gravar lista. Veja nicks/diagnostico.md');
+  const ok = await qualificar();
+  gravarDiagnostico(ok ? 'Fonte qualificada.' : 'NAO qualificada - hash do _serverFn pode ter mudado.');
+  if (!ok) {
+    console.error('fonte nao qualificada; nao vou gravar lista. Veja nicks/diagnostico.md');
     process.exit(1);
   }
 
   const nicks = gerarNicks();
-  console.log(nicks.length + ' nicks pra varrer em ' + fonte.nome + ' (~' + Math.round(nicks.length / MAX_RPS / 60) + ' min)');
+  console.log(nicks.length + ' nicks pra varrer (~' + Math.round(nicks.length / MAX_RPS / 60) + ' min)');
 
   const livres = [];
   const ocupados = [];
@@ -278,7 +210,7 @@ async function principal() {
 
   const montar = () => ({
     verificado_em: new Date().toISOString(),
-    fonte: fonte.nome,
+    fonte: 'hytale.tools _serverFn (mesmo endpoint da pagina de busca)',
     charset: CHARSET,
     total_verificados: feitos,
     livres: [...livres].sort(),
@@ -297,23 +229,20 @@ async function principal() {
       const i = indice++;
       if (i >= nicks.length) return;
       const nick = nicks[i];
-      classificar(nick, await consultar(fonte, nick));
+      classificar(nick, await consultar(nick));
       feitos += 1;
       if (feitos % 500 === 0) {
         console.log(feitos + '/' + nicks.length + ' - livres ate agora: ' + livres.length + ' (429s: ' + total429 + ')');
-        gravar(montar()); // parcial, pro caso do job morrer no meio
+        gravar(montar());
       }
     }
   };
   await Promise.all(Array.from({ length: TRABALHADORES }, trabalhador));
 
-  // segunda chance pros sem resposta clara
   for (const nick of desconhecidos.splice(0)) {
-    classificar(nick, await consultar(fonte, nick));
+    classificar(nick, await consultar(nick));
   }
 
-  // trava final: os controles de 3 letras precisam ter saido indisponiveis
-  // na varredura completa tambem, senao melhor nao gravar nada
   for (const c of ['kkk', 'bob', 'kry']) {
     if (livres.includes(c)) {
       gravarDiagnostico('ABORTADO: ' + c + ' saiu como livre na varredura completa.');
