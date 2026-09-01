@@ -22,6 +22,7 @@ on:
       - claude/verificar-nicks-3-digitos-hi0md7
     paths:
       - verifica_nicks_hytale.js
+      - sonda_rede.js
       - .github/workflows/verifica_nicks.yml
 
 permissions:
