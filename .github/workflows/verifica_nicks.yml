@@ -53,6 +53,23 @@ jobs:
           mkdir -p /tmp/sonda && cd /tmp/sonda
           curl -sSL -A "$UA" --max-time 20 'https://hytale.tools/search/kkk' -o pag1.html
           curl -sSL -A "$UA" --max-time 20 'https://hytale.tools/search/kry' -o pag2.html
+          curl -sSL -A "$UA" --max-time 20 'https://hytale.tools/search/zqx' -o pag3.html
+          {
+            echo "== tamanho das paginas =="
+            wc -c pag1.html pag2.html pag3.html
+            echo "== trechos com available/taken/reserved/status (kkk, reservado) =="
+            grep -oE '.{80}(avail|taken|reserv|status)[a-zA-Z]*.{80}' -i pag1.html | head -20
+            echo "== trechos com available/taken/reserved/status (zqx, provavel livre) =="
+            grep -oE '.{80}(avail|taken|reserv|status)[a-zA-Z]*.{80}' -i pag3.html | head -20
+            echo "== __NEXT_DATA__ ou self.__next_f (kkk) =="
+            grep -oE '(__NEXT_DATA__|self\.__next_f\.push)[^<]{0,400}' pag1.html | head -10
+            echo "== __NEXT_DATA__ ou self.__next_f (zqx) =="
+            grep -oE '(__NEXT_DATA__|self\.__next_f\.push)[^<]{0,400}' pag3.html | head -10
+            echo "== diff bruto entre kkk e zqx (linhas unicas de cada, ate 40) =="
+            diff <(fold -w200 pag1.html) <(fold -w200 pag3.html) | head -80
+          } > "$GITHUB_WORKSPACE/nicks_diagnostico_html.txt" 2>&1 || true
+          mkdir -p "$GITHUB_WORKSPACE/nicks"
+          cp "$GITHUB_WORKSPACE/nicks_diagnostico_html.txt" "$GITHUB_WORKSPACE/nicks/diagnostico_html.txt"
           grep -hoE '(src|href)="[^"]+\.m?js[^"]*"' pag*.html 2>/dev/null | sed -E 's/^(src|href)="//; s/"$//' | sort -u | head -12 > bundles.txt
           echo "== bundles =="; cat bundles.txt
           i=0
