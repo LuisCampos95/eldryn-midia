@@ -1,13 +1,15 @@
 name: Verifica nicks Hytale
 
-# Manual: roda uma varredura de nicks de 3 caracteres e comita o resultado
-# (nicks/nicks_livres.json + nicks/RESULTADO.md) no proprio branch. Roda no
-# Actions porque o runner tem rede aberta pra falar com a API do PlayerDB.
+# Roda a varredura de nicks de 3 caracteres e comita o resultado
+# (nicks/nicks_livres.txt, .json e RESULTADO.md) no proprio branch. Roda no
+# Actions porque o runner tem rede aberta. A sonda coleta URLs de API do
+# proprio hytale.tools (e do pacote/repositorio publico da comunidade) pra
+# alimentar a qualificacao de fonte do script - ver verifica_nicks_hytale.js.
 on:
   workflow_dispatch:
     inputs:
       charset:
-        description: 'letras | numeros | letras+numeros | tudo | teste'
+        description: 'letras | numeros | letras+numeros | tudo'
         default: 'letras+numeros'
       max_rps:
         description: 'requisicoes por segundo (educacao com a API)'
@@ -40,18 +42,62 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Varrer nicks
+      # Coleta URLs candidatas de API: bundles do hytale.tools (buscando kkk
+      # e kry, que viram molde {n}), o pacote pypi hytale-api (cliente do
+      # API oficial) e o repositorio publico hytale-tools/api. Tudo termina
+      # em sonda_urls.txt; o script qualifica cada uma antes de confiar.
+      - name: Sondar fontes
+        run: |
+          set +e
+          UA='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
+          mkdir -p /tmp/sonda && cd /tmp/sonda
+          curl -sSL -A "$UA" --max-time 20 'https://hytale.tools/search/kkk' -o pag1.html
+          curl -sSL -A "$UA" --max-time 20 'https://hytale.tools/search/kry' -o pag2.html
+          grep -hoE '(src|href)="[^"]+\.m?js[^"]*"' pag*.html 2>/dev/null | sed -E 's/^(src|href)="//; s/"$//' | sort -u | head -12 > bundles.txt
+          echo "== bundles =="; cat bundles.txt
+          i=0
+          while read -r b; do
+            i=$((i+1))
+            case "$b" in http*) url="$b";; /*) url="https://hytale.tools$b";; *) url="https://hytale.tools/$b";; esac
+            curl -sSL -A "$UA" --max-time 25 "$url" -o "b$i.js"
+          done < bundles.txt
+          { grep -hoE 'https?://[A-Za-z0-9._-]+/[A-Za-z0-9._/{}?=&%-]*' pag*.html b*.js 2>/dev/null
+            grep -hoE '"/api/[A-Za-z0-9._/{}?=&%-]*"' pag*.html b*.js 2>/dev/null | tr -d '"' | sed 's|^|https://hytale.tools|'
+          } | sort -u > brutas.txt
+          grep -iE 'api|avail|check|username|player|search|account|name' brutas.txt | head -60 > "$GITHUB_WORKSPACE/sonda_urls.txt"
+          pip download hytale-api --no-deps -d pkg -q
+          ( cd pkg 2>/dev/null && for f in *; do case "$f" in *.whl|*.zip) unzip -oq "$f" -d x;; *.tar.gz) tar xzf "$f";; esac; done )
+          echo "== urls no pacote hytale-api =="
+          grep -rhoIE 'https?://[A-Za-z0-9._/{}-]+' pkg 2>/dev/null | sort -u | head -40 | tee -a "$GITHUB_WORKSPACE/sonda_urls.txt"
+          echo "== trechos de disponibilidade no pacote =="
+          grep -rniIE 'avail|reserv' pkg 2>/dev/null | grep -vE '\.dist-info|METADATA|RECORD' | head -40
+          git clone --depth 1 https://github.com/hytale-tools/api repo_api 2>/dev/null
+          echo "== urls no repo hytale-tools/api =="
+          grep -rhoIE 'https?://[A-Za-z0-9._/{}-]+' repo_api 2>/dev/null | sort -u | head -60 | tee -a "$GITHUB_WORKSPACE/sonda_urls.txt"
+          echo "== rotas/handlers no repo =="
+          grep -rniIE 'route|handler|avail|reserv' repo_api 2>/dev/null | grep -iE 'user|name|avail|search|check|reserv' | head -60
+          echo "== sonda_urls.txt final =="
+          sort -u "$GITHUB_WORKSPACE/sonda_urls.txt" -o "$GITHUB_WORKSPACE/sonda_urls.txt"
+          cat "$GITHUB_WORKSPACE/sonda_urls.txt"
+          mkdir -p "$GITHUB_WORKSPACE/nicks"
+          head -80 "$GITHUB_WORKSPACE/sonda_urls.txt" > "$GITHUB_WORKSPACE/nicks/diagnostico_sonda.txt"
+          exit 0
+
+      - name: Qualificar fonte e varrer
         env:
           CHARSET: ${{ inputs.charset }}
           MAX_RPS: ${{ inputs.max_rps }}
         run: node verifica_nicks_hytale.js
 
+      # if always: em falha de qualificacao o diagnostico.md ainda e comitado,
+      # dai o resultado (bom ou ruim) sempre chega pelo proprio branch.
       - name: Gravar resultado no branch
+        if: always()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add nicks
           if git diff --cached --quiet; then echo 'nada pra gravar'; exit 0; fi
-          git commit -m "resultado: nicks de 3 caracteres do Hytale (${{ inputs.charset || 'letras+numeros' }})"
+          git commit -m "resultado v2: nicks de 3 caracteres do Hytale (${{ inputs.charset || 'letras+numeros' }})"
           git pull --rebase origin ${{ github.ref_name }}
           git push origin HEAD:${{ github.ref_name }}
