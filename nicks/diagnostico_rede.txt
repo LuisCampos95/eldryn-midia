@@ -15,17 +15,17 @@
  "x-tss-serialized": "true",
  "cf-cache-status": "DYNAMIC",
  "content-encoding": "zstd",
- "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2Fp5tROo1eXStbhfRxXpGNdbPBITlxcvmyWt3mfYdEb4XGMkyVmyqf3oWeqgSBfwuI1B6qivTCONNn1AicqVpPwkn5uFWFVrOc3U2LzX8hXr2LqlRz3WvSSbgbo6eiUw%3D\"}]}",
- "cf-ray": "a341107aff3c018a-ORD",
- "x-hikari-trace": "ord1.x8wt",
+ "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=pggtWdQ8QA75qioDM%2B78wNUdgYzs7Y1fnV3HUOgXGafRbCT7UB6W1a3oTcM0nqEop0bTuJuvphICBfmKtQLjFeMoAgkiNHSPk8YcMtrm25aZXcMYq3Z%2F%2F6nuVm4v6TQ%3D\"}]}",
+ "cf-ray": "a3491609abb61d3d-IAD",
+ "x-hikari-trace": "iad1.trg5",
  "alt-svc": "h3=\":443\"; ma=86400",
  "server-timing": "cfExtPri",
- "date": "Tue, 01 Sep 2026 03:07:22 GMT",
+ "date": "Wed, 02 Sep 2026 02:29:17 GMT",
  "content-type": "application/json",
- "x-railway-request-id": "IQCoexeQTjeOqM4yjUJq2g",
+ "x-railway-request-id": "mMuaN2hbREOSPrSU21mRUA",
  "server": "cloudflare",
  "priority": "u=1,i",
- "x-railway-edge": "ord1"
+ "x-railway-edge": "iad1"
 }
 
 ========== kkk ==========
@@ -42,7 +42,7 @@ Hytale Name: kkk
 Status
 Reserved by Hytale
 Searches
-14 / month
+17 / month
 hytale.tools
 
 The ultimate resource for Hytale players. Check names, find servers, and more.
@@ -69,28 +69,28 @@ RESPOSTA 200 https://static.cloudflareinsights.com/beacon.min.js/v3d52b47920f24c
   corpo: (()=>{var t={116:(t,e)=>{"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.cleanLocation=function(t){if(!t)return t;try{const e=new URL(t);return e.username="",e.password="",e.hash="",e.search="",e.toString()}catch(e){let n=t.split("?")[0].split("#")[0];if(n.includes("@")){const t=n.split("://"),e=t[1];if(e){const i=e.split("@")[1];i&&(n=t[0]+"://"+i)}}return n}}},173:function(t,e){!
 PEDIDO POST https://hytale.tools/cdn-cgi/rum?
 PEDIDO POST https://hytale.tools/cdn-cgi/rum?
-  corpo: {"startTime":1788232042609,"pageloadId":"b18c12e4-f6be-4efa-a29a-efed04850b9f","eventType":1,"nt":"routing-apis","location":"https://hytale.tools/search/kkk","referrer":"https://hytale.tools/search/kkk","versions":{"fl":"2024.11.0","js":"2026.8.4","timings":1},"ntapi":1,"siteToken":"8d3b2c8b281b4892
-PEDIDO POST https://hytale.tools/cdn-cgi/rum?
-  corpo: {"startTime":1788232042609,"pageloadId":"b18c12e4-f6be-4efa-a29a-efed04850b9f","n":2,"eventType":1,"nt":"navigate","location":"https://hytale.tools/search/kkk","referrer":"https://hytale.tools/search/kkk","versions":{"fl":"2024.11.0","js":"2026.8.4","timings":2},"memory":{"totalJSHeapSize":13400000,
+  corpo: {"startTime":1788316156349,"pageloadId":"aeddccf1-097a-46a8-a478-8abbcec60fcc","eventType":1,"nt":"routing-apis","location":"https://hytale.tools/search/kkk","referrer":"https://hytale.tools/search/kkk","versions":{"fl":"2024.11.0","js":"2026.8.4","timings":1},"ntapi":1,"siteToken":"8d3b2c8b281b4892
 RESPOSTA 204 https://hytale.tools/cdn-cgi/rum?
   corpo: 
 RESPOSTA 204 https://hytale.tools/cdn-cgi/rum?
   corpo: 
 PEDIDO GET https://api.hytale.tools/api/auth/get-session
-RESPOSTA 204 https://hytale.tools/cdn-cgi/rum?
-  corpo: 
 PEDIDO GET https://www.googletagmanager.com/gtag/js?id=G-CF7JPPHXWT
 PEDIDO GET https://hytale.tools/_serverFn/c6e3ad339620d6a1afc87fa427d880f62ae966183f767beb52aaaf65cc91867a?payload=%7B%22t%22%3A%7B%22t%22%3A10%2C%22i%22%3A0%2C%22p%22%3A%7B%22k%22%3A%5B%22data%22%5D%2C%22v%22%3A%5B%7B%22t%22%3A1%2C%22s%22%3A%22kkk%22%7D%5D%7D%2C%22o%22%3A0%7D%2C%22f%22%3A63%2C%22m%22%3A%5B%5D%7D
-RESPOSTA 200 https://api.hytale.tools/api/auth/get-session
-  corpo: null
-PEDIDO GET https://api.hytale.tools/v1/search?query=kkk
-RESPOSTA 200 https://hytale.tools/_serverFn/c6e3ad339620d6a1afc87fa427d880f62ae966183f767beb52aaaf65cc91867a?payload=%7B%22t%22%3A%7B%22t%22%3A10%2C%22i%22%3A0%2C%22p%22%3A%7B%22k%22%3A%5B%22data%22%5D%2C%22v%22%3A%5B%7B%22t%22%3A1%2C%22s%22%3A%22kkk%22%7D%5D%7D%2C%22o%22%3A0%7D%2C%22f%22%3A63%2C%22m%22%3A%5B%5D%7D
-  corpo: {"t":10,"i":0,"p":{"k":["result","error","context"],"v":[{"t":10,"i":1,"p":{"k":["username","available","cached","status","profileSlug","searchesPerMonth","dropsAtEarliest","dropsAtLatest"],"v":[{"t":1,"s":"kkk"},{"t":2,"s":3},{"t":2,"s":2},{"t":1,"s":"reserved_by_hytale"},{"t":1,"s":"kkk"},{"t":0,"s":14},{"t":2,"s":0},{"t":2,"s":0}]},"o":0},{"t":2,"s":1},{"t":11,"i":2,"p":{"k":[],"v":[]},"o":0}]}
 RESPOSTA 200 https://www.googletagmanager.com/gtag/js?id=G-CF7JPPHXWT
   corpo:  // Copyright 2012 Google Inc. All rights reserved. (function(){ var data = { "resource": { "version":"1", "macros":[{"function":"__e"},{"function":"__c","vtp_value":""},{"function":"__c","vtp_value":0}], "tags":[{"function":"__ogt_1p_data_v2","priority":6,"vtp_isAutoEnabled":true,"vtp_autoPhoneEnabled":true,"vtp_autoCollectExclusionSelectors":["list",["map","exclusionSelector",""]],"vtp_isEnabled
-PEDIDO POST https://www.google-analytics.com/g/collect?v=2&tid=G-CF7JPPHXWT&gtm=45je68s1h1v9241202683za200zd9241202683&_p=1788232042699&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=1171508239.1788232043&frm=0&ngs=1&pscdl=noapi&rcb=4&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CHeadlessChrome%3B151.0.7922.34%7CChromium%3B151.0.7922.34&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938469~118897920~118897930~119259606~120385422&sid=1788232042&sct=1&seg=0&dl=https%3A%2F%2Fhytale.tools%2Fsearch%2Fkkk&dt=kkk%20-%20Search%20-%20hytale.tools&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=778
-RESPOSTA 204 https://www.google-analytics.com/g/collect?v=2&tid=G-CF7JPPHXWT&gtm=45je68s1h1v9241202683za200zd9241202683&_p=1788232042699&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=1171508239.1788232043&frm=0&ngs=1&pscdl=noapi&rcb=4&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CHeadlessChrome%3B151.0.7922.34%7CChromium%3B151.0.7922.34&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938469~118897920~118897930~119259606~120385422&sid=1788232042&sct=1&seg=0&dl=https%3A%2F%2Fhytale.tools%2Fsearch%2Fkkk&dt=kkk%20-%20Search%20-%20hytale.tools&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=778
+PEDIDO POST https://www.google-analytics.com/g/collect?v=2&tid=G-CF7JPPHXWT&gtm=45je68v1v9241202683za200zd9241202683&_p=1788316156404&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=1867130293.1788316157&frm=0&ngs=1&pscdl=noapi&rcb=0&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CHeadlessChrome%3B151.0.7922.34%7CChromium%3B151.0.7922.34&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938469~118897920~118897930~120385422&sid=1788316156&sct=1&seg=0&dl=https%3A%2F%2Fhytale.tools%2Fsearch%2Fkkk&dt=kkk%20-%20Search%20-%20hytale.tools&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=604
+PEDIDO POST https://hytale.tools/cdn-cgi/rum?
+  corpo: {"startTime":1788316156349,"pageloadId":"aeddccf1-097a-46a8-a478-8abbcec60fcc","n":2,"eventType":1,"nt":"navigate","location":"https://hytale.tools/search/kkk","referrer":"https://hytale.tools/search/kkk","versions":{"fl":"2024.11.0","js":"2026.8.4","timings":2},"memory":{"totalJSHeapSize":20500000,
+RESPOSTA 200 https://api.hytale.tools/api/auth/get-session
+  corpo: null
+RESPOSTA 204 https://hytale.tools/cdn-cgi/rum?
   corpo: 
+RESPOSTA 204 https://www.google-analytics.com/g/collect?v=2&tid=G-CF7JPPHXWT&gtm=45je68v1v9241202683za200zd9241202683&_p=1788316156404&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=1867130293.1788316157&frm=0&ngs=1&pscdl=noapi&rcb=0&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CHeadlessChrome%3B151.0.7922.34%7CChromium%3B151.0.7922.34&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938469~118897920~118897930~120385422&sid=1788316156&sct=1&seg=0&dl=https%3A%2F%2Fhytale.tools%2Fsearch%2Fkkk&dt=kkk%20-%20Search%20-%20hytale.tools&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=604
+  corpo: 
+PEDIDO GET https://api.hytale.tools/v1/search?query=kkk
+RESPOSTA 200 https://hytale.tools/_serverFn/c6e3ad339620d6a1afc87fa427d880f62ae966183f767beb52aaaf65cc91867a?payload=%7B%22t%22%3A%7B%22t%22%3A10%2C%22i%22%3A0%2C%22p%22%3A%7B%22k%22%3A%5B%22data%22%5D%2C%22v%22%3A%5B%7B%22t%22%3A1%2C%22s%22%3A%22kkk%22%7D%5D%7D%2C%22o%22%3A0%7D%2C%22f%22%3A63%2C%22m%22%3A%5B%5D%7D
+  corpo: {"t":10,"i":0,"p":{"k":["result","error","context"],"v":[{"t":10,"i":1,"p":{"k":["username","available","cached","status","profileSlug","searchesPerMonth","dropsAtEarliest","dropsAtLatest"],"v":[{"t":1,"s":"kkk"},{"t":2,"s":3},{"t":2,"s":3},{"t":1,"s":"reserved_by_hytale"},{"t":1,"s":"kkk"},{"t":0,"s":17},{"t":2,"s":0},{"t":2,"s":0}]},"o":0},{"t":2,"s":1},{"t":11,"i":2,"p":{"k":[],"v":[]},"o":0}]}
 RESPOSTA 200 https://api.hytale.tools/v1/search?query=kkk
   corpo: {"profiles":[],"servers":[]}
 
@@ -101,7 +101,7 @@ status: 200 corpo: {"t":10,"i":0,"p":{"k":["result","error","context"],"v":[{"t"
 --- replay 3: fetch() DENTRO do navegador (page.evaluate), sem UA/headers customizados ---
 {"status":200,"corpo":""}
 --- headers que o node.fetch mandou por padrao (comparar com os do browser acima) ---
-cookies da sessao: _ga_CF7JPPHXWT=GS2.1.s1788232042$o1$g0$t1788232042$j60$l0$h0; _ga=GA1.1.1171508239.1788232043
+cookies da sessao: _ga_CF7JPPHXWT=GS2.1.s1788316156$o1$g0$t1788316156$j60$l0$h0; _ga=GA1.1.1867130293.1788316157
 
 [cabecalhos completos do pedido _serverFn]
 {
@@ -115,15 +115,15 @@ cookies da sessao: _ga_CF7JPPHXWT=GS2.1.s1788232042$o1$g0$t1788232042$j60$l0$h0;
 {
  "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
  "cf-cache-status": "DYNAMIC",
- "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cCdT30GP174mCd12xCvGKn3NWD%2FVNEwMc2Iu28yhx0FWi0BjnNvYovo7yQjirxMU3YGpP3SeIEPKe0R1sGFTjq8Qp9F7B%2B2bWPTXFE7lS8lc7LpzhlOwgUTESp6yhZg%3D\"}]}",
- "cf-ray": "a34110925fae018a-ORD",
- "x-hikari-trace": "ord1.x8wt",
+ "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=hrgzJEWOg8fkAMw7If4Mw%2FNq%2FbeRxrdv5a9Uky3pRlNpY3u3GQ2ePGt1Z3lA4%2BIxoU6EK65MK76KFxXnw2JxjLcEOQV93cEjUp5y422J6Qays%2BfE5580cVT6M86cYZk%3D\"}]}",
+ "cf-ray": "a34916235c7f1d3d-IAD",
+ "x-hikari-trace": "iad1.trg5",
  "server-timing": "cfExtPri",
  "alt-svc": "h3=\":443\"; ma=86400",
  "content-length": "0",
- "date": "Tue, 01 Sep 2026 03:07:26 GMT",
- "x-railway-request-id": "Jof89b6BTgK0kKQrjUJq2g",
- "x-railway-edge": "ord1",
+ "date": "Wed, 02 Sep 2026 02:29:20 GMT",
+ "x-railway-request-id": "9yAaxqQaSnGQSvox21mRUA",
+ "x-railway-edge": "iad1",
  "server": "cloudflare",
  "priority": "u=1,i"
 }
@@ -144,17 +144,17 @@ cookies da sessao: _ga_CF7JPPHXWT=GS2.1.s1788232042$o1$g0$t1788232042$j60$l0$h0;
  "x-tss-serialized": "true",
  "cf-cache-status": "DYNAMIC",
  "content-encoding": "zstd",
- "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=lGMPXAouTc1YiBLVlrSdpvqZBOTpBK7wIEh44CKrC2yaIox4VLXonVaNQ%2BVNT34mx8Ls1xyiB8zIA8bDlEtoYD%2F2%2Fny71KyHSS309l%2BNr33kQ8iNZIbH%2Fyz%2BAIUwBRI%3D\"}]}",
- "cf-ray": "a3411096fd63f60b-ORD",
- "x-hikari-trace": "ord1.x8wt",
+ "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=QuvhD1ZQQe1N0c%2BzP95WffjM1iDlD7e%2BnRIw4L1%2BOlU%2BfkVkhW5XOtw0ir4YZnrKc00esk%2BsRoGUR%2BjVVqC2UfBi1NoHEG13wUylgSvyZwbKoMUDzfmL0Ch%2Fa8BlTYk%3D\"}]}",
+ "cf-ray": "a3491626ce0c979d-IAD",
+ "x-hikari-trace": "iad1.fp5t",
  "alt-svc": "h3=\":443\"; ma=86400",
  "server-timing": "cfExtPri",
- "date": "Tue, 01 Sep 2026 03:07:27 GMT",
+ "date": "Wed, 02 Sep 2026 02:29:21 GMT",
  "content-type": "application/json",
- "x-railway-request-id": "Sh2LFxRZTi2FXszp63j4Ww",
+ "x-railway-request-id": "9er0OJ3ATraWnZkUw9P4nw",
  "server": "cloudflare",
  "priority": "u=1,i",
- "x-railway-edge": "ord1"
+ "x-railway-edge": "iad1"
 }
 
 ========== zqx ==========
@@ -171,7 +171,7 @@ Hytale Name: zqx
 Status
 Available
 Searches
-4 / month
+8 / month
 hytale.tools
 
 The ultimate resource for Hytale players. Check names, find servers, and more.
@@ -198,36 +198,36 @@ RESPOSTA 200 https://static.cloudflareinsights.com/beacon.min.js/v3d52b47920f24c
   corpo: (()=>{var t={116:(t,e)=>{"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.cleanLocation=function(t){if(!t)return t;try{const e=new URL(t);return e.username="",e.password="",e.hash="",e.search="",e.toString()}catch(e){let n=t.split("?")[0].split("#")[0];if(n.includes("@")){const t=n.split("://"),e=t[1];if(e){const i=e.split("@")[1];i&&(n=t[0]+"://"+i)}}return n}}},173:function(t,e){!
 PEDIDO POST https://hytale.tools/cdn-cgi/rum?
 PEDIDO POST https://hytale.tools/cdn-cgi/rum?
-  corpo: {"startTime":1788232047095,"pageloadId":"7c877ccd-0cd2-454b-83ae-4c244f0f25d8","eventType":1,"nt":"routing-apis","location":"https://hytale.tools/search/zqx","referrer":"https://hytale.tools/search/zqx","versions":{"fl":"2024.11.0","js":"2026.8.4","timings":1},"ntapi":1,"siteToken":"8d3b2c8b281b4892
+  corpo: {"startTime":1788316161022,"pageloadId":"e51c0b83-3a8e-42a4-aab1-11983920ae74","eventType":1,"nt":"routing-apis","location":"https://hytale.tools/search/zqx","referrer":"https://hytale.tools/search/zqx","versions":{"fl":"2024.11.0","js":"2026.8.4","timings":1},"ntapi":1,"siteToken":"8d3b2c8b281b4892
 PEDIDO POST https://hytale.tools/cdn-cgi/rum?
-  corpo: {"startTime":1788232047095,"pageloadId":"7c877ccd-0cd2-454b-83ae-4c244f0f25d8","n":2,"eventType":1,"nt":"navigate","location":"https://hytale.tools/search/zqx","referrer":"https://hytale.tools/search/zqx","versions":{"fl":"2024.11.0","js":"2026.8.4","timings":2},"memory":{"totalJSHeapSize":13400000,
+  corpo: {"startTime":1788316161022,"pageloadId":"e51c0b83-3a8e-42a4-aab1-11983920ae74","n":2,"eventType":1,"nt":"navigate","location":"https://hytale.tools/search/zqx","referrer":"https://hytale.tools/search/zqx","versions":{"fl":"2024.11.0","js":"2026.8.4","timings":2},"memory":{"totalJSHeapSize":13400000,
+RESPOSTA 204 https://hytale.tools/cdn-cgi/rum?
+  corpo: 
 RESPOSTA 204 https://hytale.tools/cdn-cgi/rum?
   corpo: 
 RESPOSTA 204 https://hytale.tools/cdn-cgi/rum?
   corpo: 
 PEDIDO GET https://api.hytale.tools/api/auth/get-session
-RESPOSTA 204 https://hytale.tools/cdn-cgi/rum?
-  corpo: 
 PEDIDO GET https://www.googletagmanager.com/gtag/js?id=G-CF7JPPHXWT
 PEDIDO GET https://hytale.tools/_serverFn/c6e3ad339620d6a1afc87fa427d880f62ae966183f767beb52aaaf65cc91867a?payload=%7B%22t%22%3A%7B%22t%22%3A10%2C%22i%22%3A0%2C%22p%22%3A%7B%22k%22%3A%5B%22data%22%5D%2C%22v%22%3A%5B%7B%22t%22%3A1%2C%22s%22%3A%22zqx%22%7D%5D%7D%2C%22o%22%3A0%7D%2C%22f%22%3A63%2C%22m%22%3A%5B%5D%7D
-RESPOSTA 200 https://api.hytale.tools/api/auth/get-session
-  corpo: null
 RESPOSTA 200 https://www.googletagmanager.com/gtag/js?id=G-CF7JPPHXWT
   corpo:  // Copyright 2012 Google Inc. All rights reserved. (function(){ var data = { "resource": { "version":"1", "macros":[{"function":"__e"},{"function":"__c","vtp_value":""},{"function":"__c","vtp_value":0}], "tags":[{"function":"__ogt_1p_data_v2","priority":6,"vtp_isAutoEnabled":true,"vtp_autoPhoneEnabled":true,"vtp_autoCollectExclusionSelectors":["list",["map","exclusionSelector",""]],"vtp_isEnabled
-PEDIDO POST https://www.google-analytics.com/g/collect?v=2&tid=G-CF7JPPHXWT&gtm=45je68s1v9241202683za200zd9241202683&_p=1788232047176&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=921351757.1788232047&frm=0&ngs=1&pscdl=noapi&rcb=8&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CHeadlessChrome%3B151.0.7922.34%7CChromium%3B151.0.7922.34&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115616985~115938466~115938468~118012007~118897920~118897930~120385423&sid=1788232047&sct=1&seg=0&dl=https%3A%2F%2Fhytale.tools%2Fsearch%2Fzqx&dt=zqx%20-%20Search%20-%20hytale.tools&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=753
-RESPOSTA 204 https://www.google-analytics.com/g/collect?v=2&tid=G-CF7JPPHXWT&gtm=45je68s1v9241202683za200zd9241202683&_p=1788232047176&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=921351757.1788232047&frm=0&ngs=1&pscdl=noapi&rcb=8&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CHeadlessChrome%3B151.0.7922.34%7CChromium%3B151.0.7922.34&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115616985~115938466~115938468~118012007~118897920~118897930~120385423&sid=1788232047&sct=1&seg=0&dl=https%3A%2F%2Fhytale.tools%2Fsearch%2Fzqx&dt=zqx%20-%20Search%20-%20hytale.tools&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=753
+PEDIDO POST https://www.google-analytics.com/g/collect?v=2&tid=G-CF7JPPHXWT&gtm=45je68v1v9241202683za200zd9241202683&_p=1788316161071&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=337684405.1788316161&frm=0&ngs=1&pscdl=noapi&rcb=5&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CHeadlessChrome%3B151.0.7922.34%7CChromium%3B151.0.7922.34&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938468~118897920~118897930~120385422&sid=1788316161&sct=1&seg=0&dl=https%3A%2F%2Fhytale.tools%2Fsearch%2Fzqx&dt=zqx%20-%20Search%20-%20hytale.tools&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=533
+RESPOSTA 200 https://api.hytale.tools/api/auth/get-session
+  corpo: null
+RESPOSTA 204 https://www.google-analytics.com/g/collect?v=2&tid=G-CF7JPPHXWT&gtm=45je68v1v9241202683za200zd9241202683&_p=1788316161071&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=337684405.1788316161&frm=0&ngs=1&pscdl=noapi&rcb=5&sr=1280x720&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CHeadlessChrome%3B151.0.7922.34%7CChromium%3B151.0.7922.34&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938468~118897920~118897930~120385422&sid=1788316161&sct=1&seg=0&dl=https%3A%2F%2Fhytale.tools%2Fsearch%2Fzqx&dt=zqx%20-%20Search%20-%20hytale.tools&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=533
   corpo: 
 RESPOSTA 200 https://hytale.tools/_serverFn/c6e3ad339620d6a1afc87fa427d880f62ae966183f767beb52aaaf65cc91867a?payload=%7B%22t%22%3A%7B%22t%22%3A10%2C%22i%22%3A0%2C%22p%22%3A%7B%22k%22%3A%5B%22data%22%5D%2C%22v%22%3A%5B%7B%22t%22%3A1%2C%22s%22%3A%22zqx%22%7D%5D%7D%2C%22o%22%3A0%7D%2C%22f%22%3A63%2C%22m%22%3A%5B%5D%7D
-  corpo: {"t":10,"i":0,"p":{"k":["result","error","context"],"v":[{"t":10,"i":1,"p":{"k":["username","available","cached","status","profileSlug","searchesPerMonth","dropsAtEarliest","dropsAtLatest"],"v":[{"t":1,"s":"zqx"},{"t":2,"s":2},{"t":2,"s":3},{"t":1,"s":"available"},{"t":2,"s":0},{"t":0,"s":4},{"t":2,"s":0},{"t":2,"s":0}]},"o":0},{"t":2,"s":1},{"t":11,"i":2,"p":{"k":[],"v":[]},"o":0}]},"o":0}
+  corpo: {"t":10,"i":0,"p":{"k":["result","error","context"],"v":[{"t":10,"i":1,"p":{"k":["username","available","cached","status","profileSlug","searchesPerMonth","dropsAtEarliest","dropsAtLatest"],"v":[{"t":1,"s":"zqx"},{"t":2,"s":2},{"t":2,"s":3},{"t":1,"s":"available"},{"t":2,"s":0},{"t":0,"s":8},{"t":2,"s":0},{"t":2,"s":0}]},"o":0},{"t":2,"s":1},{"t":11,"i":2,"p":{"k":[],"v":[]},"o":0}]},"o":0}
 
 --- replay 1: fetch() do NODE, so com os cabecalhos capturados (sem cookie) ---
-status: 200 corpo: {"t":10,"i":0,"p":{"k":["result","error","context"],"v":[{"t":10,"i":1,"p":{"k":["username","available","cached","status","profileSlug","searchesPerMonth","dropsAtEarliest","dropsAtLatest"],"v":[{"t":1,"s":"zqx"},{"t":2,"s":2},{"t":2,"s":2},{"t":1,"s":"available"},{"t":2,"s":0},{"t":0,"s":5},{"t":2,
+status: 200 corpo: {"t":10,"i":0,"p":{"k":["result","error","context"],"v":[{"t":10,"i":1,"p":{"k":["username","available","cached","status","profileSlug","searchesPerMonth","dropsAtEarliest","dropsAtLatest"],"v":[{"t":1,"s":"zqx"},{"t":2,"s":2},{"t":2,"s":2},{"t":1,"s":"available"},{"t":2,"s":0},{"t":0,"s":8},{"t":2,
 --- replay 2: fetch() do NODE, cabecalhos + cookie da sessao do browser ---
-status: 200 corpo: {"t":10,"i":0,"p":{"k":["result","error","context"],"v":[{"t":10,"i":1,"p":{"k":["username","available","cached","status","profileSlug","searchesPerMonth","dropsAtEarliest","dropsAtLatest"],"v":[{"t":1,"s":"zqx"},{"t":2,"s":2},{"t":2,"s":2},{"t":1,"s":"available"},{"t":2,"s":0},{"t":0,"s":5},{"t":2,
+status: 200 corpo: {"t":10,"i":0,"p":{"k":["result","error","context"],"v":[{"t":10,"i":1,"p":{"k":["username","available","cached","status","profileSlug","searchesPerMonth","dropsAtEarliest","dropsAtLatest"],"v":[{"t":1,"s":"zqx"},{"t":2,"s":2},{"t":2,"s":2},{"t":1,"s":"available"},{"t":2,"s":0},{"t":0,"s":8},{"t":2,
 --- replay 3: fetch() DENTRO do navegador (page.evaluate), sem UA/headers customizados ---
 {"status":200,"corpo":""}
 --- headers que o node.fetch mandou por padrao (comparar com os do browser acima) ---
-cookies da sessao: _ga_CF7JPPHXWT=GS2.1.s1788232047$o1$g0$t1788232047$j60$l0$h0; _ga=GA1.1.921351757.1788232047
+cookies da sessao: _ga_CF7JPPHXWT=GS2.1.s1788316161$o1$g0$t1788316161$j60$l0$h0; _ga=GA1.1.337684405.1788316161
 
 [cabecalhos completos do pedido _serverFn]
 {
@@ -241,15 +241,15 @@ cookies da sessao: _ga_CF7JPPHXWT=GS2.1.s1788232047$o1$g0$t1788232047$j60$l0$h0;
 {
  "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
  "cf-cache-status": "DYNAMIC",
- "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5VBViBvoZFEYf6C%2BncDSu5iyJdEnAnX4LZVu3nVrSQPvh1TngPAtDpGmRgGXfgoLhuPd3fBASumUFd2LQw68CX1r%2B%2FEmXNakR7OO6%2BJJNkuHFI4j36ePRyjRKMqsv0U%3D\"}]}",
- "cf-ray": "a34110ae1f3ef60b-ORD",
- "x-hikari-trace": "ord1.x8wt",
+ "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=dc0fmyvxgm3U8fzqRyYP0tcFR1KgzrLpbF7dS066o5xS%2BpH5fFYLYrWotYIJ1MZTVweIRcSQdI4BJYA0JOha8TwRkaxH%2FX8ZEG%2FJ%2FMNpsaL2qgJg3qbCW3AWSxAW%2B4s%3D\"}]}",
+ "cf-ray": "a349163e3fb3979d-IAD",
+ "x-hikari-trace": "iad1.fp5t",
  "server-timing": "cfExtPri",
  "alt-svc": "h3=\":443\"; ma=86400",
  "content-length": "0",
- "date": "Tue, 01 Sep 2026 03:07:31 GMT",
- "x-railway-request-id": "0nBOQterQqGkbwT9s_GTAg",
- "x-railway-edge": "ord1",
+ "date": "Wed, 02 Sep 2026 02:29:24 GMT",
+ "x-railway-request-id": "_9sg74RDRoaPGTkx2JZdWA",
+ "x-railway-edge": "iad1",
  "server": "cloudflare",
  "priority": "u=1,i"
 }
