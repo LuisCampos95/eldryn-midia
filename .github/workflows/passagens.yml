@@ -1,0 +1,90 @@
+name: Monitor de passagens
+
+on:
+  schedule:
+    # de 6 em 6 horas, fora da hora cheia (runner menos disputado)
+    - cron: '17 3,9,15,21 * * *'
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: 'rodada = coleta e alerta | diagnostico = so testa as fontes'
+        type: choice
+        options: [rodada, diagnostico]
+        default: rodada
+      limite:
+        description: 'maximo de consultas de preco (vazio = todas)'
+        type: string
+        default: ''
+      estrategia:
+        description: 'Google Flights: tfs, q, ou vazio para tentar as duas'
+        type: string
+        default: ''
+  # Todo push no branch de desenvolvimento roda o diagnostico: e o smoke test
+  # das fontes, que sao scraping e podem quebrar a qualquer momento.
+  push:
+    branches:
+      - 'claude/flight-price-monitoring**'
+    paths:
+      - 'monitor-passagens/**'
+      - '.github/workflows/passagens.yml'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: passagens
+  cancel-in-progress: false
+
+jobs:
+  monitorar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Diagnostico das fontes
+        if: github.event_name == 'push' || github.event.inputs.modo == 'diagnostico'
+        working-directory: monitor-passagens
+        run: node monitor.js --diagnostico
+
+      - name: Rodada de coleta
+        if: github.event_name != 'push' && github.event.inputs.modo != 'diagnostico'
+        working-directory: monitor-passagens
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TRAVELPAYOUTS_TOKEN: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          ARGS=""
+          if [ -n "${{ github.event.inputs.limite }}" ]; then ARGS="$ARGS --limite=${{ github.event.inputs.limite }}"; fi
+          if [ -n "${{ github.event.inputs.estrategia }}" ]; then ARGS="$ARGS --estrategia=${{ github.event.inputs.estrategia }}"; fi
+          node monitor.js $ARGS
+
+      - name: Guardar historico
+        if: github.event_name != 'push' && github.event.inputs.modo != 'diagnostico'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add monitor-passagens/historico monitor-passagens/estado.json \
+                  monitor-passagens/ultimo.json monitor-passagens/cambio.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "nada novo pra commitar"
+            exit 0
+          fi
+          git commit -m "monitor de passagens: rodada $(date -u +%Y-%m-%dT%H:%MZ)"
+          # o commit pode colidir com o workflow do Instagram, que tambem empurra
+          for tentativa in 1 2 3 4; do
+            if git push; then exit 0; fi
+            echo "push falhou (tentativa $tentativa), rebasando..."
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            sleep $((2 ** tentativa))
+          done
+          echo "nao consegui empurrar o historico" >&2
+          exit 1
