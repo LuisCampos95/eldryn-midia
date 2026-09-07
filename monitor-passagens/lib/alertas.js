@@ -23,11 +23,16 @@ function avaliar(obs, historico, cfg) {
   // 1) Teto por faixa de distancia. Vale desde a primeira rodada, sem
   //    depender de historico nenhum.
   if (typeof obs.distanciaKm === 'number') {
-    const teto = tetoPorDistancia(obs.distanciaKm, cfg.tetosPorDistancia);
+    // Os tetos da tabela sao de SO IDA. Ida e volta custa cerca do dobro,
+    // entao comparar preco de ida e volta com teto de ida faria a regra nunca
+    // disparar - e ela e a unica que vale desde a primeira rodada.
+    const idaEVolta = obs.tipoTarifa === 'ida-e-volta';
+    const teto = tetoPorDistancia(obs.distanciaKm, cfg.tetosPorDistancia) * (idaEVolta ? 2 : 1);
     if (obs.precoBRL <= teto) {
       motivos.push({
         tipo: 'teto',
-        texto: `abaixo do teto de ${brl(teto)} pra ${obs.distanciaKm.toLocaleString('pt-BR')} km`
+        texto: `abaixo do teto de ${brl(teto)} pra ${obs.distanciaKm.toLocaleString('pt-BR')} km ` +
+               `${idaEVolta ? 'ida e volta' : 'so ida'}`
       });
     }
   }
