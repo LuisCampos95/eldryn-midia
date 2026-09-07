@@ -83,6 +83,24 @@ async function diagnostico(cfg, opts) {
     await pausa(1500);
   }
 
+  // O filtro estatistico e remendo. Pra consertar na raiz precisamos ver em que
+  // elemento o preco do itinerario mora - dai o dump do HTML em volta dele.
+  log('\n1c) Contexto do preco na pagina (pra ancorar a leitura na estrutura)');
+  try {
+    const c = catalogo.montarFila(CATALOGO, cfg, { rodadas: 0, cursorRodizio: 0 }, 'MVD-SAO').consultas[0];
+    const { html } = await googleflights.buscarUrl(googleflights.urlQuery(c), cfg.googleFlights.timeoutMs);
+    const precos = googleflights.extrairPrecos(html);
+    const leitura = googleflights.precoConfiavel(precos);
+    const menor = precos.slice().sort((a, b) => a - b)[0];
+    for (const [rotulo, valor] of [['escolhido', leitura.preco], ['menor bruto', menor]]) {
+      if (!valor) continue;
+      log(`   ${rotulo} R$ ${valor}:`);
+      log(`     ${(googleflights.contexto(html, valor) || '(nao encontrado)').slice(0, 260)}`);
+    }
+  } catch (e) {
+    log(`   falhou: ${e.message}`);
+  }
+
   log('\n2) Feeds de promocao');
   const f = await feeds.coletar(cfg.feeds);
   log(`   ${f.achados.length} itens relevantes, ${f.falhas.length} feeds com problema`);

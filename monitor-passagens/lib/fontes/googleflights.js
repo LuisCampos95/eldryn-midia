@@ -76,8 +76,6 @@ function urlQuery({ data, cidadeOrigem, cidadeDestino, origens, destinos }) {
 // --- leitura da pagina -----------------------------------------------------
 
 // A pagina vem com precos em pt-BR: "R$ 1.234" ou "R$&nbsp;1.234,00".
-// Pegamos todos e ficamos com o menor: o alerta e por percentil sobre a nossa
-// propria serie historica, entao consistencia vale mais que exatidao absoluta.
 function extrairPrecos(html) {
   const limpo = html.replace(/&nbsp;| | /g, ' ');
   const achados = [];
@@ -90,12 +88,69 @@ function extrairPrecos(html) {
   return achados;
 }
 
+// Pegar o menor "R$ N" da pagina estava dando preco que nao existe
+// (Montevideu-Miami por R$ 302). A distribuicao real, medida no runner,
+// mostrou dois defeitos distintos:
+//
+//   MVD-MIA  1838 x1, depois 3232 x6   -> o minimo era um numero perdido
+//   MVD-OPO   374 x6, mediana 709      -> a pagina inteira nao tinha resultado
+//                                          (30 precos, contra 66 das que funcionam;
+//                                           e o mesmo 374 aparecia em outra rota)
+//
+// Dai duas regras, cada uma atacando um dos defeitos.
+
+// 1) Preco de itinerario real se REPETE: o Google renderiza o mesmo valor em
+//    "melhores voos" e em "todos os voos". Numero perdido aparece uma vez so.
+//    Entao o menor preco que aparece pelo menos duas vezes.
+const MIN_REPETICOES = 2;
+
+// 2) Pagina que devolve poucos precos nao trouxe resultado de verdade: ela cai
+//    num modulo de sugestoes, cujos numeros nao sao da rota buscada. As rotas
+//    que funcionam vem com 54-67; as quebradas, com 30.
+const MIN_PRECOS_NA_PAGINA = 40;
+
+function precoConfiavel(precos) {
+  if (precos.length < MIN_PRECOS_NA_PAGINA) {
+    return { erro: `pagina com so ${precos.length} precos (minimo ${MIN_PRECOS_NA_PAGINA}): ` +
+                   'provavelmente sem resultado real pra essa rota' };
+  }
+  const vezes = new Map();
+  for (const p of precos) vezes.set(p, (vezes.get(p) || 0) + 1);
+
+  const repetidos = [...vezes.entries()]
+    .filter(([, n]) => n >= MIN_REPETICOES)
+    .map(([p]) => p)
+    .sort((a, b) => a - b);
+
+  if (!repetidos.length) {
+    return { erro: 'nenhum preco se repete na pagina: nada confiavel pra ler' };
+  }
+  const ordenados = precos.slice().sort((a, b) => a - b);
+  return {
+    preco: repetidos[0],
+    descartadosAbaixo: ordenados.filter((p) => p < repetidos[0]).length,
+    mediana: ordenados[Math.floor(ordenados.length / 2)]
+  };
+}
+
 function extrairCias(html) {
   const achadas = new Set();
   for (const cia of CIAS) {
     if (html.includes(cia)) achadas.add(semAcento(cia));
   }
   return [...achadas];
+}
+
+// Filtro estatistico e remendo: ele adivinha qual numero e passagem em vez de
+// saber. Pra consertar na raiz precisamos ancorar a leitura no elemento que
+// carrega o preco do itinerario - e pra isso precisamos ver esse elemento.
+// Devolve o trecho de HTML em volta de um preco, pra achar o ancoradouro.
+function contexto(html, preco, largura = 220) {
+  const limpo = html.replace(/&nbsp;| | /g, ' ');
+  const alvo = 'R$ ' + preco.toLocaleString('pt-BR');
+  const i = limpo.indexOf(alvo);
+  if (i < 0) return null;
+  return limpo.slice(Math.max(0, i - largura), i + 60).replace(/\s+/g, ' ');
 }
 
 function pareceBloqueio(html) {
@@ -152,14 +207,18 @@ async function consultar(consulta, opcoes = {}) {
       const precos = extrairPrecos(html);
       if (precos.length === 0) { ultimoErro = `nenhum preco na pagina (${estrategia}, ${html.length} bytes)`; continue; }
 
+      const leitura = precoConfiavel(precos);
+      if (leitura.erro) { ultimoErro = `${leitura.erro} (${estrategia})`; continue; }
+
       return {
         ok: true,
         estrategia,
+        descartadosAbaixo: leitura.descartadosAbaixo,
         // so o `q` devolve uma leitura por itinerario da data pedida; o `tfs`
         // mistura datas vizinhas, entao nao serve pra estatistica nem pra alerta
         precisao: estrategia === 'q' ? 'alta' : 'baixa',
-        preco: Math.min(...precos),
-        precoMediana: precos.slice().sort((a, b) => a - b)[Math.floor(precos.length / 2)],
+        preco: leitura.preco,
+        precoMediana: leitura.mediana,
         precos: precos.slice().sort((a, b) => a - b).slice(0, 60),
         amostras: precos.length,
         cias: extrairCias(html),
@@ -209,7 +268,8 @@ async function coletar(consultas, cfg, opcoes = {}) {
       });
       log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data} -> R$ ${r.preco}` +
           (c.distanciaKm ? ` (${(r.preco / c.distanciaKm).toFixed(2)}/km)` : '') +
-          ` [${r.estrategia}${r.precisao === 'baixa' ? ', precisao baixa' : ''}]`);
+          ` [${r.estrategia}${r.precisao === 'baixa' ? ', precisao baixa' : ''}` +
+          `${r.descartadosAbaixo ? `, ${r.descartadosAbaixo} outlier(s) abaixo descartado(s)` : ''}]`);
     } else {
       falhas.push({ rotaId: c.rotaId, data: c.data, erro: r.erro });
       log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data} -> FALHOU: ${r.erro}`);
@@ -220,4 +280,4 @@ async function coletar(consultas, cfg, opcoes = {}) {
   return { observacoes, falhas };
 }
 
-module.exports = { coletar, consultar, montarTfs, urlTfs, urlQuery, extrairPrecos };
+module.exports = { coletar, consultar, montarTfs, urlTfs, urlQuery, extrairPrecos, precoConfiavel, contexto, buscarUrl, urlQuery };
