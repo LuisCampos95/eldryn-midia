@@ -49,6 +49,12 @@ jobs:
 
       # Smoke test de ponta a ponta: coleta 6 datas de verdade, grava historico
       # e roda as regras de alerta - so nao notifica nem commita.
+      # Primeiro os testes: sao offline e levam menos de um segundo. Nao faz
+      # sentido gastar 7 minutos de coleta pra descobrir que a leitura quebrou.
+      - name: Testes
+        working-directory: monitor-passagens
+        run: node teste.js
+
       - name: Rodada de teste (coleta real, sem notificar nem commitar)
         if: github.event_name == 'push'
         working-directory: monitor-passagens

@@ -227,6 +227,62 @@ async function buscarUrl(url, timeoutMs) {
 /**
  * Consulta uma data para uma rota. Devolve { ok, preco, precos, cias, url, erro }.
  */
+/**
+ * Le UMA pagina ja baixada e devolve a leitura, ou { erro }.
+ *
+ * Funcao pura de proposito: e aqui que mora toda a decisao (estrutural x
+ * estatistica, preco, cia, voos), e sem rede da pra testar cada caminho.
+ * Quando isso vivia dentro do consultar(), um `precos` fora de escopo passou
+ * pelo `node --check` e so apareceu em producao, zerando a coleta inteira.
+ */
+function lerPagina(html, estrategia, consulta) {
+  const bloqueio = pareceBloqueio(html);
+  if (bloqueio) return { erro: bloqueio };
+
+  // 1) Leitura estrutural: ancora no aria-label do itinerario. Precisa por
+  //    construcao - so itinerario tem esse rotulo - e traz voo e companhia
+  //    junto. E o caminho bom.
+  const itens = itinerario.extrair(html);
+  const melhor = itinerario.maisBarato(itens);
+
+  // 2) So se a estrutura mudar e a leitura estrutural nao achar nada, cai pro
+  //    caminho antigo, que adivinha por estatistica qual numero da pagina e
+  //    passagem. Rede, nao padrao.
+  let leitura;
+  let precos = [];
+  const viaEstrutura = Boolean(melhor);
+
+  if (viaEstrutura) {
+    const ordenados = itens.map((i) => i.precoBRL).sort((a, b) => a - b);
+    leitura = { preco: melhor.precoBRL, descartadosAbaixo: 0,
+                mediana: ordenados[Math.floor(ordenados.length / 2)] };
+  } else {
+    precos = extrairPrecos(html);
+    if (precos.length === 0) return { erro: `nenhum preco na pagina (${html.length} bytes)` };
+    leitura = precoConfiavel(precos);
+    if (leitura.erro) return leitura;
+  }
+
+  return {
+    ok: true,
+    estrategia,
+    tipoTarifa: (estrategia === 'q-ida' || !consulta.dataVolta) ? 'ida' : 'ida-e-volta',
+    precisao: estrategia === 'q' ? 'alta' : 'baixa',
+    leitura: viaEstrutura ? 'estrutural' : 'estatistica',
+    preco: leitura.preco,
+    precoMediana: leitura.mediana,
+    descartadosAbaixo: leitura.descartadosAbaixo,
+    // cia da TARIFA, do data-gs do itinerario. Vazio quando a leitura caiu na
+    // rede estatistica - melhor vazio que a lista de nomes citados na pagina.
+    cias: viaEstrutura ? melhor.cias : [],
+    voos: viaEstrutura ? melhor.voos : [],
+    trechos: viaEstrutura ? melhor.trechos : null,
+    itinerarios: itens.length,
+    precos: precos.slice(0, 60),
+    amostras: viaEstrutura ? itens.length : precos.length
+  };
+}
+
 async function consultar(consulta, opcoes = {}) {
   const timeoutMs = opcoes.timeoutMs || 25000;
   // ordem: as frases de ida e volta, depois o tfs, e por ultimo a ida como
@@ -247,51 +303,9 @@ async function consultar(consulta, opcoes = {}) {
       const { status, html } = await buscarUrl(url, timeoutMs);
       if (status !== 200) { ultimoErro = `HTTP ${status} (${estrategia})`; continue; }
 
-      const bloqueio = pareceBloqueio(html);
-      if (bloqueio) { ultimoErro = `${bloqueio} (${estrategia})`; continue; }
-
-      // 1) Leitura estrutural: ancora no aria-label do itinerario. Preciso por
-      //    construcao - so itinerario tem esse rotulo - e traz voo e companhia
-      //    junto. E o caminho bom.
-      const itens = itinerario.extrair(html);
-      const melhor = itinerario.maisBarato(itens);
-
-      // 2) So se a estrutura mudar e a leitura estrutural nao achar nada, cai
-      //    pro caminho antigo, que adivinha por estatistica qual numero da
-      //    pagina e passagem. Ele fica como rede, nao como padrao.
-      let leitura, viaEstrutura = false;
-      if (melhor) {
-        leitura = { preco: melhor.precoBRL, descartadosAbaixo: 0,
-                    mediana: itens[Math.floor(itens.length / 2)].precoBRL };
-        viaEstrutura = true;
-      } else {
-        const precos = extrairPrecos(html);
-        if (precos.length === 0) { ultimoErro = `nenhum preco na pagina (${estrategia}, ${html.length} bytes)`; continue; }
-        leitura = precoConfiavel(precos);
-        if (leitura.erro) { ultimoErro = `${leitura.erro} (${estrategia})`; continue; }
-      }
-
-      return {
-        ok: true,
-        estrategia,
-        // ida e volta de verdade so nas estrategias que levam a volta na consulta
-        tipoTarifa: (estrategia === 'q-ida' || !consulta.dataVolta) ? 'ida' : 'ida-e-volta',
-        descartadosAbaixo: leitura.descartadosAbaixo,
-        // so o `q` devolve uma leitura por itinerario da data pedida; o `tfs`
-        // mistura datas vizinhas, entao nao serve pra estatistica nem pra alerta
-        precisao: estrategia === 'q' ? 'alta' : 'baixa',
-        leitura: viaEstrutura ? 'estrutural' : 'estatistica',
-        itinerarios: itens.length,
-        voos: melhor ? melhor.voos : [],
-        cias: melhor ? melhor.cias : [],
-        trechos: melhor ? melhor.trechos : null,
-        preco: leitura.preco,
-        precoMediana: leitura.mediana,
-        precos: precos.slice().sort((a, b) => a - b).slice(0, 60),
-        amostras: precos.length,
-        cias: extrairCias(html),
-        url
-      };
+      const lido = lerPagina(html, estrategia, consulta);
+      if (lido.erro) { ultimoErro = `${lido.erro} (${estrategia})`; continue; }
+      return { ...lido, url };
     } catch (e) {
       ultimoErro = `${e.name === 'AbortError' ? 'timeout' : e.message} (${estrategia})`;
     }
@@ -358,4 +372,4 @@ async function coletar(consultas, cfg, opcoes = {}) {
   return { observacoes, falhas };
 }
 
-module.exports = { coletar, consultar, montarTfs, urlTfs, urlQuery, extrairPrecos, precoConfiavel, contexto, buscarUrl, urlQuery, frase, FRASES_IDA_VOLTA };
+module.exports = { coletar, consultar, montarTfs, urlTfs, urlQuery, extrairPrecos, precoConfiavel, contexto, buscarUrl, urlQuery, frase, FRASES_IDA_VOLTA, lerPagina };
