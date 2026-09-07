@@ -10,6 +10,7 @@ function janela(historico, rotaId, dias) {
   const limite = Date.now() - dias * 86400000;
   return historico.filter((o) => o.rotaId === rotaId &&
                                  typeof o.precoBRL === 'number' &&
+                                 o.precisao !== 'baixa' &&
                                  Date.parse(o.coletadoEm) >= limite);
 }
 
@@ -63,6 +64,9 @@ function gerar(observacoes, historico, cfg, rotasPorId) {
   const alertas = [];
   for (const obs of observacoes) {
     if (typeof obs.precoBRL !== 'number') continue;
+    // leitura da estrategia reserva mistura datas: fica guardada no historico
+    // pra nao perder cobertura, mas nao dispara alerta
+    if (obs.precisao === 'baixa') continue;
     const motivos = avaliar(obs, historico, cfg, rotasPorId[obs.rotaId]);
     if (!motivos.length) continue;
     alertas.push({

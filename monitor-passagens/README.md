@@ -87,7 +87,12 @@ no proprio Actions:
   Paulo on 2026-10-15`. Devolve ~60 precos por consulta, um por itinerario
   daquela data. E a mais limpa, e por isso ela vem primeiro.
 - **`tfs`** (reserva) — o parametro protobuf que o proprio site usa. Serve de
-  paraquedas se o `q` parar de responder.
+  paraquedas se o `q` parar de responder, mas a pagina dele vem com a grade de
+  datas vizinhas junto (~750 precos em vez de ~60), entao o menor preco pode
+  ser de outro dia. Por isso leitura via `tfs` entra marcada como **precisao
+  baixa**: fica guardada no historico pra nao perder cobertura, mas nao gera
+  alerta nem entra na base do percentil. Preco de outro dia entrando na
+  estatistica viraria alerta falso de "barata".
 
 Se as duas quebrarem, os feeds continuam funcionando. O `--diagnostico` testa
 as duas separadamente (mais uma terceira variante de schema do `tfs`), entao
@@ -147,11 +152,16 @@ O diagnostico rodou no GitHub Actions e devolveu:
 
 - `q`: **OK** — MVD -> Sao Paulo por R$ 1.380, 66 precos na pagina, cias
   reconhecidas (LATAM, Gol, Azul, Aerolineas, JetSMART, Sky, Copa, Avianca...).
-- `tfs`: **OK** na forma plana; a variante aninhada nao funciona.
+- `tfs`: **OK** na forma plana e com o parametro `tfu` na URL. A variante
+  aninhada nao funciona, e sem o `tfu` o Google monta a pagina mas nao executa
+  a busca (1,8 MB e zero preco) - as duas coisas so apareceram testando.
 - Rodada curta de 6 datas MVD -> Sao Paulo: 6 leituras, 0 falhas
   (R$ 1.139 a R$ 1.380).
 - Feeds: 5 vivos dos 8 testados. Os 3 mortos ja sairam da lista.
 - Cambio: OK.
+
+Se o `q` comecar a falhar muito, a rodada avisa no resumo do Actions em vez de
+emudecer: mais de 30% das leituras em precisao baixa vira aviso explicito.
 
 ## Limites honestos
 

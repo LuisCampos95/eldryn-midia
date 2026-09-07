@@ -56,8 +56,13 @@ function montarTfs({ data, origens, destinos, maxParadas }, aninhado = false) {
 
 function urlTfs({ data, origens, destinos, maxParadas }, aninhado = false) {
   const tfs = montarTfs({ data, origens, destinos, maxParadas }, aninhado);
+  // O `tfu` nao e enfeite: sem ele o Google devolve a pagina montada mas nao
+  // executa a busca, e nao vem preco nenhum (testado no runner, 1.8MB e zero
+  // R$). Com ele a busca roda - mas a pagina vem com a grade de datas
+  // vizinhas junto (~750 precos em vez de ~60), entao o menor preco da pagina
+  // pode ser de outro dia. Por isso leitura via tfs entra como precisao baixa.
   return 'https://www.google.com/travel/flights?tfs=' + encodeURIComponent(tfs) +
-         '&hl=pt-BR&gl=BR&curr=BRL';
+         '&tfu=EgQIABABIgA&hl=pt-BR&gl=BR&curr=BRL';
 }
 
 function urlQuery({ data, cidadeOrigem, cidadeDestino, origens, destinos }) {
@@ -150,6 +155,9 @@ async function consultar(consulta, opcoes = {}) {
       return {
         ok: true,
         estrategia,
+        // so o `q` devolve uma leitura por itinerario da data pedida; o `tfs`
+        // mistura datas vizinhas, entao nao serve pra estatistica nem pra alerta
+        precisao: estrategia === 'q' ? 'alta' : 'baixa',
         preco: Math.min(...precos),
         precoMediana: precos.slice().sort((a, b) => a - b)[Math.floor(precos.length / 2)],
         precos: precos.slice(0, 40),
@@ -186,13 +194,15 @@ async function coletar(consultas, cfg, opcoes = {}) {
         data: c.data,
         precoBRL: r.preco,
         precoMedianaBRL: r.precoMediana,
+        precisao: r.precisao,
         moeda: 'BRL',
         cias: r.cias,
         amostrasNaPagina: r.amostras,
         link: r.url,
         coletadoEm: new Date().toISOString()
       });
-      log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data} -> R$ ${r.preco} (${r.estrategia}, ${r.amostras} precos)`);
+      log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data} -> R$ ${r.preco} ` +
+          `(${r.estrategia}, ${r.amostras} precos${r.precisao === 'baixa' ? ', precisao baixa' : ''})`);
     } else {
       falhas.push({ rotaId: c.rotaId, data: c.data, erro: r.erro });
       log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data} -> FALHOU: ${r.erro}`);

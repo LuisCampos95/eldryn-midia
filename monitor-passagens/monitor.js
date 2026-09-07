@@ -178,10 +178,18 @@ async function main() {
   }, null, 2) + '\n');
 
   // --- notificacao ---
+  const baixaPrecisao = obs.filter((o) => o.precisao === 'baixa').length;
+  const alertaDeSaude = obs.length && (baixaPrecisao / obs.length) > 0.3
+    ? `\n> A estrategia principal do Google falhou em ${baixaPrecisao} de ${obs.length} leituras. ` +
+      'Essas nao geram alerta. Rode o diagnostico: pode ser hora de ajustar o scraping.\n'
+    : '';
+  if (alertaDeSaude) log(alertaDeSaude.trim());
+
   const tabela = Object.entries(melhorPorRota)
     .map(([id, m]) => `| ${id} | ${m.data} | ${brl(m.precoBRL)} |`).join('\n');
   notifica.resumoDoActions(
-    `## Rodada\n\n${obs.length} leituras, ${falhas.length} falhas, ${novos.length} alertas novos.\n\n` +
+    `## Rodada\n\n${obs.length} leituras, ${falhas.length} falhas, ${novos.length} alertas novos.\n` +
+    alertaDeSaude + '\n' +
     (tabela ? `| rota | data | melhor preco |\n|---|---|---|\n${tabela}\n` : '_sem leitura de preco nesta rodada_\n')
   );
 
