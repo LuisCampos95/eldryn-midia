@@ -77,6 +77,33 @@ teste('pagina sem preco nenhum devolve erro, nao leitura', () => {
   assert.strictEqual(r.ok, undefined);
 });
 
+// Este teste existe porque os campos de companhia e voos foram perdidos entre
+// a leitura e a observacao: uma edicao mirou em texto ja reescrito e virou
+// no-op. A leitura estava certa, o painel saiu vazio, e nada acusou.
+teste('a observacao carrega companhia, voos e o tipo de leitura', () => {
+  const consulta = { rotaId: 'MVD-SAO', origens: ['MVD'], destinos: ['GRU'], regiao: 'brasil',
+                     distanciaKm: 1570, data: '2026-09-21', dataVolta: '2026-09-28', noites: 7 };
+  const lido = gf.lerPagina(HTML_ITIN, 'q', consulta);
+  const obs = gf.montarObservacao(consulta, { ...lido, url: 'https://x' });
+
+  assert.deepStrictEqual(obs.cias, ['Aerolineas Argentinas'], 'cia sumiu no caminho');
+  assert.deepStrictEqual(obs.voos, ['AR1383', 'AR1240'], 'voos sumiram no caminho');
+  assert.strictEqual(obs.leitura, 'estrutural');
+  assert.strictEqual(obs.trechos, 2);
+  assert.strictEqual(obs.precoBRL, 2424);
+  // ida e volta voa o dobro: 2424 / (1570*2)
+  assert.strictEqual(obs.precoPorKm, 0.772);
+  assert.strictEqual(obs.distanciaVoadaKm, 3140);
+});
+
+teste('observacao sem leitura estrutural nao inventa companhia', () => {
+  const consulta = { rotaId: 'A-B', origens: ['A'], destinos: ['B'], distanciaKm: 1000,
+                     data: '2026-09-21', dataVolta: '2026-09-28' };
+  const obs = gf.montarObservacao(consulta, { ...gf.lerPagina(HTML_SO_PRECOS, 'q', consulta), url: 'x' });
+  assert.deepStrictEqual(obs.cias, []);
+  assert.strictEqual(obs.leitura, 'estatistica');
+});
+
 console.log('\nitinerario');
 
 teste('decodifica os voos do data-gs', () => {

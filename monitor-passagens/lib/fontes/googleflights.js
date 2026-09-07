@@ -317,6 +317,52 @@ async function consultar(consulta, opcoes = {}) {
 /**
  * Varre todas as consultas de uma rodada. `consultas` vem do planejador.
  */
+/**
+ * Monta a observacao a partir da consulta e da leitura.
+ *
+ * Pura, e por um motivo aprendido do jeito ruim: quando isto vivia solto
+ * dentro do coletor, uma edicao minha mirou num texto que eu ja tinha
+ * reescrito, virou no-op silencioso, e os campos de companhia e voos
+ * simplesmente nunca chegaram na observacao. O painel saiu com a coluna
+ * vazia e nada acusou. Agora ha teste conferindo o objeto inteiro.
+ */
+function montarObservacao(c, r) {
+  const idaEVolta = Boolean(c.dataVolta);
+  const voado = c.distanciaKm ? c.distanciaKm * (idaEVolta ? 2 : 1) : null;
+  return {
+    fonte: 'google-flights',
+    estrategia: r.estrategia,
+    leitura: r.leitura,
+    rotaId: c.rotaId,
+    origem: c.rotaId.split('-')[0],
+    regiao: c.regiao,
+    distanciaKm: c.distanciaKm,
+    // Distancia VOADA: ida e volta percorre o dobro. Sem isso um preco de ida
+    // e volta pareceria o dobro de caro por km que um de so ida, e as duas
+    // leituras nao poderiam dividir a mesma lista - que e exatamente o que a
+    // rede de seguranca produz quando cai pra so ida.
+    distanciaVoadaKm: voado,
+    precoPorKm: voado ? Number((r.preco / voado).toFixed(3)) : null,
+    de: c.origens.join('/'),
+    para: c.destinos.join('/'),
+    data: c.data,
+    dataVolta: c.dataVolta || null,
+    noites: c.noites || null,
+    precoBRL: r.preco,
+    precoMedianaBRL: r.precoMediana,
+    precisao: r.precisao,
+    tipoTarifa: r.tipoTarifa,
+    // companhia e voos da TARIFA, quando a leitura foi estrutural
+    cias: r.cias || [],
+    voos: r.voos || [],
+    trechos: r.trechos != null ? r.trechos : null,
+    moeda: 'BRL',
+    amostrasNaPagina: r.amostras,
+    link: r.url,
+    coletadoEm: new Date().toISOString()
+  };
+}
+
 async function coletar(consultas, cfg, opcoes = {}) {
   const observacoes = [];
   const falhas = [];
@@ -326,35 +372,7 @@ async function coletar(consultas, cfg, opcoes = {}) {
     i++;
     const r = await consultar(c, { timeoutMs: cfg.timeoutMs, estrategia: opcoes.estrategia });
     if (r.ok) {
-      observacoes.push({
-        fonte: 'google-flights',
-        estrategia: r.estrategia,
-        rotaId: c.rotaId,
-        origem: c.rotaId.split('-')[0],
-        regiao: c.regiao,
-        distanciaKm: c.distanciaKm,
-        // Distancia VOADA: ida e volta percorre o dobro. Sem isso um preco de
-        // ida e volta pareceria o dobro de caro por km que um de so ida, e as
-        // duas leituras nao poderiam dividir a mesma lista - que e exatamente
-        // o que a rede de seguranca produz quando cai pra so ida.
-        distanciaVoadaKm: c.distanciaKm ? c.distanciaKm * (c.dataVolta ? 2 : 1) : null,
-        precoPorKm: c.distanciaKm
-          ? Number((r.preco / (c.distanciaKm * (c.dataVolta ? 2 : 1))).toFixed(3))
-          : null,
-        de: c.origens.join('/'),
-        para: c.destinos.join('/'),
-        data: c.data,
-        dataVolta: c.dataVolta || null,
-        noites: c.noites || null,
-        precoBRL: r.preco,
-        precoMedianaBRL: r.precoMediana,
-        precisao: r.precisao,
-        tipoTarifa: r.tipoTarifa,
-        moeda: 'BRL',
-        amostrasNaPagina: r.amostras,
-        link: r.url,
-        coletadoEm: new Date().toISOString()
-      });
+      observacoes.push(montarObservacao(c, r));
       log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data}${c.dataVolta ? `/${c.dataVolta.slice(5)}` : ''} -> R$ ${r.preco}` +
           (c.distanciaKm ? ` (${(r.preco / c.distanciaKm).toFixed(2)}/km)` : '') +
           (r.cias && r.cias.length ? ` ${r.cias.join('+')}` : '') +
@@ -372,4 +390,4 @@ async function coletar(consultas, cfg, opcoes = {}) {
   return { observacoes, falhas };
 }
 
-module.exports = { coletar, consultar, montarTfs, urlTfs, urlQuery, extrairPrecos, precoConfiavel, contexto, buscarUrl, urlQuery, frase, FRASES_IDA_VOLTA, lerPagina };
+module.exports = { coletar, consultar, montarTfs, urlTfs, urlQuery, extrairPrecos, precoConfiavel, contexto, buscarUrl, urlQuery, frase, FRASES_IDA_VOLTA, lerPagina, montarObservacao };
