@@ -79,7 +79,7 @@ async function diagnostico(cfg, opts) {
 
   log('1) Google Flights');
   const teste = planejar(cfg, { rodadas: 0 }, 'MVD-SAO')[0];
-  for (const estrategia of ['tfs', 'q']) {
+  for (const estrategia of ['q', 'tfs', 'tfs-plano']) {
     const r = await googleflights.consultar(teste, { timeoutMs: cfg.googleFlights.timeoutMs, estrategia });
     if (r.ok) {
       log(`   ${estrategia}: OK  menor preco ${brl(r.preco)}  (${r.amostras} precos na pagina)  cias: ${r.cias.join(', ') || '-'}`);

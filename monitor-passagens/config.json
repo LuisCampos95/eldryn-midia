@@ -140,10 +140,13 @@
     "ativo": true,
     "urls": [
       "https://www.melhoresdestinos.com.br/feed",
-      "https://passagensimperdiveis.com.br/feed",
-      "https://www.passagensimperdiveis.com.br/feed",
+      "https://passageirodeprimeira.com/feed",
+      "https://pontospravoar.com/feed",
       "https://mestredasmilhas.com/feed",
-      "https://www.promopassagens.com/feed"
+      "https://passagensimperdiveis.com.br/feed/",
+      "https://www.melhoresdestinos.com.br/categoria/promocoes-de-passagens/feed",
+      "https://www.viajenaviagem.com/feed",
+      "https://www.passagenspromo.com.br/feed"
     ],
     "palavrasGeo": [
       "montevideu",
@@ -176,7 +179,15 @@
       "pontos",
       "transferencia bonificada"
     ],
-    "maxIdadeHoras": 30
+    "maxIdadeHoras": 30,
+    "palavrasPrograma": [
+      "latam pass",
+      "transferencia bonificada",
+      "bonus de milhas",
+      "bonus na transferencia",
+      "milhas latam",
+      "queima de milhas"
+    ]
   },
   "travelpayouts": {
     "ativo": true,

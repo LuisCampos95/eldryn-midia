@@ -23,26 +23,28 @@ const CIAS = [
 
 // --- montagem do tfs -------------------------------------------------------
 
-function aeroporto(codigo) {
-  // message Airport { string codigo = 2; }
-  return campoMensagem(1, campoString(2, codigo));
+// O schema do Google nao e publico. Duas formas plausiveis pro aeroporto:
+// aninhado num wrapper (campo 1) ou direto. O diagnostico testa as duas.
+function aeroporto(codigo, aninhado) {
+  const dentro = campoString(2, codigo);
+  return aninhado ? campoMensagem(1, dentro) : dentro;
 }
 
-function trecho(data, origens, destinos, maxParadas) {
+function trecho(data, origens, destinos, maxParadas, aninhado) {
   // message FlightData { string data = 2; int max_paradas = 5;
   //                      repeated Airport de = 13; repeated Airport para = 14; }
   const partes = [campoString(2, data)];
   if (typeof maxParadas === 'number') partes.push(campoInt(5, maxParadas));
-  for (const o of origens) partes.push(campoMensagem(13, aeroporto(o)));
-  for (const d of destinos) partes.push(campoMensagem(14, aeroporto(d)));
+  for (const o of origens) partes.push(campoMensagem(13, aeroporto(o, aninhado)));
+  for (const d of destinos) partes.push(campoMensagem(14, aeroporto(d, aninhado)));
   return Buffer.concat(partes);
 }
 
-function montarTfs({ data, origens, destinos, maxParadas }) {
+function montarTfs({ data, origens, destinos, maxParadas }, aninhado = true) {
   // message Info { repeated FlightData trechos = 3; repeated int pax = 8;
   //                int cabine = 9; int tipo = 19; }
   const info = Buffer.concat([
-    campoMensagem(3, trecho(data, origens, destinos, maxParadas)),
+    campoMensagem(3, trecho(data, origens, destinos, maxParadas, aninhado)),
     campoInt(8, 1),   // 1 adulto
     campoInt(9, 1),   // economica
     campoInt(19, 2)   // so ida
@@ -50,8 +52,8 @@ function montarTfs({ data, origens, destinos, maxParadas }) {
   return base64url(info);
 }
 
-function urlTfs({ data, origens, destinos, maxParadas }) {
-  const tfs = montarTfs({ data, origens, destinos, maxParadas });
+function urlTfs({ data, origens, destinos, maxParadas }, aninhado = true) {
+  const tfs = montarTfs({ data, origens, destinos, maxParadas }, aninhado);
   return 'https://www.google.com/travel/flights?tfs=' + encodeURIComponent(tfs) +
          '&tfu=EgQIABABIgA&hl=pt-BR&gl=BR&curr=BRL';
 }
@@ -124,13 +126,15 @@ async function buscarUrl(url, timeoutMs) {
  */
 async function consultar(consulta, opcoes = {}) {
   const timeoutMs = opcoes.timeoutMs || 25000;
-  const estrategias = opcoes.estrategia === 'q'
-    ? ['q']
-    : opcoes.estrategia === 'tfs' ? ['tfs'] : ['tfs', 'q'];
+  const estrategias = opcoes.estrategia
+    ? [opcoes.estrategia]
+    : ['q', 'tfs'];
 
   let ultimoErro = null;
   for (const estrategia of estrategias) {
-    const url = estrategia === 'tfs' ? urlTfs(consulta) : urlQuery(consulta);
+    const url = estrategia === 'tfs' ? urlTfs(consulta, true)
+              : estrategia === 'tfs-plano' ? urlTfs(consulta, false)
+              : urlQuery(consulta);
     try {
       const { status, html } = await buscarUrl(url, timeoutMs);
       if (status !== 200) { ultimoErro = `HTTP ${status} (${estrategia})`; continue; }
@@ -145,6 +149,7 @@ async function consultar(consulta, opcoes = {}) {
         ok: true,
         estrategia,
         preco: Math.min(...precos),
+        precoMediana: precos.slice().sort((a, b) => a - b)[Math.floor(precos.length / 2)],
         precos: precos.slice(0, 40),
         amostras: precos.length,
         cias: extrairCias(html),
@@ -178,6 +183,7 @@ async function coletar(consultas, cfg, opcoes = {}) {
         para: c.destinos.join('/'),
         data: c.data,
         precoBRL: r.preco,
+        precoMedianaBRL: r.precoMediana,
         moeda: 'BRL',
         cias: r.cias,
         amostrasNaPagina: r.amostras,

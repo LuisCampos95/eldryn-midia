@@ -6,7 +6,9 @@
 
 const { pausa, log, normalizar } = require('../util');
 
-const UA = 'Mozilla/5.0 (compatible; monitor-passagens/1.0; +https://github.com)';
+// UA de bot leva 403 de quem esta atras de Cloudflare (visto no diagnostico).
+const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' +
+           '(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
 
 function pegar(tag, xml) {
   const m = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`, 'i').exec(xml);
@@ -42,9 +44,12 @@ function itens(xml) {
 function relevante(item, cfg) {
   const texto = normalizar(item.titulo + ' ' + item.descricao);
   const geo = cfg.palavrasGeo.filter((p) => texto.includes(normalizar(p)));
-  if (geo.length === 0) return null;
   const milhas = cfg.palavrasMilhas.filter((p) => texto.includes(normalizar(p)));
-  return { geo, milhas, ehMilhas: milhas.length > 0 };
+  // Promocao do SEU programa passa mesmo sem citar rota: "LATAM Pass com 100%
+  // de bonus" nao fala de Montevideu, mas e exatamente o que voce quer saber.
+  const programa = cfg.palavrasPrograma.some((p) => texto.includes(normalizar(p)));
+  if (geo.length === 0 && !programa) return null;
+  return { geo, milhas, ehMilhas: milhas.length > 0 || programa, programa };
 }
 
 function recente(item, maxIdadeHoras) {

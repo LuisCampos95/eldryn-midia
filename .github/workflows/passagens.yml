@@ -45,12 +45,19 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Diagnostico das fontes
         if: github.event_name == 'push' || github.event.inputs.modo == 'diagnostico'
         working-directory: monitor-passagens
         run: node monitor.js --diagnostico
+
+      # Smoke test de ponta a ponta: coleta 6 datas de verdade, grava historico
+      # e roda as regras de alerta - so nao notifica nem commita.
+      - name: Rodada curta de teste
+        if: github.event_name == 'push'
+        working-directory: monitor-passagens
+        run: node monitor.js --limite=6 --sem-alerta
 
       - name: Rodada de coleta
         if: github.event_name != 'push' && github.event.inputs.modo != 'diagnostico'
