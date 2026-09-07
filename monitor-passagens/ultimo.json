@@ -1,0 +1,18 @@
+{
+  "atualizadoEm": "2026-09-07T05:30:42.377Z",
+  "leituras": 0,
+  "falhas": 3,
+  "cambio": {
+    "UYU": null,
+    "ARS": null,
+    "USD": null,
+    "erro": "HTTP 403"
+  },
+  "cursorRodizio": 85,
+  "catalogo": {
+    "pares": 558,
+    "voltaEmRodadas": 7
+  },
+  "ranking": [],
+  "melhorPorRota": {}
+}

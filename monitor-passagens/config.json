@@ -1,127 +1,47 @@
 {
   "moedaBase": "BRL",
-  "grupos": {
-    "SAO": [
-      "GRU",
-      "CGH",
-      "VCP"
-    ],
-    "MVD": [
-      "MVD"
-    ],
-    "BUE": [
-      "EZE",
-      "AEP"
-    ],
-    "BRC": [
-      "BRC"
-    ],
-    "IGR": [
-      "IGR"
-    ],
-    "MDZ": [
-      "MDZ"
-    ],
-    "USH": [
-      "USH"
-    ]
+  "varredura": {
+    "_comentario": "130 consultas/rodada ~= 6 min. 4 rodadas/dia cabem folgado na cota gratuita de 2.000 min/mes do Actions em repo privado. Baixe consultasPorRodada se quiser economizar.",
+    "diasMin": 14,
+    "diasMax": 240,
+    "datasPorParFixo": 3,
+    "datasPorParRodizio": 3,
+    "consultasPorRodada": 130
   },
-  "rotas": [
+  "tetosPorDistancia": [
     {
-      "id": "MVD-SAO",
-      "de": "MVD",
-      "para": "SAO",
-      "prioridade": 1,
-      "tetoBRL": 900,
-      "rotulo": "Montevideu -> Sao Paulo"
+      "ateKm": 500,
+      "tetoBRL": 350
     },
     {
-      "id": "SAO-MVD",
-      "de": "SAO",
-      "para": "MVD",
-      "prioridade": 1,
-      "tetoBRL": 900,
-      "rotulo": "Sao Paulo -> Montevideu"
+      "ateKm": 1500,
+      "tetoBRL": 550
     },
     {
-      "id": "BUE-SAO",
-      "de": "BUE",
-      "para": "SAO",
-      "prioridade": 1,
-      "tetoBRL": 800,
-      "rotulo": "Buenos Aires -> Sao Paulo"
+      "ateKm": 3000,
+      "tetoBRL": 750
     },
     {
-      "id": "SAO-BUE",
-      "de": "SAO",
-      "para": "BUE",
-      "prioridade": 2,
-      "tetoBRL": 800,
-      "rotulo": "Sao Paulo -> Buenos Aires"
+      "ateKm": 6000,
+      "tetoBRL": 1300
     },
     {
-      "id": "MVD-BUE",
-      "de": "MVD",
-      "para": "BUE",
-      "prioridade": 3,
-      "tetoBRL": 350,
-      "rotulo": "Montevideu -> Buenos Aires"
+      "ateKm": 10000,
+      "tetoBRL": 2400
     },
     {
-      "id": "BUE-BRC",
-      "de": "BUE",
-      "para": "BRC",
-      "prioridade": 3,
-      "tetoBRL": 500,
-      "rotulo": "Buenos Aires -> Bariloche"
-    },
-    {
-      "id": "BUE-IGR",
-      "de": "BUE",
-      "para": "IGR",
-      "prioridade": 3,
-      "tetoBRL": 450,
-      "rotulo": "Buenos Aires -> Puerto Iguazu"
-    },
-    {
-      "id": "BUE-MDZ",
-      "de": "BUE",
-      "para": "MDZ",
-      "prioridade": 3,
-      "tetoBRL": 450,
-      "rotulo": "Buenos Aires -> Mendoza"
-    },
-    {
-      "id": "BUE-USH",
-      "de": "BUE",
-      "para": "USH",
-      "prioridade": 3,
-      "tetoBRL": 700,
-      "rotulo": "Buenos Aires -> Ushuaia"
+      "ateKm": 99999,
+      "tetoBRL": 3200
     }
   ],
-  "horizonte": {
-    "1": {
-      "diasMin": 14,
-      "diasMax": 180,
-      "passoDias": 7
-    },
-    "2": {
-      "diasMin": 14,
-      "diasMax": 180,
-      "passoDias": 14
-    },
-    "3": {
-      "diasMin": 21,
-      "diasMax": 180,
-      "passoDias": 21
-    }
-  },
   "alertas": {
     "percentilAlvo": 10,
     "minObservacoesParaPercentil": 25,
     "quedaMinimaPct": 25,
     "janelaHistoricoDias": 90,
+    "regiaoFracaoDaMediana": 0.6,
+    "minObservacoesRegiao": 30,
+    "janelaRegiaoDias": 14,
     "cooldownHoras": 48,
     "maxAlertasPorRodada": 12
   },
@@ -189,14 +109,5 @@
   "travelpayouts": {
     "ativo": true,
     "comentario": "Opcional. So roda se o secret TRAVELPAYOUTS_TOKEN existir. Cadastro gratuito em travelpayouts.com."
-  },
-  "cidades": {
-    "SAO": "Sao Paulo",
-    "MVD": "Montevideo",
-    "BUE": "Buenos Aires",
-    "BRC": "Bariloche",
-    "IGR": "Puerto Iguazu",
-    "MDZ": "Mendoza",
-    "USH": "Ushuaia"
   }
 }

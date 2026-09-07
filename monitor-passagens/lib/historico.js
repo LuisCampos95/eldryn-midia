@@ -44,14 +44,4 @@ function carregar(janelaDias) {
   return out;
 }
 
-function estatisticas(historico) {
-  const porRota = new Map();
-  for (const o of historico) {
-    if (typeof o.precoBRL !== 'number') continue;
-    if (!porRota.has(o.rotaId)) porRota.set(o.rotaId, []);
-    porRota.get(o.rotaId).push(o);
-  }
-  return porRota;
-}
-
-module.exports = { gravar, carregar, estatisticas, DIR };
+module.exports = { gravar, carregar, DIR };

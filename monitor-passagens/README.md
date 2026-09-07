@@ -1,11 +1,10 @@
 # Monitor de passagens
 
-Vigia preco de passagem saindo de **Montevideu** e **Buenos Aires** para **Sao
-Paulo** (e voos internos da Argentina), avisa quando aparece coisa barata, e
-guarda o historico pra saber o que e "barato" de verdade.
+Origem fixa, **destino aberto**. Ele sai de **Montevideu**, **Sao Paulo**
+(GRU/CGH/VCP) e **Buenos Aires** (EZE/AEP) pra 63 destinos, e avisa quando
+alguma coisa esta com preco bom - seja Recife, Santiago, Cancun ou Lisboa.
 
-Roda de graca no GitHub Actions. Sem servidor, sem cadastro, sem API paga,
-sem `npm install`.
+Roda de graca no GitHub Actions. Sem servidor, sem API paga, sem `npm install`.
 
 ## Como voce e avisado
 
@@ -13,62 +12,101 @@ Quando algo dispara alerta, o robo **abre uma issue neste repositorio**. O
 GitHub ja te manda e-mail (e notificacao no celular, se voce tem o app), entao
 nao precisa configurar nada. Telegram e opcional, veja no fim.
 
-## O que ele vigia
+## O que ele varre
 
-| rota | prioridade | teto |
-|---|---|---|
-| Montevideu -> Sao Paulo (GRU/CGH/VCP) | alta | R$ 900 |
-| Sao Paulo -> Montevideu | alta | R$ 900 |
-| Buenos Aires (EZE/AEP) -> Sao Paulo | alta | R$ 800 |
-| Sao Paulo -> Buenos Aires | media | R$ 800 |
-| Montevideu -> Buenos Aires | baixa | R$ 350 |
-| Buenos Aires -> Bariloche / Iguazu / Mendoza / Ushuaia | baixa | R$ 450-700 |
+**Origens** (fixas): Montevideu · Sao Paulo (3 aeroportos) · Buenos Aires (2).
 
-Os tres aeroportos de Sao Paulo entram numa consulta so, entao tanto faz se a
-promocao e de Guarulhos, Congonhas ou Viracopos: se for barata, voce fica
-sabendo.
+**Destinos** (`destinos.json`, 63 no total):
 
-Horizonte: de 14 a 180 dias a frente. Cada rodada varre datas espacadas de 7
-em 7 dias e **desloca o ponto de partida a cada rodada**, entao em poucos dias
-o monitor ja passou por todas as datas do periodo.
+| regiao | destinos |
+|---|---|
+| Brasil | 21 — SP, Rio, POA, Floripa, Curitiba, Brasilia, BH, Recife, Salvador, Fortaleza, Natal, Maceio, Joao Pessoa, Belem, Manaus, Sao Luis, Vitoria, Goiania, Cuiaba, Campo Grande, Foz |
+| Argentina | 8 — Bariloche, Iguazu, Mendoza, Ushuaia, Salta, El Calafate, Neuquen, Tucuman |
+| America do Sul | 12 — Santiago, Lima, Cusco, Bogota, Medellin, Cartagena, Quito, Guayaquil, Assuncao, Santa Cruz, La Paz, Panama |
+| America do Norte | 9 — Miami, Orlando, Nova York, LA, Chicago, Atlanta, Toronto, Cidade do Mexico, Cancun |
+| Europa | 11 — Lisboa, Porto, Madri, Barcelona, Paris, Roma, Milao, Londres, Amsterda, Frankfurt, Istambul |
+
+Sao **186 pares** origem-destino. Horizonte de 14 a 240 dias.
+
+## Como ele cobre tudo isso sem estourar a cota
+
+Varrer os 186 pares de uma vez levaria uns 25 minutos por rodada. Entao a fila
+e dividida em duas:
+
+- **fixas** — o triangulo Montevideu/Sao Paulo/Buenos Aires mais Rio, Porto
+  Alegre e Santiago entram em **todas** as rodadas.
+- **rodizio** — o resto do catalogo entra por fatia, e o cursor avanca a cada
+  rodada. Em ~7 rodadas o catalogo inteiro foi visitado, ou seja **menos de
+  2 dias**.
+
+Sao 130 consultas por rodada (~6 min), 4 rodadas por dia. Em repositorio
+privado isso da uns **880 minutos por mes**, dentro dos 2.000 gratuitos do
+Actions. Pra gastar menos, baixe `varredura.consultasPorRodada` no
+`config.json` ou tire uma rodada do cron.
+
+As datas tambem giram a cada rodada, entao com o tempo ele cobre o calendario
+todo em vez de bater sempre nos mesmos dias.
 
 ## Quando ele te avisa
 
-Tres regras, e basta uma pra disparar:
+Com destino aberto, "barato" deixa de ter um numero so: R$ 900 pra Buenos
+Aires (229 km) e caro, pra Londres (11.018 km) e uma pechincha historica. Sao
+quatro regras, e basta uma pra disparar:
 
-1. **Teto** — preco abaixo do valor que voce definiu pra rota no `config.json`.
-2. **Percentil** — preco entre os 10% mais baratos que ja vimos nessa rota nos
-   ultimos 90 dias. Precisa de pelo menos 25 leituras acumuladas.
-3. **Queda** — o mesmo voo caiu 25% ou mais contra a mediana dos ultimos 7 dias.
+1. **Teto por faixa de distancia** — vale desde a primeira rodada, sem
+   depender de historico:
 
-A regra 1 funciona desde o primeiro dia. As regras 2 e 3 sao as boas, e elas
-**precisam de historico**: nas primeiras semanas o robo coleta calado e vai
-ficando mais esperto. Isso e esperado, nao e defeito.
+   | distancia | teto |
+   |---|---|
+   | ate 500 km | R$ 350 |
+   | ate 1.500 km | R$ 550 |
+   | ate 3.000 km | R$ 750 |
+   | ate 6.000 km | R$ 1.300 |
+   | ate 10.000 km | R$ 2.400 |
+   | acima | R$ 3.200 |
 
-Cada alerta nao se repete por 48 horas (`cooldownHoras`).
+2. **Percentil da rota** — entre os 10% mais baratos ja vistos naquela rota
+   nos ultimos 90 dias. A regra mais precisa, mas so acorda depois de ~25
+   leituras daquela rota.
+
+3. **Barato pra regiao** — abaixo de 60% da mediana daquela regiao saindo
+   daquela origem. **Esta e a que resolve a partida a frio**: uma rota nova
+   nao tem historico proprio, mas "Europa saindo de Montevideu" junta dezenas
+   de leituras em poucos dias, entao da pra comparar com os vizinhos. Foi ela
+   que pegou Barcelona a R$ 2.100 num teste, sem nunca ter visto essa rota.
+
+4. **Queda** — o mesmo voo caiu 25% ou mais contra a mediana de 7 dias.
+
+Cada alerta nao se repete por 48 horas.
+
+## Preco por km
+
+Toda leitura guarda a distancia em linha reta e o **preco por km**. E o unico
+jeito honesto de comparar uma pechincha pra Recife com uma pechincha pra
+Madri, e e por ele que o resumo de cada rodada ordena o ranking dos 20
+melhores. Voo curto sempre custa mais por km — compare dentro da mesma faixa.
 
 ## Milhas (LATAM Pass)
 
 Nenhum programa brasileiro tem API publica e gratuita de busca de resgate.
 Entao o monitor ataca milhas por dois lados que custam zero:
 
-- **Feeds de promocao** (Melhores Destinos, Passagens Imperdiveis e cia).
-  E por ali que passa promocao relampago, tarifa que so existe no site da
-  companhia e promocao de milhas: transferencia bonificada, queima de milhas,
-  LATAM Pass em desconto. Os itens sao filtrados pelas suas rotas antes de
-  virar alerta.
-- **Teto de milhas em cada alerta de preco.** Como o alerta sabe o preco em
-  dinheiro, ele calcula quantas milhas o resgate teria que custar pra valer a
-  pena, usando o valor que voce da ao milheiro:
+- **Feeds de promocao** (Melhores Destinos, Passageiro de Primeira, Pontos pra
+  Voar, Mestre das Milhas, Viaje na Viagem). E por ali que passa promocao
+  relampago, tarifa que so existe no site da companhia e promocao de milhas:
+  transferencia bonificada, queima de milhas, LATAM Pass em desconto.
+  Promocao do seu programa passa no filtro **mesmo sem citar rota** — "LATAM
+  Pass com 100% de bonus" interessa independente do destino.
+- **Teto de milhas em cada alerta de preco.** Sabendo o preco em dinheiro, ele
+  calcula quantas milhas o resgate teria que custar pra valer a pena:
 
   ```
   milhas_max = (preco - taxa_de_embarque) / valor_do_milheiro * 1000
   ```
 
-  Com o padrao (R$ 20 o milheiro, R$ 180 de taxa), um voo de R$ 1.200 vira
-  *"so compensa ate ~51.000 milhas + taxas"*. Ai voce abre o latam.com, ve a
-  cotacao do resgate e decide na hora, sem achismo. Ajuste
-  `milhas.valorPorMilheiroBRL` pro que voce realmente considera justo.
+  Com o padrao (R$ 20 o milheiro, R$ 180 de taxa), um voo de R$ 2.100 vira
+  *"so compensa ate ~96.000 milhas + taxas"*. Ai voce abre o latam.com, ve a
+  cotacao do resgate e decide na hora. Ajuste `milhas.valorPorMilheiroBRL`.
 
 ## De onde vem o preco
 
@@ -80,97 +118,80 @@ Entao o monitor ataca milhas por dois lados que custam zero:
 | open.er-api.com | zero | nao | cotacao pra mostrar em $U e US$ |
 
 O Google Flights nao tem API oficial: o monitor monta a mesma URL que o site
-usa. Por isso existem **duas estrategias**, e as duas foram testadas rodando
-no proprio Actions:
+usa. Duas estrategias, as duas testadas rodando no Actions:
 
-- **`q`** (primaria) — busca em texto, tipo `flights from Montevideo to Sao
-  Paulo on 2026-10-15`. Devolve ~60 precos por consulta, um por itinerario
-  daquela data. E a mais limpa, e por isso ela vem primeiro.
-- **`tfs`** (reserva) — o parametro protobuf que o proprio site usa. Serve de
-  paraquedas se o `q` parar de responder, mas a pagina dele vem com a grade de
-  datas vizinhas junto (~750 precos em vez de ~60), entao o menor preco pode
-  ser de outro dia. Por isso leitura via `tfs` entra marcada como **precisao
-  baixa**: fica guardada no historico pra nao perder cobertura, mas nao gera
-  alerta nem entra na base do percentil. Preco de outro dia entrando na
-  estatistica viraria alerta falso de "barata".
+- **`q`** (primaria) — busca em texto. Devolve ~60 precos por consulta, um por
+  itinerario daquela data. E a limpa.
+- **`tfs`** (reserva) — o parametro protobuf que o site usa. Precisa do
+  parametro `tfu` junto, senao o Google monta a pagina e nao executa a busca.
+  Com ele funciona, mas a pagina vem com a grade de datas vizinhas (~750
+  precos), entao o menor pode ser de outro dia. Por isso leitura via `tfs`
+  entra como **precisao baixa**: fica no historico pra nao perder cobertura,
+  mas nao gera alerta nem entra na base das estatisticas.
 
-Se as duas quebrarem, os feeds continuam funcionando. O `--diagnostico` testa
-as duas separadamente (mais uma terceira variante de schema do `tfs`), entao
-da pra ver na hora qual esta viva.
+Se o `q` comecar a falhar muito, a rodada avisa no resumo do Actions em vez de
+emudecer: acima de 30% das leituras em precisao baixa vira aviso explicito.
 
 ## Rodando na mao
 
 ```bash
-cd monitor-passagens
-
 node monitor.js --diagnostico    # testa cada fonte e diz qual esta viva
 node monitor.js --limite=5       # rodada curta
-node monitor.js --rota=MVD-SAO   # so uma rota
+node monitor.js --rota=MVD-LIS   # so uma rota
 node monitor.js --sem-alerta     # coleta e grava, nao notifica
 ```
-
-Fora do GitHub Actions ele nao consegue abrir issue (falta o token) e avisa
-isso no log — o resto funciona igual.
 
 ## Arquivos
 
 ```
-config.json          rotas, tetos, horizonte, regras de alerta, valor do milheiro
+destinos.json        origens fixas + catalogo de destinos com coordenadas
+config.json          varredura, tetos por distancia, regras, valor do milheiro
 monitor.js           orquestra a rodada
+lib/catalogo.js      monta a fila, rodizio e distancias
 lib/fontes/          um adaptador por fonte de dados
 historico/           serie historica em NDJSON, um arquivo por mes
-ultimo.json          foto do melhor preco de cada rota na ultima rodada
-estado.json          controle de alerta repetido
+ultimo.json          ranking por preco/km da ultima rodada
+estado.json          cursor do rodizio e controle de alerta repetido
 ```
 
-O historico e commitado no repo de proposito: e ele que faz as regras 2 e 3
+O historico e commitado no repo de proposito: e ele que faz as regras 2, 3 e 4
 funcionarem, e assim voce nunca perde os dados.
+
+## Adicionar um destino
+
+No `destinos.json`:
+
+```json
+{ "id": "MVD", "cidade": "Montevideo", "regiao": "cone-sul",
+  "lat": -34.84, "lon": -56.03, "fixo": false }
+```
+
+`lat`/`lon` sao obrigatorios (sem eles nao da pra calcular distancia nem teto).
+`fixo: true` faz entrar em todas as rodadas em vez do rodizio — use com
+parcimonia, cada fixo custa 3 consultas por rodada.
 
 ## Ajustes que valem a pena
 
-Tudo no `config.json`:
-
-- **Baixar o teto** de uma rota se estiver enchendo o saco com alerta demais.
-- **`percentilAlvo`** de 10 pra 5 deixa o alerta mais raro e mais valioso.
-- **Adicionar rota**: coloque o grupo de aeroportos em `grupos`, o nome da
-  cidade em `cidades` e a rota em `rotas`.
-- **`googleFlights.pausaMs`**: se o Google comecar a bloquear, aumente.
+- **Alerta demais** → suba `alertas.percentilAlvo` de 10 pra 5, ou baixe os
+  `tetosPorDistancia`.
+- **Alerta de menos** → o contrario, ou baixe `regiaoFracaoDaMediana` de 0.6
+  pra 0.7.
+- **Economizar Actions** → `varredura.consultasPorRodada` menor, ou menos
+  horarios no cron.
 
 ## Telegram (opcional)
 
-Se preferir alerta no celular na hora, crie os secrets `TELEGRAM_BOT_TOKEN` e
-`TELEGRAM_CHAT_ID` no repositorio. Sem eles, so a issue e aberta.
-
-## Travelpayouts (opcional)
-
-Cadastro gratuito em travelpayouts.com, pegue o token e salve como secret
-`TRAVELPAYOUTS_TOKEN`. Sem ele essa fonte fica desligada e nada quebra.
-
-## O que ja foi testado de verdade
-
-O diagnostico rodou no GitHub Actions e devolveu:
-
-- `q`: **OK** — MVD -> Sao Paulo por R$ 1.380, 66 precos na pagina, cias
-  reconhecidas (LATAM, Gol, Azul, Aerolineas, JetSMART, Sky, Copa, Avianca...).
-- `tfs`: **OK** na forma plana e com o parametro `tfu` na URL. A variante
-  aninhada nao funciona, e sem o `tfu` o Google monta a pagina mas nao executa
-  a busca (1,8 MB e zero preco) - as duas coisas so apareceram testando.
-- Rodada curta de 6 datas MVD -> Sao Paulo: 6 leituras, 0 falhas
-  (R$ 1.139 a R$ 1.380).
-- Feeds: 5 vivos dos 8 testados. Os 3 mortos ja sairam da lista.
-- Cambio: OK.
-
-Se o `q` comecar a falhar muito, a rodada avisa no resumo do Actions em vez de
-emudecer: mais de 30% das leituras em precisao baixa vira aviso explicito.
+Crie os secrets `TELEGRAM_BOT_TOKEN` e `TELEGRAM_CHAT_ID`. Sem eles, so a
+issue e aberta.
 
 ## Limites honestos
 
 - Preco de busca nao e garantia de venda. Confirme no site da cia.
-- Scraping quebra: por isso o diagnostico roda a cada push e existem duas
+- Scraping quebra: por isso o diagnostico roda a cada push, existem duas
   estrategias e uma fonte de reserva.
 - O runner do GitHub tem IP de datacenter. Se o Google passar a bloquear,
-  aumente `pausaMs`, ou ligue o Travelpayouts, ou rode o `monitor.js` na sua
+  aumente `googleFlights.pausaMs`, ligue o Travelpayouts, ou rode na sua
   maquina — o codigo e o mesmo.
-- Milhas em dinheiro so entram por estimativa (teto de milhas) e pelos feeds.
-  Busca de resgate ao vivo exigiria login automatizado nos programas, que da
-  problema de 2FA e risco pra sua conta. Ficou de fora de proposito.
+- Busca de resgate ao vivo em milhas exigiria login automatizado nos
+  programas, que da problema de 2FA e risco pra sua conta. Ficou de fora de
+  proposito.

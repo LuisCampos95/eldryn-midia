@@ -189,6 +189,12 @@ async function coletar(consultas, cfg, opcoes = {}) {
         fonte: 'google-flights',
         estrategia: r.estrategia,
         rotaId: c.rotaId,
+        origem: c.rotaId.split('-')[0],
+        regiao: c.regiao,
+        distanciaKm: c.distanciaKm,
+        // preco por km e o que deixa comparar uma pechincha pra Recife com
+        // uma pechincha pra Madri
+        precoPorKm: c.distanciaKm ? Number((r.preco / c.distanciaKm).toFixed(3)) : null,
         de: c.origens.join('/'),
         para: c.destinos.join('/'),
         data: c.data,
@@ -201,8 +207,9 @@ async function coletar(consultas, cfg, opcoes = {}) {
         link: r.url,
         coletadoEm: new Date().toISOString()
       });
-      log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data} -> R$ ${r.preco} ` +
-          `(${r.estrategia}, ${r.amostras} precos${r.precisao === 'baixa' ? ', precisao baixa' : ''})`);
+      log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data} -> R$ ${r.preco}` +
+          (c.distanciaKm ? ` (${(r.preco / c.distanciaKm).toFixed(2)}/km)` : '') +
+          ` [${r.estrategia}${r.precisao === 'baixa' ? ', precisao baixa' : ''}]`);
     } else {
       falhas.push({ rotaId: c.rotaId, data: c.data, erro: r.erro });
       log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data} -> FALHOU: ${r.erro}`);

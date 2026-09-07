@@ -14,10 +14,13 @@ function linhaAlerta(al, taxas, cambio) {
   const o = al.obs;
   const extra = cambio ? cambio(o.precoBRL, taxas) : '';
   const cias = o.cias && o.cias.length ? ` · ${o.cias.slice(0, 4).join(', ')}` : '';
+  const dist = o.distanciaKm
+    ? ` · ${o.distanciaKm.toLocaleString('pt-BR')} km · ${o.precoPorKm.toFixed(2)}/km`
+    : '';
   const milhas = al.milhasMax
     ? `\n  - Em LATAM Pass so compensa ate **~${al.milhasMax.toLocaleString('pt-BR')} milhas** + taxas`
     : '';
-  return `- **${o.rotaId}** ${o.data} — **${brl(o.precoBRL)}**${extra ? ` (${extra})` : ''}${cias}\n` +
+  return `- **${o.rotaId}** ${o.data} — **${brl(o.precoBRL)}**${extra ? ` (${extra})` : ''}${dist}${cias}\n` +
          al.motivos.map((m) => `  - ${m.texto}`).join('\n') + milhas +
          (o.link ? `\n  - [abrir busca](${o.link})` : '');
 }

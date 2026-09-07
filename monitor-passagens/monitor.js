@@ -13,7 +13,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const { log, iso, somarDias, brl } = require('./lib/util');
+const { log, brl } = require('./lib/util');
+const catalogo = require('./lib/catalogo');
 const historico = require('./lib/historico');
 const alertas = require('./lib/alertas');
 const notifica = require('./lib/notifica');
@@ -24,6 +25,7 @@ const travelpayouts = require('./lib/fontes/travelpayouts');
 
 const RAIZ = __dirname;
 const CONFIG = JSON.parse(fs.readFileSync(path.join(RAIZ, 'config.json'), 'utf8'));
+const CATALOGO = catalogo.carregar();
 const ARQ_ESTADO = path.join(RAIZ, 'estado.json');
 const ARQ_ULTIMO = path.join(RAIZ, 'ultimo.json');
 
@@ -41,36 +43,7 @@ function args() {
 
 function lerEstado() {
   try { return JSON.parse(fs.readFileSync(ARQ_ESTADO, 'utf8')); }
-  catch (_) { return { alertas: {}, feedsVistos: [], rodadas: 0 }; }
-}
-
-// Distribui as datas ao longo do horizonte, com passo por prioridade.
-// Cada rodada desloca o ponto de partida (rodadas % passo) pra que, ao longo
-// dos dias, o monitor acabe cobrindo todas as datas em vez de sempre as mesmas.
-function planejar(cfg, estado, filtroRota) {
-  const consultas = [];
-  const deslocamento = (estado.rodadas || 0);
-  for (const rota of cfg.rotas) {
-    if (filtroRota && rota.id !== filtroRota) continue;
-    const h = cfg.horizonte[String(rota.prioridade)] || cfg.horizonte['1'];
-    const origens = cfg.grupos[rota.de];
-    const destinos = cfg.grupos[rota.para];
-    const inicio = h.diasMin + (deslocamento % h.passoDias);
-    for (let d = inicio; d <= h.diasMax; d += h.passoDias) {
-      consultas.push({
-        rotaId: rota.id,
-        origens,
-        destinos,
-        cidadeOrigem: cfg.cidades[rota.de],
-        cidadeDestino: cfg.cidades[rota.para],
-        data: iso(somarDias(new Date(), d)),
-        prioridade: rota.prioridade
-      });
-    }
-  }
-  // prioridade 1 primeiro: se a rodada for cortada por --limite, corta o que importa menos
-  consultas.sort((a, b) => a.prioridade - b.prioridade);
-  return consultas;
+  catch (_) { return { alertas: {}, feedsVistos: [], rodadas: 0, cursorRodizio: 0 }; }
 }
 
 async function diagnostico(cfg, opts) {
@@ -78,7 +51,7 @@ async function diagnostico(cfg, opts) {
   const linhas = [];
 
   log('1) Google Flights');
-  const teste = planejar(cfg, { rodadas: 0 }, 'MVD-SAO')[0];
+  const teste = catalogo.montarFila(CATALOGO, cfg, { rodadas: 0, cursorRodizio: 0 }, 'MVD-SAO').consultas[0];
   for (const estrategia of ['q', 'tfs', 'tfs-aninhado']) {
     const r = await googleflights.consultar(teste, { timeoutMs: cfg.googleFlights.timeoutMs, estrategia });
     if (r.ok) {
@@ -117,9 +90,11 @@ async function main() {
   const taxas = await cambio.taxas();
 
   // --- coleta de precos ---
-  let consultas = planejar(CONFIG, estado, opts.rota);
+  const fila = catalogo.montarFila(CATALOGO, CONFIG, estado, opts.rota);
+  let consultas = fila.consultas;
   if (Number.isFinite(opts.limite)) consultas = consultas.slice(0, opts.limite);
-  log(`Rodada ${estado.rodadas + 1}: ${consultas.length} consultas de preco.`);
+  log(`Rodada ${estado.rodadas + 1}: ${consultas.length} consultas ` +
+      `(catalogo tem ${fila.total}; volta inteira a cada ~${fila.cobertura} rodadas).`);
 
   let obs = [];
   let falhas = [];
@@ -148,10 +123,9 @@ async function main() {
 
   // --- historico e alertas ---
   const hist = historico.carregar(CONFIG.alertas.janelaHistoricoDias);
-  const rotasPorId = Object.fromEntries(CONFIG.rotas.map((r) => [r.id, r]));
 
   const candidatos = [
-    ...alertas.gerar(obs, hist, CONFIG, rotasPorId),
+    ...alertas.gerar(obs, hist, CONFIG),
     ...alertas.gerarDeFeeds(itensFeed)
   ];
   const novos = alertas.filtrarNovos(candidatos, estado, CONFIG.alertas.cooldownHoras,
@@ -159,21 +133,34 @@ async function main() {
 
   historico.gravar(obs);
   estado.rodadas = (estado.rodadas || 0) + 1;
+  estado.cursorRodizio = fila.cursor;
   estado.ultimaRodadaEm = new Date().toISOString();
   fs.writeFileSync(ARQ_ESTADO, JSON.stringify(estado, null, 2) + '\n');
 
   // snapshot legivel do estado atual do mercado
   const melhorPorRota = {};
   for (const o of obs) {
+    if (o.precisao === 'baixa') continue;
     if (!melhorPorRota[o.rotaId] || o.precoBRL < melhorPorRota[o.rotaId].precoBRL) {
-      melhorPorRota[o.rotaId] = { precoBRL: o.precoBRL, data: o.data, cias: o.cias, link: o.link };
+      melhorPorRota[o.rotaId] = {
+        precoBRL: o.precoBRL, data: o.data, distanciaKm: o.distanciaKm,
+        precoPorKm: o.precoPorKm, regiao: o.regiao, cias: o.cias, link: o.link
+      };
     }
   }
+  // ranking por preco por km: e ele que responde "pra onde vale a pena ir agora"
+  const ranking = Object.entries(melhorPorRota)
+    .filter(([, m]) => m.precoPorKm)
+    .sort((a, b) => a[1].precoPorKm - b[1].precoPorKm)
+    .slice(0, 20);
   fs.writeFileSync(ARQ_ULTIMO, JSON.stringify({
     atualizadoEm: new Date().toISOString(),
     leituras: obs.length,
     falhas: falhas.length,
     cambio: taxas,
+    cursorRodizio: fila.cursor,
+    catalogo: { pares: fila.total, voltaEmRodadas: fila.cobertura },
+    ranking: ranking.map(([id, m]) => ({ rota: id, ...m })),
     melhorPorRota
   }, null, 2) + '\n');
 
@@ -185,12 +172,16 @@ async function main() {
     : '';
   if (alertaDeSaude) log(alertaDeSaude.trim());
 
-  const tabela = Object.entries(melhorPorRota)
-    .map(([id, m]) => `| ${id} | ${m.data} | ${brl(m.precoBRL)} |`).join('\n');
+  const tabela = ranking
+    .map(([id, m]) => `| ${id} | ${m.regiao || '-'} | ${m.data} | ${brl(m.precoBRL)} | ` +
+                      `${m.distanciaKm.toLocaleString('pt-BR')} km | ${m.precoPorKm.toFixed(2)} |`).join('\n');
   notifica.resumoDoActions(
     `## Rodada\n\n${obs.length} leituras, ${falhas.length} falhas, ${novos.length} alertas novos.\n` +
     alertaDeSaude + '\n' +
-    (tabela ? `| rota | data | melhor preco |\n|---|---|---|\n${tabela}\n` : '_sem leitura de preco nesta rodada_\n')
+    (tabela
+      ? `### Melhores por preco/km nesta rodada\n\n` +
+        `| rota | regiao | data | preco | distancia | R$/km |\n|---|---|---|---|---|---|\n${tabela}\n`
+      : '_sem leitura de preco nesta rodada_\n')
   );
 
   if (!novos.length) { log('Nenhum alerta novo.'); return; }
