@@ -68,9 +68,10 @@ async function coletar(cfg) {
       const ctrl = new AbortController();
       const t = setTimeout(() => ctrl.abort(), 20000);
       const r = await fetch(url, { signal: ctrl.signal, headers: { 'User-Agent': UA, Accept: 'application/rss+xml, application/xml, text/xml, */*' } });
-      clearTimeout(t);
-      if (!r.ok) { falhas.push({ url, erro: `HTTP ${r.status}` }); log(`  feed FALHOU: ${url} -> HTTP ${r.status}`); continue; }
+      if (!r.ok) {
+        clearTimeout(t); falhas.push({ url, erro: `HTTP ${r.status}` }); log(`  feed FALHOU: ${url} -> HTTP ${r.status}`); continue; }
       const xml = await r.text();
+      clearTimeout(t);
       const lista = itens(xml);
       if (lista.length === 0) { falhas.push({ url, erro: 'feed sem <item>' }); log(`  feed FALHOU: ${url} -> sem <item>`); continue; }
 

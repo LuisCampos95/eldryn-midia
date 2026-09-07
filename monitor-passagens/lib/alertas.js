@@ -87,11 +87,14 @@ function gerarDeFeeds(achados) {
 }
 
 // Nao repetir o mesmo alerta a cada 6 horas.
-function filtrarNovos(alertas, estado, cooldownHoras) {
+function filtrarNovos(alertas, estado, cooldownHoras, maxPorRodada = Infinity) {
   const agora = Date.now();
   const limite = cooldownHoras * 3600 * 1000;
   const novos = [];
   for (const al of alertas) {
+    // para de marcar ao atingir o teto da rodada: o que sobrar tem que poder
+    // disparar na proxima, nao ficar 48h em silencio por causa do corte
+    if (novos.length >= maxPorRodada) break;
     const visto = estado.alertas[al.chave];
     if (visto && (agora - visto) < limite) continue;
     estado.alertas[al.chave] = agora;

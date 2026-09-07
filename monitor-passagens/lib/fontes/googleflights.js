@@ -23,8 +23,10 @@ const CIAS = [
 
 // --- montagem do tfs -------------------------------------------------------
 
-// O schema do Google nao e publico. Duas formas plausiveis pro aeroporto:
-// aninhado num wrapper (campo 1) ou direto. O diagnostico testa as duas.
+// O schema do Google nao e publico. Testamos as duas formas plausiveis no
+// runner: a plana funciona, a aninhada num wrapper (campo 1) cai na home sem
+// preco nenhum. Fica a plana; a outra sobra so pro diagnostico, pra flagrar
+// se um dia o Google trocar.
 function aeroporto(codigo, aninhado) {
   const dentro = campoString(2, codigo);
   return aninhado ? campoMensagem(1, dentro) : dentro;
@@ -40,7 +42,7 @@ function trecho(data, origens, destinos, maxParadas, aninhado) {
   return Buffer.concat(partes);
 }
 
-function montarTfs({ data, origens, destinos, maxParadas }, aninhado = true) {
+function montarTfs({ data, origens, destinos, maxParadas }, aninhado = false) {
   // message Info { repeated FlightData trechos = 3; repeated int pax = 8;
   //                int cabine = 9; int tipo = 19; }
   const info = Buffer.concat([
@@ -52,10 +54,10 @@ function montarTfs({ data, origens, destinos, maxParadas }, aninhado = true) {
   return base64url(info);
 }
 
-function urlTfs({ data, origens, destinos, maxParadas }, aninhado = true) {
+function urlTfs({ data, origens, destinos, maxParadas }, aninhado = false) {
   const tfs = montarTfs({ data, origens, destinos, maxParadas }, aninhado);
   return 'https://www.google.com/travel/flights?tfs=' + encodeURIComponent(tfs) +
-         '&tfu=EgQIABABIgA&hl=pt-BR&gl=BR&curr=BRL';
+         '&hl=pt-BR&gl=BR&curr=BRL';
 }
 
 function urlQuery({ data, cidadeOrigem, cidadeDestino, origens, destinos }) {
@@ -132,8 +134,8 @@ async function consultar(consulta, opcoes = {}) {
 
   let ultimoErro = null;
   for (const estrategia of estrategias) {
-    const url = estrategia === 'tfs' ? urlTfs(consulta, true)
-              : estrategia === 'tfs-plano' ? urlTfs(consulta, false)
+    const url = estrategia === 'tfs' ? urlTfs(consulta, false)
+              : estrategia === 'tfs-aninhado' ? urlTfs(consulta, true)
               : urlQuery(consulta);
     try {
       const { status, html } = await buscarUrl(url, timeoutMs);

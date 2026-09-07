@@ -13,9 +13,9 @@ async function taxas() {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 15000);
     const r = await fetch('https://open.er-api.com/v6/latest/BRL', { signal: ctrl.signal });
-    clearTimeout(t);
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const j = await r.json();
+    clearTimeout(t); // so depois de ler o corpo: header rapido + body travado penduraria a rodada
     if (!j || !j.rates) throw new Error('resposta sem rates');
     const out = { UYU: j.rates.UYU, ARS: j.rates.ARS, USD: j.rates.USD, atualizadoEm: new Date().toISOString() };
     fs.writeFileSync(CACHE, JSON.stringify(out, null, 2) + '\n');

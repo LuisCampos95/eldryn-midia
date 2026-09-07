@@ -80,9 +80,18 @@ Entao o monitor ataca milhas por dois lados que custam zero:
 | open.er-api.com | zero | nao | cotacao pra mostrar em $U e US$ |
 
 O Google Flights nao tem API oficial: o monitor monta a mesma URL que o site
-usa. Por isso existem **duas estrategias** (`tfs`, o parametro protobuf do
-proprio Google, e `q`, a busca em texto). Se uma quebrar, ele cai na outra
-sozinho. Se as duas quebrarem, os feeds continuam funcionando.
+usa. Por isso existem **duas estrategias**, e as duas foram testadas rodando
+no proprio Actions:
+
+- **`q`** (primaria) — busca em texto, tipo `flights from Montevideo to Sao
+  Paulo on 2026-10-15`. Devolve ~60 precos por consulta, um por itinerario
+  daquela data. E a mais limpa, e por isso ela vem primeiro.
+- **`tfs`** (reserva) — o parametro protobuf que o proprio site usa. Serve de
+  paraquedas se o `q` parar de responder.
+
+Se as duas quebrarem, os feeds continuam funcionando. O `--diagnostico` testa
+as duas separadamente (mais uma terceira variante de schema do `tfs`), entao
+da pra ver na hora qual esta viva.
 
 ## Rodando na mao
 
@@ -131,6 +140,18 @@ Se preferir alerta no celular na hora, crie os secrets `TELEGRAM_BOT_TOKEN` e
 
 Cadastro gratuito em travelpayouts.com, pegue o token e salve como secret
 `TRAVELPAYOUTS_TOKEN`. Sem ele essa fonte fica desligada e nada quebra.
+
+## O que ja foi testado de verdade
+
+O diagnostico rodou no GitHub Actions e devolveu:
+
+- `q`: **OK** — MVD -> Sao Paulo por R$ 1.380, 66 precos na pagina, cias
+  reconhecidas (LATAM, Gol, Azul, Aerolineas, JetSMART, Sky, Copa, Avianca...).
+- `tfs`: **OK** na forma plana; a variante aninhada nao funciona.
+- Rodada curta de 6 datas MVD -> Sao Paulo: 6 leituras, 0 falhas
+  (R$ 1.139 a R$ 1.380).
+- Feeds: 5 vivos dos 8 testados. Os 3 mortos ja sairam da lista.
+- Cambio: OK.
 
 ## Limites honestos
 
