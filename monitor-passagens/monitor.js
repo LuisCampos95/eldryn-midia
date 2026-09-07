@@ -181,8 +181,9 @@ async function main() {
     if (o.precisao === 'baixa') continue;
     if (!melhorPorRota[o.rotaId] || o.precoBRL < melhorPorRota[o.rotaId].precoBRL) {
       melhorPorRota[o.rotaId] = {
-        precoBRL: o.precoBRL, data: o.data, distanciaKm: o.distanciaKm,
-        precoPorKm: o.precoPorKm, regiao: o.regiao, cias: o.cias, link: o.link
+        precoBRL: o.precoBRL, data: o.data, dataVolta: o.dataVolta, noites: o.noites,
+        distanciaKm: o.distanciaKm, precoPorKm: o.precoPorKm, regiao: o.regiao,
+        ciasNaPagina: o.ciasNaPagina, link: o.link
       };
     }
   }

@@ -55,14 +55,26 @@ function pares(cat) {
 
 // Datas espalhadas pelo horizonte. O `giro` desloca todas elas a cada rodada,
 // entao com o tempo o monitor cobre o calendario todo e nao so os mesmos dias.
+//
+// Ida e volta e o que se compra de verdade, entao cada consulta ja leva a
+// volta junto. A duracao alterna por rodada (7 e 14 noites) em vez de virar
+// duas consultas: assim os dois tamanhos de viagem sao amostrados sem dobrar
+// o custo da varredura.
 function datas(cfg, quantas, giro) {
   const { diasMin, diasMax } = cfg;
+  const duracoes = cfg.duracoesDias && cfg.duracoesDias.length ? cfg.duracoesDias : [7];
+  const noites = duracoes[giro % duracoes.length];
   const vao = diasMax - diasMin;
   const passo = vao / quantas;
   const out = [];
   for (let i = 0; i < quantas; i++) {
     const dia = Math.round(diasMin + i * passo + ((giro * 5) % passo));
-    out.push(iso(somarDias(new Date(), Math.min(dia, diasMax))));
+    const ida = somarDias(new Date(), Math.min(dia, diasMax));
+    out.push({
+      data: iso(ida),
+      dataVolta: cfg.tipo === 'so-ida' ? null : iso(somarDias(ida, noites)),
+      noites: cfg.tipo === 'so-ida' ? null : noites
+    });
   }
   return out;
 }
@@ -83,7 +95,7 @@ function montarFila(cat, cfg, estado, filtroRota) {
   const expandir = (lista, quantasDatas) => {
     const out = [];
     for (const p of lista) {
-      for (const data of datas(v, quantasDatas, giro)) out.push({ ...p, data });
+      for (const d of datas(v, quantasDatas, giro)) out.push({ ...p, ...d });
     }
     return out;
   };

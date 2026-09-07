@@ -9,15 +9,20 @@
 
 const { brl } = require('./util');
 
+// Sem coluna de companhia de proposito. O que o coletor tem hoje e a lista de
+// cias citadas em algum lugar da pagina, nao a cia daquela tarifa - mostrar
+// isso como "a companhia do voo" seria inventar. Volta quando a leitura for
+// por itinerario.
 function tabela(linhas, cambio, taxas) {
-  const cab = '| rota | destino | data | preco | km | R$/km | cias |\n' +
-              '|---|---|---|---|---|---|---|';
+  const cab = '| rota | destino | ida | volta | preco | km | R$/km | abrir |\n' +
+              '|---|---|---|---|---|---|---|---|';
   const corpo = linhas.map((l) => {
-    const cias = (l.cias || []).slice(0, 3).join(', ') || '-';
     const conv = cambio && taxas ? cambio(l.precoBRL, taxas) : '';
-    return `| ${l.rota} | ${l.cidade || l.rota.split('-')[1]} | ${l.data} | ` +
+    const volta = l.dataVolta ? `${l.dataVolta}<br><sub>${l.noites} noites</sub>` : '_so ida_';
+    const link = l.link ? `[buscar](${l.link})` : '-';
+    return `| \`${l.rota}\` | ${l.cidade || l.rota.split('-')[1]} | ${l.data} | ${volta} | ` +
            `**${brl(l.precoBRL)}**${conv ? `<br><sub>${conv}</sub>` : ''} | ` +
-           `${l.distanciaKm.toLocaleString('pt-BR')} | ${l.precoPorKm.toFixed(2)} | ${cias} |`;
+           `${l.distanciaKm.toLocaleString('pt-BR')} | ${l.precoPorKm.toFixed(2)} | ${link} |`;
   }).join('\n');
   return `${cab}\n${corpo}`;
 }
@@ -49,7 +54,10 @@ function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId }) {
   }
 
   p.push('---\n');
-  p.push('Preco e de busca, nao e garantia de venda: confirme no site da cia antes de comprar.');
+  p.push('**Preco de ida e volta, por adulto, em economica.** O link abre a mesma busca no');
+  p.push('Google Flights, onde aparecem a companhia, os horarios, as escalas e onde comprar.');
+  p.push('');
+  p.push('Preco e de busca, nao e garantia de venda: confirme antes de comprar.');
   p.push('Alertas de queda chegam por issue (com e-mail). Este painel e a foto do momento.');
   return p.join('\n');
 }

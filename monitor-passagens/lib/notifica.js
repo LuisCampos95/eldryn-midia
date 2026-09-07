@@ -13,16 +13,16 @@ function linhaAlerta(al, taxas, cambio) {
   }
   const o = al.obs;
   const extra = cambio ? cambio(o.precoBRL, taxas) : '';
-  const cias = o.cias && o.cias.length ? ` · ${o.cias.slice(0, 4).join(', ')}` : '';
+  const volta = o.dataVolta ? ` → ${o.dataVolta} (${o.noites} noites)` : ' (so ida)';
   const dist = o.distanciaKm
     ? ` · ${o.distanciaKm.toLocaleString('pt-BR')} km · ${o.precoPorKm.toFixed(2)}/km`
     : '';
   const milhas = al.milhasMax
     ? `\n  - Em LATAM Pass so compensa ate **~${al.milhasMax.toLocaleString('pt-BR')} milhas** + taxas`
     : '';
-  return `- **${o.rotaId}** ${o.data} — **${brl(o.precoBRL)}**${extra ? ` (${extra})` : ''}${dist}${cias}\n` +
+  return `- **${o.rotaId}** ${o.data}${volta} — **${brl(o.precoBRL)}**${extra ? ` (${extra})` : ''}${dist}\n` +
          al.motivos.map((m) => `  - ${m.texto}`).join('\n') + milhas +
-         (o.link ? `\n  - [abrir busca](${o.link})` : '');
+         (o.link ? `\n  - [abrir no Google Flights](${o.link}) — cia, horarios, escalas e onde comprar` : '');
 }
 
 function montarCorpo(alertas, taxas, cambio, resumo) {

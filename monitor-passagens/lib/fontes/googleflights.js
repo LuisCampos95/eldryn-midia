@@ -42,20 +42,25 @@ function trecho(data, origens, destinos, maxParadas, aninhado) {
   return Buffer.concat(partes);
 }
 
-function montarTfs({ data, origens, destinos, maxParadas }, aninhado = false) {
+function montarTfs({ data, dataVolta, origens, destinos, maxParadas }, aninhado = false) {
   // message Info { repeated FlightData trechos = 3; repeated int pax = 8;
   //                int cabine = 9; int tipo = 19; }
+  // tipo: 1 = ida e volta (dois trechos), 2 = so ida
+  const trechos = [campoMensagem(3, trecho(data, origens, destinos, maxParadas, aninhado))];
+  if (dataVolta) {
+    trechos.push(campoMensagem(3, trecho(dataVolta, destinos, origens, maxParadas, aninhado)));
+  }
   const info = Buffer.concat([
-    campoMensagem(3, trecho(data, origens, destinos, maxParadas, aninhado)),
-    campoInt(8, 1),   // 1 adulto
-    campoInt(9, 1),   // economica
-    campoInt(19, 2)   // so ida
+    ...trechos,
+    campoInt(8, 1),                    // 1 adulto
+    campoInt(9, 1),                    // economica
+    campoInt(19, dataVolta ? 1 : 2)
   ]);
   return base64url(info);
 }
 
-function urlTfs({ data, origens, destinos, maxParadas }, aninhado = false) {
-  const tfs = montarTfs({ data, origens, destinos, maxParadas }, aninhado);
+function urlTfs({ data, dataVolta, origens, destinos, maxParadas }, aninhado = false) {
+  const tfs = montarTfs({ data, dataVolta, origens, destinos, maxParadas }, aninhado);
   // O `tfu` nao e enfeite: sem ele o Google devolve a pagina montada mas nao
   // executa a busca, e nao vem preco nenhum (testado no runner, 1.8MB e zero
   // R$). Com ele a busca roda - mas a pagina vem com a grade de datas
@@ -65,10 +70,12 @@ function urlTfs({ data, origens, destinos, maxParadas }, aninhado = false) {
          '&tfu=EgQIABABIgA&hl=pt-BR&gl=BR&curr=BRL';
 }
 
-function urlQuery({ data, cidadeOrigem, cidadeDestino, origens, destinos }) {
+function urlQuery({ data, dataVolta, cidadeOrigem, cidadeDestino, origens, destinos }) {
   const de = cidadeOrigem || origens[0];
   const para = cidadeDestino || destinos[0];
-  const q = `flights from ${de} to ${para} on ${data} one way`;
+  const q = dataVolta
+    ? `flights from ${de} to ${para} on ${data} returning ${dataVolta}`
+    : `flights from ${de} to ${para} on ${data} one way`;
   return 'https://www.google.com/travel/flights?q=' + encodeURIComponent(q) +
          '&hl=pt-BR&gl=BR&curr=BRL';
 }
@@ -257,16 +264,18 @@ async function coletar(consultas, cfg, opcoes = {}) {
         de: c.origens.join('/'),
         para: c.destinos.join('/'),
         data: c.data,
+        dataVolta: c.dataVolta || null,
+        noites: c.noites || null,
         precoBRL: r.preco,
         precoMedianaBRL: r.precoMediana,
         precisao: r.precisao,
         moeda: 'BRL',
-        cias: r.cias,
+        ciasNaPagina: r.cias,
         amostrasNaPagina: r.amostras,
         link: r.url,
         coletadoEm: new Date().toISOString()
       });
-      log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data} -> R$ ${r.preco}` +
+      log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data}${c.dataVolta ? `/${c.dataVolta.slice(5)}` : ''} -> R$ ${r.preco}` +
           (c.distanciaKm ? ` (${(r.preco / c.distanciaKm).toFixed(2)}/km)` : '') +
           ` [${r.estrategia}${r.precisao === 'baixa' ? ', precisao baixa' : ''}` +
           `${r.descartadosAbaixo ? `, ${r.descartadosAbaixo} outlier(s) abaixo descartado(s)` : ''}]`);

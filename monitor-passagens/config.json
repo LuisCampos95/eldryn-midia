@@ -1,12 +1,17 @@
 {
   "moedaBase": "BRL",
   "varredura": {
-    "_comentario": "130 consultas/rodada ~= 6 min. 4 rodadas/dia cabem folgado na cota gratuita de 2.000 min/mes do Actions em repo privado. Baixe consultasPorRodada se quiser economizar.",
+    "_comentario": "130 consultas/rodada ~= 6 min. 4 rodadas/dia cabem folgado na cota gratuita de 2.000 min/mes do Actions em repo privado. duracoesDias alterna a cada rodada, entao os dois tamanhos de viagem sao amostrados sem dobrar o numero de consultas.",
     "diasMin": 14,
     "diasMax": 240,
     "datasPorParFixo": 3,
     "datasPorParRodizio": 3,
-    "consultasPorRodada": 130
+    "consultasPorRodada": 130,
+    "tipo": "ida-e-volta",
+    "duracoesDias": [
+      7,
+      14
+    ]
   },
   "tetosPorDistancia": [
     {
