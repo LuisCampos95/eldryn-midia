@@ -77,8 +77,8 @@ jobs:
           if [ -n "${{ github.event.inputs.estrategia }}" ]; then ARGS="$ARGS --estrategia=${{ github.event.inputs.estrategia }}"; fi
           node monitor.js $ARGS
 
-      - name: Guardar historico
-        if: github.event_name != 'push' && github.event.inputs.modo != 'diagnostico'
+      - name: Guardar historico e painel
+        if: github.event.inputs.modo != 'diagnostico'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -89,7 +89,7 @@ jobs:
             echo "nada novo pra commitar"
             exit 0
           fi
-          git commit -m "monitor de passagens: rodada $(date -u +%Y-%m-%dT%H:%MZ)"
+          git commit -m "monitor de passagens: painel de $(date -u +%Y-%m-%dT%H:%MZ)"
           # o commit pode colidir com o workflow do Instagram, que tambem empurra
           for tentativa in 1 2 3 4; do
             if git push; then exit 0; fi
