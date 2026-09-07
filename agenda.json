@@ -632,6 +632,14 @@
       ]
     },
     {
+      "post": "rc258",
+      "hora": "14:00",
+      "quandoUtc": "2026-09-07T17:00:00.000Z",
+      "texto": "🔌 SEU AMIGO NÃO CONSEGUIA VOLTAR PRO MUNDO SEM VOCÊ REINICIAR O JOGO, E ISSO ACABOU\n\nSaiu a 0.6.4, quarta leva de correções do Update 6.\n\n🔹 Depois que alguém caía da conexão, só reentrava no mundo se o dono reiniciasse o jogo inteiro. Agora o host mantém a conexão viva e reentra direto\n🔹 Abertura de porta automática ficava desistindo cedo demais quando outro aparelho da rede demorava a responder, o que soltava aquele aviso de \"não disponível\" à toa\n🔹 Duas máquinas na mesma rede podiam derrubar a porta aberta uma da outra ao entrar ou abrir mundo, corrigido\n🔹 Rotacionar seleção de bloco com entidade no criativo girava errado, agora acompanha certo\n\n🔧 Notas completas no site oficial do Hytale\n\n🎮 Bora jogar no Eldryn! Nosso servidor Survival.\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "imagem",
+      "arquivo": "rc258.jpg"
+    },
+    {
       "post": "rc251",
       "hora": "16:00",
       "quandoUtc": "2026-09-07T19:00:00.000Z",
