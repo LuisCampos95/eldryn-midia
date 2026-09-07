@@ -660,6 +660,32 @@
         "rc253_3.jpg",
         "rc253_4.jpg"
       ]
+    },
+    {
+      "post": "rc255",
+      "hora": "12:30",
+      "quandoUtc": "2026-09-09T15:30:00.000Z",
+      "texto": "🛒 ACHARAM GOBLIN VENDEDOR E GOBLIN TORRE DE VIGIA NOS ARQUIVOS DO JOGO\n\nModelo novo apareceu dentro do próprio jogo, mesmo sem estar em uso ainda. Não são todos hostis.\n\n🔹 O Goblin Merchant é modelo pacífico, dá pra imaginar ele vendendo item futuramente\n🔹 O Goblin Turret detecta o jogador e avisa o resto do bando que o território foi invadido\n🔹 Ainda tem goblin simplesmente dormindo no meio do acampamento\n\n🎥 bravoxv_\n\n🎮 Bora jogar no Eldryn! Nosso servidor Survival.\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "carrossel",
+      "arquivo": "rc255_1.jpg",
+      "arquivos": [
+        "rc255_1.jpg",
+        "rc255_2.jpg",
+        "rc255_3.jpg",
+        "rc255_4.jpg"
+      ]
+    },
+    {
+      "post": "rc256",
+      "hora": "16:00",
+      "quandoUtc": "2026-09-09T19:00:00.000Z",
+      "texto": "🔧 FÃ IMAGINOU COMO SERIA A BANCADA DE CONSERTO DOS GOBLINS\n\nBaseado no que já se sabe do Goblin Scrapper, aquele goblin amigável que não ataca ninguém, o criador montou um conceito de como a estação de conserto dele funcionaria.\n\n🔹 No conceito a mesa nem quebra nem sai do lugar, só o Goblin Scrapper consegue reparar ela com o martelo\n🔹 Ganhou até uma interface de upgrade por nível, subindo capacidade de processamento\n\n🎨 bravoxv_\n\n🎮 Bora jogar no Eldryn! Nosso servidor Survival.\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "carrossel",
+      "arquivo": "rc256_1.jpg",
+      "arquivos": [
+        "rc256_1.jpg",
+        "rc256_2.jpg"
+      ]
     }
   ]
 }
