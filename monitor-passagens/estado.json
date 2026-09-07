@@ -1,7 +1,19 @@
 {
-  "alertas": {},
-  "feedsVistos": [],
-  "rodadas": 1,
-  "cursorRodizio": 85,
-  "ultimaRodadaEm": "2026-09-07T05:30:42.376Z"
+  "alertas": {
+    "feed|https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/": 1788802278268,
+    "feed|https://passageirodeprimeira.com/planejando-a-proxima-viagem-veja-sugestoes-de-resgate-para-roma-miami-e-muito-mais/": 1788802278268,
+    "feed|https://pontospravoar.com/confira-hoteis-proximos-avenida-paulista-diarias-partir-154-reais/": 1788802278268,
+    "feed|https://pontospravoar.com/palacios-de-madri-poderao-ser-visitados-de-graca/": 1788802278268,
+    "feed|https://pontospravoar.com/confira-ofertas-terminam-hoje-azul-fidelidade-latam-pass/": 1788802278268
+  },
+  "feedsVistos": [
+    "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
+    "https://passageirodeprimeira.com/planejando-a-proxima-viagem-veja-sugestoes-de-resgate-para-roma-miami-e-muito-mais/",
+    "https://pontospravoar.com/confira-hoteis-proximos-avenida-paulista-diarias-partir-154-reais/",
+    "https://pontospravoar.com/palacios-de-madri-poderao-ser-visitados-de-graca/",
+    "https://pontospravoar.com/confira-ofertas-terminam-hoje-azul-fidelidade-latam-pass/"
+  ],
+  "rodadas": 2,
+  "cursorRodizio": 170,
+  "ultimaRodadaEm": "2026-09-07T17:31:18.269Z"
 }

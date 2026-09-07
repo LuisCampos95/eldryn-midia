@@ -1,14 +1,14 @@
 {
-  "atualizadoEm": "2026-09-07T05:30:42.377Z",
-  "leituras": 0,
-  "falhas": 3,
+  "atualizadoEm": "2026-09-07T17:31:18.269Z",
+  "leituras": 74,
+  "falhas": 56,
   "cambio": {
-    "UYU": null,
-    "ARS": null,
-    "USD": null,
-    "erro": "HTTP 403"
+    "UYU": 7.854771,
+    "ARS": 294.290917,
+    "USD": 0.195234,
+    "atualizadoEm": "2026-09-07T17:24:06.300Z"
   },
-  "cursorRodizio": 85,
+  "cursorRodizio": 170,
   "catalogo": {
     "pares": 558,
     "voltaEmRodadas": 7
