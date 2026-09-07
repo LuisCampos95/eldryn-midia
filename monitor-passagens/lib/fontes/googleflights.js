@@ -82,7 +82,14 @@ function urlQuery({ data, dataVolta, cidadeOrigem, cidadeDestino, origens, desti
 
 // --- leitura da pagina -----------------------------------------------------
 
-// A pagina vem com precos em pt-BR: "R$ 1.234" ou "R$&nbsp;1.234,00".
+// A pagina mistura espaco comum, nbsp como caractere (\u00a0), espaco fino
+// (\u202f) e a entidade &nbsp;. Uniformizar antes de qualquer casamento por
+// texto, senao busca literal falha onde a regex com \s passaria.
+function normalizarEspacos(html) {
+  return html.replace(/&nbsp;|&#160;|[\u00a0\u202f\u2009]/g, ' ');
+}
+
+// A pagina vem com precos em pt-BR: "R$ 1.234" ou "R$ 1.234,00".
 function extrairPrecos(html) {
   const limpo = html.replace(/&nbsp;| | /g, ' ');
   const achados = [];
@@ -152,12 +159,16 @@ function extrairCias(html) {
 // saber. Pra consertar na raiz precisamos ancorar a leitura no elemento que
 // carrega o preco do itinerario - e pra isso precisamos ver esse elemento.
 // Devolve o trecho de HTML em volta de um preco, pra achar o ancoradouro.
-function contexto(html, preco, largura = 220) {
-  const limpo = html.replace(/&nbsp;| | /g, ' ');
-  const alvo = 'R$ ' + preco.toLocaleString('pt-BR');
-  const i = limpo.indexOf(alvo);
-  if (i < 0) return null;
-  return limpo.slice(Math.max(0, i - largura), i + 60).replace(/\s+/g, ' ');
+function contexto(html, preco, largura = 260) {
+  const limpo = normalizarEspacos(html);
+  // indexOf com espaco ASCII nao acha "R$<nbsp>1.380" - por isso a primeira
+  // versao deste diagnostico voltou '(nao encontrado)' enquanto extrairPrecos
+  // funcionava: la o \s da regex ja casava com o nbsp.
+  const num = preco.toLocaleString('pt-BR').replace(/\./g, '\\.');
+  const m = new RegExp('R\\$\\s?' + num + '(?![\\d.,])').exec(limpo);
+  if (!m) return null;
+  const i = m.index;
+  return limpo.slice(Math.max(0, i - largura), i + 80).replace(/\s+/g, ' ');
 }
 
 function pareceBloqueio(html) {
