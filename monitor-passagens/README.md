@@ -6,11 +6,22 @@ alguma coisa esta com preco bom - seja Recife, Santiago, Cancun ou Lisboa.
 
 Roda de graca no GitHub Actions. Sem servidor, sem API paga, sem `npm install`.
 
-## Como voce e avisado
+## Onde voce ve as passagens
 
-Quando algo dispara alerta, o robo **abre uma issue neste repositorio**. O
-GitHub ja te manda e-mail (e notificacao no celular, se voce tem o app), entao
-nao precisa configurar nada. Telegram e opcional, veja no fim.
+Dois lugares, com papeis diferentes:
+
+- **[`RANKING.md`](RANKING.md) — o painel.** Reescrito a cada rodada com o que
+  esta barato agora: os 20 melhores por preco/km e o melhor de cada origem,
+  com preco tambem em pesos uruguaios e dolar. E markdown de proposito: o
+  GitHub renderiza bonito mesmo em repositorio privado, inclusive no app do
+  celular. Sem Pages, sem deploy, sem plano pago — voce abre o arquivo e ve.
+  Este e o lugar de "bateu vontade de viajar, o que tem barato?".
+
+- **Issue — o alerta.** Quando alguma coisa dispara uma das quatro regras, o
+  robo abre uma issue e o GitHub te manda e-mail e push no celular. Este e o
+  lugar de "apareceu uma pechincha, corre". Telegram e opcional, veja no fim.
+
+Um voce puxa, o outro te empurra.
 
 ## O que ele varre
 
@@ -150,7 +161,8 @@ monitor.js           orquestra a rodada
 lib/catalogo.js      monta a fila, rodizio e distancias
 lib/fontes/          um adaptador por fonte de dados
 historico/           serie historica em NDJSON, um arquivo por mes
-ultimo.json          ranking por preco/km da ultima rodada
+RANKING.md           o painel: o que esta barato agora (abra este)
+ultimo.json          os mesmos dados em JSON, pra quem quiser processar
 estado.json          cursor do rodizio e controle de alerta repetido
 ```
 

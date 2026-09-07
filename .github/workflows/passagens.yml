@@ -54,10 +54,13 @@ jobs:
 
       # Smoke test de ponta a ponta: coleta 6 datas de verdade, grava historico
       # e roda as regras de alerta - so nao notifica nem commita.
-      - name: Rodada curta de teste
+      - name: Rodada de teste (coleta real, sem notificar nem commitar)
         if: github.event_name == 'push'
         working-directory: monitor-passagens
-        run: node monitor.js --limite=6 --sem-alerta
+        run: |
+          node monitor.js --sem-alerta
+          echo "===== RANKING.md ====="
+          cat RANKING.md
 
       - name: Rodada de coleta
         if: github.event_name != 'push' && github.event.inputs.modo != 'diagnostico'
@@ -80,7 +83,8 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add monitor-passagens/historico monitor-passagens/estado.json \
-                  monitor-passagens/ultimo.json monitor-passagens/cambio.json 2>/dev/null || true
+                  monitor-passagens/ultimo.json monitor-passagens/cambio.json \
+                  monitor-passagens/RANKING.md 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "nada novo pra commitar"
             exit 0

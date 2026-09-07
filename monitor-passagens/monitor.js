@@ -15,6 +15,7 @@ const path = require('path');
 
 const { log, brl } = require('./lib/util');
 const catalogo = require('./lib/catalogo');
+const painel = require('./lib/painel');
 const historico = require('./lib/historico');
 const alertas = require('./lib/alertas');
 const notifica = require('./lib/notifica');
@@ -28,6 +29,7 @@ const CONFIG = JSON.parse(fs.readFileSync(path.join(RAIZ, 'config.json'), 'utf8'
 const CATALOGO = catalogo.carregar();
 const ARQ_ESTADO = path.join(RAIZ, 'estado.json');
 const ARQ_ULTIMO = path.join(RAIZ, 'ultimo.json');
+const ARQ_PAINEL = path.join(RAIZ, 'RANKING.md');
 
 function args() {
   const a = { limite: Infinity, rota: null, diagnostico: false, semAlerta: false, estrategia: null };
@@ -153,6 +155,36 @@ async function main() {
     .filter(([, m]) => m.precoPorKm)
     .sort((a, b) => a[1].precoPorKm - b[1].precoPorKm)
     .slice(0, 20);
+  // melhor de cada origem, pro painel: e a pergunta real ("saindo de onde eu
+  // estou, pra onde vale a pena ir agora")
+  const porOrigem = {};
+  for (const [id, m] of Object.entries(melhorPorRota)) {
+    const origem = id.split('-')[0];
+    (porOrigem[origem] = porOrigem[origem] || []).push({ rota: id, ...m });
+  }
+  for (const lista of Object.values(porOrigem)) {
+    lista.sort((a, b) => (a.precoPorKm || 9e9) - (b.precoPorKm || 9e9));
+  }
+
+  const cidadePorId = Object.fromEntries(
+    CATALOGO.destinos.map((d) => [d.id, d.cidade || d.id]));
+
+  const md = painel.gerar({
+    ranking: ranking.map(([rota, m]) => ({ rota, ...m })),
+    porOrigem,
+    resumo: {
+      quando: new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC',
+      leituras: obs.length,
+      paresNoCatalogo: fila.total,
+      voltaEm: fila.cobertura
+    },
+    taxas,
+    cambio: cambio.converter,
+    cidadePorId
+  });
+  fs.writeFileSync(ARQ_PAINEL, md + '\n');
+  log(`\nPainel escrito em RANKING.md (${ranking.length} rotas no ranking).`);
+
   fs.writeFileSync(ARQ_ULTIMO, JSON.stringify({
     atualizadoEm: new Date().toISOString(),
     leituras: obs.length,
