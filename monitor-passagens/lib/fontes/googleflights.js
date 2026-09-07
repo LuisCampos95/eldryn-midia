@@ -70,14 +70,36 @@ function urlTfs({ data, dataVolta, origens, destinos, maxParadas }, aninhado = f
          '&tfu=EgQIABABIgA&hl=pt-BR&gl=BR&curr=BRL';
 }
 
-function urlQuery({ data, dataVolta, cidadeOrigem, cidadeDestino, origens, destinos }) {
+// A frase importa. 'on D1 returning D2' o Google nao entende: na primeira
+// rodada de ida e volta as 74 leituras cairam todas na estrategia reserva e o
+// painel saiu vazio. Entao ha varias formas, testadas em ordem, e o
+// diagnostico mede qual delas devolve preco.
+const FRASES_IDA_VOLTA = [
+  (de, para, d1, d2) => `flights from ${de} to ${para} ${d1} through ${d2}`,
+  (de, para, d1, d2) => `round trip flights from ${de} to ${para} departing ${d1} returning ${d2}`,
+  (de, para, d1, d2) => `flights from ${de} to ${para} on ${d1} through ${d2}`,
+  (de, para, d1, d2) => `${de} to ${para} ${d1} to ${d2}`,
+  (de, para, d1, d2) => `flights from ${de} to ${para} on ${d1} returning ${d2}`
+];
+
+function frase({ data, dataVolta, cidadeOrigem, cidadeDestino, origens, destinos }, variante = 0) {
   const de = cidadeOrigem || origens[0];
   const para = cidadeDestino || destinos[0];
-  const q = dataVolta
-    ? `flights from ${de} to ${para} on ${data} returning ${dataVolta}`
-    : `flights from ${de} to ${para} on ${data} one way`;
-  return 'https://www.google.com/travel/flights?q=' + encodeURIComponent(q) +
+  if (!dataVolta) return `flights from ${de} to ${para} on ${data} one way`;
+  const f = FRASES_IDA_VOLTA[variante % FRASES_IDA_VOLTA.length];
+  return f(de, para, data, dataVolta);
+}
+
+function urlQuery(consulta, variante = 0) {
+  return 'https://www.google.com/travel/flights?q=' + encodeURIComponent(frase(consulta, variante)) +
          '&hl=pt-BR&gl=BR&curr=BRL';
+}
+
+// Consulta so de ida da mesma rota - rede de seguranca pra quando nenhuma
+// frase de ida e volta funcionar: melhor um preco de ida rotulado como ida
+// do que painel vazio.
+function soIda(consulta) {
+  return { ...consulta, dataVolta: null, noites: null };
 }
 
 // --- leitura da pagina -----------------------------------------------------
@@ -206,15 +228,20 @@ async function buscarUrl(url, timeoutMs) {
  */
 async function consultar(consulta, opcoes = {}) {
   const timeoutMs = opcoes.timeoutMs || 25000;
+  // ordem: as frases de ida e volta, depois o tfs, e por ultimo a ida como
+  // rede de seguranca. Uma leitura de ida rotulada honestamente vale mais
+  // que painel vazio.
   const estrategias = opcoes.estrategia
     ? [opcoes.estrategia]
-    : ['q', 'tfs'];
+    : consulta.dataVolta ? ['q', 'q2', 'q3', 'tfs', 'q-ida'] : ['q', 'tfs'];
 
   let ultimoErro = null;
   for (const estrategia of estrategias) {
+    const variante = estrategia === 'q2' ? 1 : estrategia === 'q3' ? 2 : (opcoes.varianteFrase || 0);
     const url = estrategia === 'tfs' ? urlTfs(consulta, false)
               : estrategia === 'tfs-aninhado' ? urlTfs(consulta, true)
-              : urlQuery(consulta);
+              : estrategia === 'q-ida' ? urlQuery(soIda(consulta))
+              : urlQuery(consulta, variante);
     try {
       const { status, html } = await buscarUrl(url, timeoutMs);
       if (status !== 200) { ultimoErro = `HTTP ${status} (${estrategia})`; continue; }
@@ -231,6 +258,8 @@ async function consultar(consulta, opcoes = {}) {
       return {
         ok: true,
         estrategia,
+        // ida e volta de verdade so nas estrategias que levam a volta na consulta
+        tipoTarifa: (estrategia === 'q-ida' || !consulta.dataVolta) ? 'ida' : 'ida-e-volta',
         descartadosAbaixo: leitura.descartadosAbaixo,
         // so o `q` devolve uma leitura por itinerario da data pedida; o `tfs`
         // mistura datas vizinhas, entao nao serve pra estatistica nem pra alerta
@@ -280,6 +309,7 @@ async function coletar(consultas, cfg, opcoes = {}) {
         precoBRL: r.preco,
         precoMedianaBRL: r.precoMediana,
         precisao: r.precisao,
+        tipoTarifa: r.tipoTarifa,
         moeda: 'BRL',
         ciasNaPagina: r.cias,
         amostrasNaPagina: r.amostras,
@@ -288,7 +318,7 @@ async function coletar(consultas, cfg, opcoes = {}) {
       });
       log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data}${c.dataVolta ? `/${c.dataVolta.slice(5)}` : ''} -> R$ ${r.preco}` +
           (c.distanciaKm ? ` (${(r.preco / c.distanciaKm).toFixed(2)}/km)` : '') +
-          ` [${r.estrategia}${r.precisao === 'baixa' ? ', precisao baixa' : ''}` +
+          ` [${r.estrategia}/${r.tipoTarifa}${r.precisao === 'baixa' ? ', precisao baixa' : ''}` +
           `${r.descartadosAbaixo ? `, ${r.descartadosAbaixo} outlier(s) abaixo descartado(s)` : ''}]`);
     } else {
       falhas.push({ rotaId: c.rotaId, data: c.data, erro: r.erro });
@@ -300,4 +330,4 @@ async function coletar(consultas, cfg, opcoes = {}) {
   return { observacoes, falhas };
 }
 
-module.exports = { coletar, consultar, montarTfs, urlTfs, urlQuery, extrairPrecos, precoConfiavel, contexto, buscarUrl, urlQuery };
+module.exports = { coletar, consultar, montarTfs, urlTfs, urlQuery, extrairPrecos, precoConfiavel, contexto, buscarUrl, urlQuery, frase, FRASES_IDA_VOLTA };

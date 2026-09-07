@@ -18,7 +18,12 @@ function tabela(linhas, cambio, taxas) {
               '|---|---|---|---|---|---|---|---|';
   const corpo = linhas.map((l) => {
     const conv = cambio && taxas ? cambio(l.precoBRL, taxas) : '';
-    const volta = l.dataVolta ? `${l.dataVolta}<br><sub>${l.noites} noites</sub>` : '_so ida_';
+    // rotulo pelo que a leitura REALMENTE e, nao pelo que a consulta pediu:
+    // quando nenhuma frase de ida e volta funciona, a rede de seguranca cai
+    // pra so ida, e isso tem que aparecer
+    const volta = l.tipoTarifa === 'ida-e-volta' && l.dataVolta
+      ? `${l.dataVolta}<br><sub>${l.noites} noites</sub>`
+      : '**so ida**';
     const link = l.link ? `[buscar](${l.link})` : '-';
     return `| \`${l.rota}\` | ${l.cidade || l.rota.split('-')[1]} | ${l.data} | ${volta} | ` +
            `**${brl(l.precoBRL)}**${conv ? `<br><sub>${conv}</sub>` : ''} | ` +

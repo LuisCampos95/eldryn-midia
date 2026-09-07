@@ -68,6 +68,29 @@ async function diagnostico(cfg, opts) {
   // O minimo da pagina se mostrou nao confiavel em rota longa (Montevideu-Miami
   // saiu a R$ 302). Pra consertar com evidencia e nao com chute, o diagnostico
   // despeja a distribuicao de precos de uma rota curta e uma longa.
+  // A primeira rodada de ida e volta falhou em 74 de 74 leituras porque o
+  // Google nao entende a frase que eu montei. Aqui a gente mede qual frase
+  // funciona em vez de adivinhar de novo.
+  log('\n1a) Frases de ida e volta (qual delas o Google entende)');
+  {
+    const c = catalogo.montarFila(CATALOGO, cfg, { rodadas: 0, cursorRodizio: 0 }, 'MVD-SAO').consultas[0];
+    if (!c.dataVolta) {
+      log('   varredura esta em so-ida, nada a testar');
+    } else {
+      for (let i = 0; i < googleflights.FRASES_IDA_VOLTA.length; i++) {
+        const r = await googleflights.consultar(c, {
+          timeoutMs: cfg.googleFlights.timeoutMs, estrategia: 'q', varianteFrase: i
+        });
+        const f = googleflights.frase(c, i).replace(/^flights from |^round trip flights from /, '… ');
+        log(`   [${i}] ${r.ok ? 'OK   R$ ' + r.preco + ' (' + r.amostras + ' precos)' : 'FALHOU: ' + r.erro}`);
+        log(`       ${f}`);
+        await pausa(1800);
+      }
+      const rIda = await googleflights.consultar(c, { timeoutMs: cfg.googleFlights.timeoutMs, estrategia: 'q-ida' });
+      log(`   [rede] so ida: ${rIda.ok ? 'OK   R$ ' + rIda.preco : 'FALHOU: ' + rIda.erro}`);
+    }
+  }
+
   log('\n1b) Distribuicao de precos na pagina (pra calibrar o filtro de outlier)');
   for (const rotaId of ['MVD-SAO', 'MVD-MIA', 'MVD-OPO']) {
     const c = catalogo.montarFila(CATALOGO, cfg, { rodadas: 0, cursorRodizio: 0 }, rotaId).consultas[0];
@@ -182,6 +205,7 @@ async function main() {
     if (!melhorPorRota[o.rotaId] || o.precoBRL < melhorPorRota[o.rotaId].precoBRL) {
       melhorPorRota[o.rotaId] = {
         precoBRL: o.precoBRL, data: o.data, dataVolta: o.dataVolta, noites: o.noites,
+        tipoTarifa: o.tipoTarifa,
         distanciaKm: o.distanciaKm, precoPorKm: o.precoPorKm, regiao: o.regiao,
         ciasNaPagina: o.ciasNaPagina, link: o.link
       };
