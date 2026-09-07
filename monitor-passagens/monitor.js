@@ -207,7 +207,7 @@ async function main() {
         precoBRL: o.precoBRL, data: o.data, dataVolta: o.dataVolta, noites: o.noites,
         tipoTarifa: o.tipoTarifa,
         distanciaKm: o.distanciaKm, precoPorKm: o.precoPorKm, regiao: o.regiao,
-        ciasNaPagina: o.ciasNaPagina, link: o.link
+        cias: o.cias, voos: o.voos, trechos: o.trechos, leitura: o.leitura, link: o.link
       };
     }
   }

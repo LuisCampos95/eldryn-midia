@@ -9,13 +9,13 @@
 
 const { brl } = require('./util');
 
-// Sem coluna de companhia de proposito. O que o coletor tem hoje e a lista de
-// cias citadas em algum lugar da pagina, nao a cia daquela tarifa - mostrar
-// isso como "a companhia do voo" seria inventar. Volta quando a leitura for
-// por itinerario.
+// A coluna de companhia voltou, e agora e verdade: sai do data-gs do proprio
+// itinerario (os numeros de voo), nao mais de varrer nomes de cia pela pagina.
+// Onde a leitura ainda cai no caminho antigo, a celula fica vazia em vez de
+// chutar.
 function tabela(linhas, cambio, taxas) {
-  const cab = '| rota | destino | ida | volta | preco | km | R$/km | abrir |\n' +
-              '|---|---|---|---|---|---|---|---|';
+  const cab = '| rota | destino | ida | volta | preco | cia | voos | km | R$/km | abrir |\n' +
+              '|---|---|---|---|---|---|---|---|---|---|';
   const corpo = linhas.map((l) => {
     const conv = cambio && taxas ? cambio(l.precoBRL, taxas) : '';
     // rotulo pelo que a leitura REALMENTE e, nao pelo que a consulta pediu:
@@ -25,8 +25,10 @@ function tabela(linhas, cambio, taxas) {
       ? `${l.dataVolta}<br><sub>${l.noites} noites</sub>`
       : '**so ida**';
     const link = l.link ? `[buscar](${l.link})` : '-';
+    const cia = l.cias && l.cias.length ? l.cias.join(' + ') : '—';
+    const voos = l.voos && l.voos.length ? '`' + l.voos.join('` `') + '`' : '—';
     return `| \`${l.rota}\` | ${l.cidade || l.rota.split('-')[1]} | ${l.data} | ${volta} | ` +
-           `**${brl(l.precoBRL)}**${conv ? `<br><sub>${conv}</sub>` : ''} | ` +
+           `**${brl(l.precoBRL)}**${conv ? `<br><sub>${conv}</sub>` : ''} | ${cia} | ${voos} | ` +
            `${l.distanciaKm.toLocaleString('pt-BR')} | ${l.precoPorKm.toFixed(2)} | ${link} |`;
   }).join('\n');
   return `${cab}\n${corpo}`;

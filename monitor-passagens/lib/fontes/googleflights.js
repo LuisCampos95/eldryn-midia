@@ -11,6 +11,7 @@
 
 const { campoInt, campoString, campoMensagem, base64url } = require('../protobuf');
 const { pausa, log, semAcento } = require('../util');
+const itinerario = require('./itinerario');
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' +
            '(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
@@ -249,11 +250,26 @@ async function consultar(consulta, opcoes = {}) {
       const bloqueio = pareceBloqueio(html);
       if (bloqueio) { ultimoErro = `${bloqueio} (${estrategia})`; continue; }
 
-      const precos = extrairPrecos(html);
-      if (precos.length === 0) { ultimoErro = `nenhum preco na pagina (${estrategia}, ${html.length} bytes)`; continue; }
+      // 1) Leitura estrutural: ancora no aria-label do itinerario. Preciso por
+      //    construcao - so itinerario tem esse rotulo - e traz voo e companhia
+      //    junto. E o caminho bom.
+      const itens = itinerario.extrair(html);
+      const melhor = itinerario.maisBarato(itens);
 
-      const leitura = precoConfiavel(precos);
-      if (leitura.erro) { ultimoErro = `${leitura.erro} (${estrategia})`; continue; }
+      // 2) So se a estrutura mudar e a leitura estrutural nao achar nada, cai
+      //    pro caminho antigo, que adivinha por estatistica qual numero da
+      //    pagina e passagem. Ele fica como rede, nao como padrao.
+      let leitura, viaEstrutura = false;
+      if (melhor) {
+        leitura = { preco: melhor.precoBRL, descartadosAbaixo: 0,
+                    mediana: itens[Math.floor(itens.length / 2)].precoBRL };
+        viaEstrutura = true;
+      } else {
+        const precos = extrairPrecos(html);
+        if (precos.length === 0) { ultimoErro = `nenhum preco na pagina (${estrategia}, ${html.length} bytes)`; continue; }
+        leitura = precoConfiavel(precos);
+        if (leitura.erro) { ultimoErro = `${leitura.erro} (${estrategia})`; continue; }
+      }
 
       return {
         ok: true,
@@ -264,6 +280,11 @@ async function consultar(consulta, opcoes = {}) {
         // so o `q` devolve uma leitura por itinerario da data pedida; o `tfs`
         // mistura datas vizinhas, entao nao serve pra estatistica nem pra alerta
         precisao: estrategia === 'q' ? 'alta' : 'baixa',
+        leitura: viaEstrutura ? 'estrutural' : 'estatistica',
+        itinerarios: itens.length,
+        voos: melhor ? melhor.voos : [],
+        cias: melhor ? melhor.cias : [],
+        trechos: melhor ? melhor.trechos : null,
         preco: leitura.preco,
         precoMediana: leitura.mediana,
         precos: precos.slice().sort((a, b) => a - b).slice(0, 60),
@@ -316,15 +337,17 @@ async function coletar(consultas, cfg, opcoes = {}) {
         precisao: r.precisao,
         tipoTarifa: r.tipoTarifa,
         moeda: 'BRL',
-        ciasNaPagina: r.cias,
         amostrasNaPagina: r.amostras,
         link: r.url,
         coletadoEm: new Date().toISOString()
       });
       log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data}${c.dataVolta ? `/${c.dataVolta.slice(5)}` : ''} -> R$ ${r.preco}` +
           (c.distanciaKm ? ` (${(r.preco / c.distanciaKm).toFixed(2)}/km)` : '') +
-          ` [${r.estrategia}/${r.tipoTarifa}${r.precisao === 'baixa' ? ', precisao baixa' : ''}` +
-          `${r.descartadosAbaixo ? `, ${r.descartadosAbaixo} outlier(s) abaixo descartado(s)` : ''}]`);
+          (r.cias && r.cias.length ? ` ${r.cias.join('+')}` : '') +
+          (r.voos && r.voos.length ? ` ${r.voos.join('/')}` : '') +
+          ` [${r.estrategia}/${r.tipoTarifa}/${r.leitura}` +
+          `${r.precisao === 'baixa' ? ', precisao baixa' : ''}` +
+          `${r.descartadosAbaixo ? `, ${r.descartadosAbaixo} outlier(s)` : ''}]`);
     } else {
       falhas.push({ rotaId: c.rotaId, data: c.data, erro: r.erro });
       log(`  [${i}/${consultas.length}] ${c.rotaId} ${c.data} -> FALHOU: ${r.erro}`);

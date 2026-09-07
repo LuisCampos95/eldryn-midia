@@ -14,13 +14,18 @@ function linhaAlerta(al, taxas, cambio) {
   const o = al.obs;
   const extra = cambio ? cambio(o.precoBRL, taxas) : '';
   const volta = o.dataVolta ? ` → ${o.dataVolta} (${o.noites} noites)` : ' (so ida)';
+  // cia de verdade, do itinerario. Vazio quando a leitura caiu no caminho
+  // antigo - melhor nada que chute.
+  const cia = o.cias && o.cias.length
+    ? `\n  - ${o.cias.join(' + ')}${o.voos && o.voos.length ? ` · voos ${o.voos.join(', ')}` : ''}`
+    : '';
   const dist = o.distanciaKm
     ? ` · ${o.distanciaKm.toLocaleString('pt-BR')} km · ${o.precoPorKm.toFixed(2)}/km`
     : '';
   const milhas = al.milhasMax
     ? `\n  - Em LATAM Pass so compensa ate **~${al.milhasMax.toLocaleString('pt-BR')} milhas** + taxas`
     : '';
-  return `- **${o.rotaId}** ${o.data}${volta} — **${brl(o.precoBRL)}**${extra ? ` (${extra})` : ''}${dist}\n` +
+  return `- **${o.rotaId}** ${o.data}${volta} — **${brl(o.precoBRL)}**${extra ? ` (${extra})` : ''}${dist}${cia}\n` +
          al.motivos.map((m) => `  - ${m.texto}`).join('\n') + milhas +
          (o.link ? `\n  - [abrir no Google Flights](${o.link}) — cia, horarios, escalas e onde comprar` : '');
 }
