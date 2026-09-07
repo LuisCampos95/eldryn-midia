@@ -13,7 +13,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { log, brl } = require('./lib/util');
+const { log, brl, pausa } = require('./lib/util');
 const catalogo = require('./lib/catalogo');
 const painel = require('./lib/painel');
 const historico = require('./lib/historico');
@@ -63,6 +63,24 @@ async function diagnostico(cfg, opts) {
       log(`   ${estrategia}: FALHOU -> ${r.erro}`);
       linhas.push(`google/${estrategia}: FALHOU (${r.erro})`);
     }
+  }
+
+  // O minimo da pagina se mostrou nao confiavel em rota longa (Montevideu-Miami
+  // saiu a R$ 302). Pra consertar com evidencia e nao com chute, o diagnostico
+  // despeja a distribuicao de precos de uma rota curta e uma longa.
+  log('\n1b) Distribuicao de precos na pagina (pra calibrar o filtro de outlier)');
+  for (const rotaId of ['MVD-SAO', 'MVD-MIA', 'MVD-OPO']) {
+    const c = catalogo.montarFila(CATALOGO, cfg, { rodadas: 0, cursorRodizio: 0 }, rotaId).consultas[0];
+    if (!c) continue;
+    const r = await googleflights.consultar(c, { timeoutMs: cfg.googleFlights.timeoutMs, estrategia: 'q' });
+    if (!r.ok) { log(`   ${rotaId}: FALHOU -> ${r.erro}`); continue; }
+    const ord = r.precos.slice().sort((a, b) => a - b);
+    const q = (p) => ord[Math.floor((p / 100) * (ord.length - 1))];
+    log(`   ${rotaId} (${c.distanciaKm} km, ${r.amostras} precos na pagina)`);
+    log(`     12 menores: ${ord.slice(0, 12).join(', ')}`);
+    log(`     min ${ord[0]} · p10 ${q(10)} · p25 ${q(25)} · mediana ${q(50)} · max ${ord[ord.length - 1]}`);
+    log(`     min/mediana = ${(ord[0] / q(50)).toFixed(2)}`);
+    await pausa(1500);
   }
 
   log('\n2) Feeds de promocao');

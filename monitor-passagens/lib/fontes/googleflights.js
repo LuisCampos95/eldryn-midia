@@ -160,7 +160,7 @@ async function consultar(consulta, opcoes = {}) {
         precisao: estrategia === 'q' ? 'alta' : 'baixa',
         preco: Math.min(...precos),
         precoMediana: precos.slice().sort((a, b) => a - b)[Math.floor(precos.length / 2)],
-        precos: precos.slice(0, 40),
+        precos: precos.slice().sort((a, b) => a - b).slice(0, 60),
         amostras: precos.length,
         cias: extrairCias(html),
         url
