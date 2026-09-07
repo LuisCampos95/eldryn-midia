@@ -4,7 +4,19 @@
     "feed|https://passageirodeprimeira.com/planejando-a-proxima-viagem-veja-sugestoes-de-resgate-para-roma-miami-e-muito-mais/": 1788802278268,
     "feed|https://pontospravoar.com/confira-hoteis-proximos-avenida-paulista-diarias-partir-154-reais/": 1788802278268,
     "feed|https://pontospravoar.com/palacios-de-madri-poderao-ser-visitados-de-graca/": 1788802278268,
-    "feed|https://pontospravoar.com/confira-ofertas-terminam-hoje-azul-fidelidade-latam-pass/": 1788802278268
+    "feed|https://pontospravoar.com/confira-ofertas-terminam-hoje-azul-fidelidade-latam-pass/": 1788802278268,
+    "SAO-SLZ|2027-03-01|950": 1788803877389,
+    "SAO-REC|2026-12-15|875": 1788803877389,
+    "SAO-LIM|2026-10-01|1525": 1788803877389,
+    "SAO-BEL|2026-10-01|1150": 1788803877389,
+    "SAO-REC|2026-10-01|975": 1788803877389,
+    "SAO-SLZ|2026-10-01|1150": 1788803877389,
+    "SAO-BEL|2027-03-01|1225": 1788803877389,
+    "SAO-REC|2027-03-01|1050": 1788803877389,
+    "SAO-MAO|2027-03-01|1375": 1788803877389,
+    "SAO-FOR|2027-03-01|1250": 1788803877389,
+    "SAO-JPA|2027-03-01|1175": 1788803877389,
+    "SAO-FOR|2026-10-01|1300": 1788803877389
   },
   "feedsVistos": [
     "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
@@ -13,7 +25,7 @@
     "https://pontospravoar.com/palacios-de-madri-poderao-ser-visitados-de-graca/",
     "https://pontospravoar.com/confira-ofertas-terminam-hoje-azul-fidelidade-latam-pass/"
   ],
-  "rodadas": 2,
-  "cursorRodizio": 170,
-  "ultimaRodadaEm": "2026-09-07T17:31:18.269Z"
+  "rodadas": 3,
+  "cursorRodizio": 255,
+  "ultimaRodadaEm": "2026-09-07T17:57:57.390Z"
 }
