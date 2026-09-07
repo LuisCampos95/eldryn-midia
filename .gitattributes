@@ -1,0 +1,17 @@
+# Arquivos que as rodadas do monitor reescrevem sozinhas.
+#
+# Cada execucao do Actions faz checkout do commit que a disparou, nao da ponta
+# do branch. Entao duas rodadas seguidas SEMPRE colidem nesses arquivos, e o
+# git precisa saber resolver sem intervencao. A regra vem da semantica de cada
+# um:
+
+# Historico e append-only: as duas versoes valem, ficam as duas linhas.
+monitor-passagens/historico/*.ndjson merge=union
+
+# Estes sao regerados por inteiro a cada rodada: a leitura mais nova vence.
+# Nao ha o que mesclar - mesclar dois retratos de momentos diferentes so
+# produziria um retrato que nunca existiu.
+monitor-passagens/RANKING.md   merge=ours
+monitor-passagens/ultimo.json  merge=ours
+monitor-passagens/estado.json  merge=ours
+monitor-passagens/cambio.json  merge=ours

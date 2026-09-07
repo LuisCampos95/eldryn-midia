@@ -82,6 +82,9 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # habilita o driver 'ours' que o .gitattributes usa nos arquivos
+          # regerados (o 'union' do historico e nativo)
+          git config merge.ours.driver true
           git add monitor-passagens/historico monitor-passagens/estado.json \
                   monitor-passagens/ultimo.json monitor-passagens/cambio.json \
                   monitor-passagens/RANKING.md 2>/dev/null || true
@@ -90,12 +93,26 @@ jobs:
             exit 0
           fi
           git commit -m "monitor de passagens: painel de $(date -u +%Y-%m-%dT%H:%MZ)"
-          # o commit pode colidir com o workflow do Instagram, que tambem empurra
+          # Colisao aqui e a regra, nao a excecao: o Actions faz checkout do
+          # commit que disparou a rodada, entao se a rodada anterior ja
+          # commitou o painel, o push e rejeitado e precisamos integrar.
+          #
+          # Merge, nao rebase: com merge o 'ours' do .gitattributes significa
+          # a NOSSA geracao, que e o que queremos. No rebase os lados se
+          # invertem. E sempre abortar um merge pendente antes de tentar de
+          # novo - sem isso o loop fica preso em 'unmerged files', que foi
+          # exatamente como esta etapa falhou antes.
           for tentativa in 1 2 3 4; do
             if git push; then exit 0; fi
-            echo "push falhou (tentativa $tentativa), rebasando..."
-            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            echo "push rejeitado (tentativa $tentativa): integrando o remoto"
+            git merge --abort 2>/dev/null || true
+            if ! git pull --no-rebase --no-edit origin "${GITHUB_REF_NAME}"; then
+              echo "merge falhou mesmo com os drivers do .gitattributes" >&2
+              git merge --abort 2>/dev/null || true
+              git status --short >&2
+              exit 1
+            fi
             sleep $((2 ** tentativa))
           done
-          echo "nao consegui empurrar o historico" >&2
+          echo "nao consegui empurrar o painel apos 4 tentativas" >&2
           exit 1
