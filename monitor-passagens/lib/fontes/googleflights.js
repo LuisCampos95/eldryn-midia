@@ -298,9 +298,14 @@ async function coletar(consultas, cfg, opcoes = {}) {
         origem: c.rotaId.split('-')[0],
         regiao: c.regiao,
         distanciaKm: c.distanciaKm,
-        // preco por km e o que deixa comparar uma pechincha pra Recife com
-        // uma pechincha pra Madri
-        precoPorKm: c.distanciaKm ? Number((r.preco / c.distanciaKm).toFixed(3)) : null,
+        // Distancia VOADA: ida e volta percorre o dobro. Sem isso um preco de
+        // ida e volta pareceria o dobro de caro por km que um de so ida, e as
+        // duas leituras nao poderiam dividir a mesma lista - que e exatamente
+        // o que a rede de seguranca produz quando cai pra so ida.
+        distanciaVoadaKm: c.distanciaKm ? c.distanciaKm * (c.dataVolta ? 2 : 1) : null,
+        precoPorKm: c.distanciaKm
+          ? Number((r.preco / (c.distanciaKm * (c.dataVolta ? 2 : 1))).toFixed(3))
+          : null,
         de: c.origens.join('/'),
         para: c.destinos.join('/'),
         data: c.data,
