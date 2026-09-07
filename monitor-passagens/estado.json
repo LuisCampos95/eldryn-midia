@@ -36,7 +36,19 @@
     "MVD-SSA|2026-10-21|2275": 1788822647923,
     "SAO-POA|2026-10-21|900": 1788822647923,
     "SAO-POA|2027-01-04|900": 1788822647923,
-    "SAO-POA|2027-03-21|975": 1788822647923
+    "SAO-POA|2027-03-21|975": 1788822647923,
+    "SAO-GIG|2026-10-26|475": 1788823492765,
+    "MVD-MXP|2026-10-26|1700": 1788823492765,
+    "MVD-CDG|2026-10-26|4500": 1788823492765,
+    "MVD-MIA|2026-10-26|3000": 1788823492765,
+    "MVD-FCO|2026-10-26|4575": 1788823492765,
+    "MVD-MAD|2026-10-26|4150": 1788823492765,
+    "MVD-BCN|2026-10-26|4450": 1788823492765,
+    "MVD-LIS|2026-10-26|4200": 1788823492765,
+    "MVD-MAD|2027-03-26|4425": 1788823492765,
+    "MVD-BCN|2027-03-26|4625": 1788823492765,
+    "MVD-LHR|2026-10-26|5075": 1788823492765,
+    "MVD-MIA|2027-03-26|3375": 1788823492765
   },
   "feedsVistos": [
     "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
@@ -45,7 +57,7 @@
     "https://pontospravoar.com/palacios-de-madri-poderao-ser-visitados-de-graca/",
     "https://pontospravoar.com/confira-ofertas-terminam-hoje-azul-fidelidade-latam-pass/"
   ],
-  "rodadas": 7,
-  "cursorRodizio": 82,
-  "ultimaRodadaEm": "2026-09-07T23:10:47.924Z"
+  "rodadas": 8,
+  "cursorRodizio": 167,
+  "ultimaRodadaEm": "2026-09-07T23:24:52.766Z"
 }
