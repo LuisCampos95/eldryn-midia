@@ -128,11 +128,41 @@ Entao o monitor ataca milhas por dois lados que custam zero:
 | Travelpayouts | zero | opcional | JSON limpo, dia mais barato do mes |
 | open.er-api.com | zero | nao | cotacao pra mostrar em $U e US$ |
 
+### Como o preco e lido
+
+Cada itinerario e renderizado assim na pagina:
+
+```html
+<div class="YMlIz FpEdX jLMuyc">
+  <span data-gs="Cj...Eg1BUjEzODN8QVIxMjQw..."
+        aria-label="2424 Reais brasileiros" role="text">
+```
+
+A leitura **ancora nisso**, e nao em procurar "R$" pelo HTML:
+
+- o `aria-label` da o preco num formato exato. So itinerario tem esse rotulo,
+  entao numero solto da pagina nao entra;
+- o `data-gs` e um protobuf em base64 cujo campo 2 e a lista de voos,
+  `AR1383|AR1240`. Dai saem os numeros de voo e, pelo prefixo IATA, a
+  **companhia da tarifa** - nao a lista de cias citadas na pagina.
+
+Se o Google mudar essa estrutura, a leitura cai numa **rede estatistica** que
+adivinha qual numero da pagina e passagem (menor preco que se repete; pagina
+com menos de 40 precos e recusada). Cada leitura registra em `leitura` qual
+dos dois caminhos foi usado, entao da pra ver no painel e no log o dia em que
+a estrutura quebrar. Quando cai na rede, a companhia fica **vazia** - nunca
+chutada.
+
+### As duas estrategias de URL
+
 O Google Flights nao tem API oficial: o monitor monta a mesma URL que o site
 usa. Duas estrategias, as duas testadas rodando no Actions:
 
-- **`q`** (primaria) — busca em texto. Devolve ~60 precos por consulta, um por
-  itinerario daquela data. E a limpa.
+- **`q`** (primaria) — busca em texto. Para ida e volta a frase que o Google
+  entende e `from X to Y D1 through D2`; ha cinco variantes no codigo e o
+  `--diagnostico` mede qual responde. Se nenhuma funcionar, a consulta cai
+  pra so ida da mesma rota e a leitura e **rotulada como so ida**, em vez de
+  passar por ida e volta.
 - **`tfs`** (reserva) — o parametro protobuf que o site usa. Precisa do
   parametro `tfu` junto, senao o Google monta a pagina e nao executa a busca.
   Com ele funciona, mas a pagina vem com a grade de datas vizinhas (~750
@@ -142,6 +172,25 @@ usa. Duas estrategias, as duas testadas rodando no Actions:
 
 Se o `q` comecar a falhar muito, a rodada avisa no resumo do Actions em vez de
 emudecer: acima de 30% das leituras em precisao baixa vira aviso explicito.
+
+## Testes
+
+```bash
+node teste.js
+```
+
+Sem rede e sem dependencia, roda em menos de um segundo, e roda no CI **antes**
+da coleta. Existem por causa de dois bugs que chegaram em producao:
+
+- um `const` declarado dentro de um `else` e usado fora dele. Erro de
+  execucao, entao `node --check` nao viu; a coleta inteira foi a zero.
+- campos de companhia e voos que se perderam entre a leitura e a observacao,
+  porque uma edicao mirou em texto ja reescrito e virou no-op silencioso. O
+  painel saiu com a coluna vazia e nada acusou.
+
+Dai a regra que os testes cobrem: **o que decide alguma coisa e funcao pura**
+(`lerPagina`, `montarObservacao`, `avaliar`, `montarFila`) **e o teste confere
+o objeto de retorno inteiro**, nao so o campo que interessava na hora.
 
 ## Rodando na mao
 
@@ -159,6 +208,8 @@ destinos.json        origens fixas + catalogo de destinos com coordenadas
 config.json          varredura, tetos por distancia, regras, valor do milheiro
 monitor.js           orquestra a rodada
 lib/catalogo.js      monta a fila, rodizio e distancias
+lib/fontes/itinerario.js  leitura estrutural: preco, companhia e voos
+teste.js             testes offline, rodam antes da coleta no CI
 lib/fontes/          um adaptador por fonte de dados
 historico/           serie historica em NDJSON, um arquivo por mes
 RANKING.md           o painel: o que esta barato agora (abra este)
