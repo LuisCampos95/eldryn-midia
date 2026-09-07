@@ -47,11 +47,6 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Diagnostico das fontes
-        if: github.event_name == 'push' || github.event.inputs.modo == 'diagnostico'
-        working-directory: monitor-passagens
-        run: node monitor.js --diagnostico
-
       # Smoke test de ponta a ponta: coleta 6 datas de verdade, grava historico
       # e roda as regras de alerta - so nao notifica nem commita.
       - name: Rodada de teste (coleta real, sem notificar nem commitar)
@@ -61,6 +56,14 @@ jobs:
           node monitor.js --sem-alerta
           echo "===== RANKING.md ====="
           cat RANKING.md
+
+      # Depois da coleta de proposito: o diagnostico e o que a gente LE quando
+      # algo quebra, e antes da coleta ele ficava soterrado por 130 linhas de
+      # log. No fim, esta sempre nas ultimas linhas.
+      - name: Diagnostico das fontes
+        if: github.event_name == 'push' || github.event.inputs.modo == 'diagnostico'
+        working-directory: monitor-passagens
+        run: node monitor.js --diagnostico
 
       - name: Rodada de coleta
         if: github.event_name != 'push' && github.event.inputs.modo != 'diagnostico'
