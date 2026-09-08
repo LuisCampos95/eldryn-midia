@@ -180,7 +180,19 @@ async function esperaContainer(id) {
 
   if (!vencidos.length) { console.log('nada a fazer'); return; }
 
+  // Espaco minimo entre duas publicacoes NESTA MESMA execucao. Sem isso, se
+  // o workflow ficar atrasado (GitHub Actions cron e "best effort", pode
+  // atrasar horas) e acumular mais de um post vencido, os dois saem com
+  // segundos de diferenca um do outro -- em 07/09/2026 rc258 e rc251
+  // publicaram com 41s de intervalo no Instagram, parecendo post duplicado
+  // pros seguidores. O intervalo so entra DEPOIS do primeiro post da
+  // execucao, nunca antes do primeiro (n>0), pra nao atrasar a toa quando
+  // so tem um vencido, que e o caso normal.
+  const ESPACO_MINIMO_MS = 5 * 60 * 1000;
+  let n = 0;
   for (const s of vencidos) {
+    if (n > 0) { console.log('\naguardando ' + (ESPACO_MINIMO_MS / 60000) + 'min antes do proximo post...'); await dorme(ESPACO_MINIMO_MS); }
+    n++;
     const url = agenda.baseUrl + '/midia/' + s.arquivo;
     console.log('\n>', s.post, '(' + s.hora + ')', s.tipo,
       s.tipo === 'carrossel' ? s.arquivos.length + ' fotos' : url);
