@@ -33,6 +33,22 @@ function tetoPorDistancia(km, faixas) {
   return faixas[faixas.length - 1].tetoBRL;
 }
 
+// "Cabe no teto" nao e a mesma coisa que "esta barata". Um preco que raspa no
+// teto e o LIMITE do que voce toparia pagar, nao uma promocao. O painel chegou
+// a listar Frankfurt a R$ 4.788 com teto de R$ 4.800 - 0% de folga - no meio
+// das pechinchas, que e de novo o problema do "nao quero passagem cara".
+//
+// Entao barata = abaixo do teto COM folga minima. A folga fica no config
+// (folgaMinimaPct) pra dar pra apertar ou afrouxar sem mexer em codigo.
+function folgaAteTetoPct(precoBRL, tetoBRL) {
+  return (1 - precoBRL / tetoBRL) * 100;
+}
+
+function eBarata(precoBRL, tetoBRL, folgaMinimaPct) {
+  if (typeof precoBRL !== 'number' || typeof tetoBRL !== 'number') return false;
+  return folgaAteTetoPct(precoBRL, tetoBRL) >= (folgaMinimaPct || 0);
+}
+
 function pares(cat) {
   const out = [];
   for (const o of cat.origens) {
@@ -120,4 +136,4 @@ function montarFila(cat, cfg, estado, filtroRota) {
   };
 }
 
-module.exports = { carregar, distanciaKm, tetoPorDistancia, pares, montarFila };
+module.exports = { carregar, distanciaKm, tetoPorDistancia, folgaAteTetoPct, eBarata, pares, montarFila };

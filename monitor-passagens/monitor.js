@@ -211,11 +211,15 @@ async function main() {
       };
     }
   }
-  // ranking por preco por km: e ele que responde "pra onde vale a pena ir agora"
-  const ranking = Object.entries(melhorPorRota)
-    .filter(([, m]) => m.precoPorKm)
-    .sort((a, b) => a[1].precoPorKm - b[1].precoPorKm)
-    .slice(0, 20);
+  // Passa TODAS as rotas lidas pro painel, sem cortar em 20 aqui.
+  //
+  // Antes cortava as 20 melhores por preco/km e so depois o painel aplicava o
+  // teto. Ou seja: uma pechincha de verdade que nao estivesse entre as 20
+  // melhores por km nunca chegava a ser avaliada, e o corte por km nao e a
+  // pergunta que o painel responde. Quem ordena e corta agora e o painel, pela
+  // folga ate o teto - e a contagem de "ficaram caras demais" passa a ser
+  // sobre a rodada inteira, nao sobre um top 20 arbitrario.
+  const ranking = Object.entries(melhorPorRota).filter(([, m]) => m.precoPorKm);
   // melhor de cada origem, pro painel: e a pergunta real ("saindo de onde eu
   // estou, pra onde vale a pena ir agora")
   const porOrigem = {};

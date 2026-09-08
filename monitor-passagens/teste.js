@@ -131,6 +131,17 @@ teste('teto dobra em ida e volta', () => {
   assert.strictEqual(ida.length, 0, 'so ida a R$ 2.980 deveria calar (teto 2.400)');
 });
 
+teste('preco que raspa no teto nao acorda ninguem', () => {
+  const base = { rotaId: 'MVD-JFK', origem: 'MVD', regiao: 'america-norte', data: '2026-12-10',
+                 distanciaKm: 8587, coletadoEm: new Date().toISOString(), precisao: 'alta',
+                 tipoTarifa: 'ida-e-volta' };
+  // teto 4800 ida e volta; 15% de folga = 4080.
+  assert.strictEqual(alertas.avaliar({ ...base, precoBRL: 4790 }, [], cfg).length, 0,
+                     'R$ 4.790 cabe no teto mas nao e alerta');
+  assert.strictEqual(alertas.avaliar({ ...base, precoBRL: 4000 }, [], cfg).length, 1,
+                     'R$ 4.000 tem folga de sobra');
+});
+
 teste('leitura de precisao baixa nao gera alerta', () => {
   const obs = [{ rotaId: 'X-Y', origem: 'X', data: '2026-12-10', precoBRL: 1,
                  distanciaKm: 100, precisao: 'baixa', coletadoEm: new Date().toISOString() }];
@@ -181,11 +192,29 @@ teste('mistura mostra so a barata e conta as caras', () => {
 
 teste('a maior pechincha vem primeiro, nao a de menor preco/km', () => {
   // POA: 899 de 1100 -> 18% de folga, mas 0.52/km (voo curto custa mais por km)
-  // FOR: 2457 de 2600 -> 6% de folga, e 0.32/km
-  // Ordenado por folga, POA vem antes.
-  const md = painelCom([linha('MVD-FOR', 2457, 3897), linha('SAO-POA', 899, 866)]);
+  // FOR: 2200 de 2600 -> 15% de folga, e 0.28/km
+  // Ordenado por folga, POA vem antes. (As duas passam da folga minima; se
+  // uma delas nao passasse, o teste mediria o filtro e nao a ordem.)
+  const md = painelCom([linha('MVD-FOR', 2200, 3897), linha('SAO-POA', 899, 866)]);
+  assert.ok(md.includes('MVD-FOR'), 'as duas tem que estar no painel');
   assert.ok(md.indexOf('SAO-POA') < md.indexOf('MVD-FOR'),
             'a de maior folga tem que vir primeiro');
+});
+
+// O teto e o MAXIMO que ele pagaria, nao um bom preco. Sem folga minima, o
+// painel listava Frankfurt a R$ 4.788 (teto 4.800) entre as pechinchas - de
+// novo o "nao quero passagem cara", so que a 4.788 em vez de 1.991.
+teste('raspar no teto nao conta como promocao', () => {
+  // 9797 km, faixa ate 10000 -> teto 2400 de ida, 4800 ida e volta.
+  const md = painelCom([linha('SAO-FRA', 4788, 9797)]);
+  assert.ok(!md.includes('SAO-FRA'), 'R$ 4.788 com teto de 4.800 nao e promocao');
+  assert.ok(md.includes('Nada barato agora'));
+});
+
+teste('a folga minima e a fronteira, nao o teto', () => {
+  // teto 4800: 15% de folga = 4080. 4079 entra, 4081 fica de fora.
+  assert.ok(painelCom([linha('SAO-FRA', 4079, 9797)]).includes('SAO-FRA'));
+  assert.ok(!painelCom([linha('SAO-FRA', 4081, 9797)]).includes('SAO-FRA'));
 });
 
 console.log('\ncatalogo');

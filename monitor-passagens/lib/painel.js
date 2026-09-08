@@ -8,7 +8,7 @@
 // puxa, quando bate a vontade de viajar e quer ver o que esta barato).
 
 const { brl } = require('./util');
-const { tetoPorDistancia } = require('./catalogo');
+const { tetoPorDistancia, folgaAteTetoPct, eBarata } = require('./catalogo');
 
 // O painel so mostra o que esta ABAIXO DO TETO da faixa de distancia.
 //
@@ -19,9 +19,12 @@ const { tetoPorDistancia } = require('./catalogo');
 //
 // Painel de promocao que mostra passagem cara nao e painel de promocao. Se
 // nao ha nada abaixo do teto, o certo e dizer que nao ha.
-function cabeNoTeto(l, cfg) {
+//
+// E raspar no teto tambem nao vale: o teto e o maximo que voce pagaria, nao um
+// bom preco. Por isso a linha precisa de folga minima (cfg.folgaMinimaPct).
+function eBaratinha(l, cfg) {
   if (typeof l.distanciaKm !== 'number' || typeof l.precoBRL !== 'number') return false;
-  return l.precoBRL <= teto(l, cfg);
+  return eBarata(l.precoBRL, teto(l, cfg), cfg.folgaMinimaPct);
 }
 
 function teto(l, cfg) {
@@ -30,7 +33,7 @@ function teto(l, cfg) {
 }
 
 function abaixoPct(l, cfg) {
-  return Math.round((1 - l.precoBRL / teto(l, cfg)) * 100);
+  return Math.round(folgaAteTetoPct(l.precoBRL, teto(l, cfg)));
 }
 
 // A coluna de companhia voltou, e agora e verdade: sai do data-gs do proprio
@@ -67,7 +70,7 @@ function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId, cfg }) 
   // preco/km ja nao responde a pergunta certa: ele diz qual voo custa menos
   // por quilometro, e o que interessa agora e qual e a maior pechincha. O
   // teto ja embute a distancia, entao a folga compara direto.
-  const baratas = ranking.filter((l) => cabeNoTeto(l, cfg))
+  const baratas = ranking.filter((l) => eBaratinha(l, cfg))
                          .sort((a, b) => abaixoPct(b, cfg) - abaixoPct(a, cfg));
   const caras = ranking.length - baratas.length;
 
@@ -82,27 +85,29 @@ function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId, cfg }) 
 
   if (!baratas.length) {
     p.push('## Nada barato agora\n');
-    p.push(`Nenhuma das ${ranking.length} rotas lidas nesta rodada ficou abaixo do teto da sua`);
-    p.push('faixa de distancia. Passagem cara nao entra aqui — quando aparecer promocao de');
-    p.push('verdade, ela aparece nesta lista e chega por issue no seu e-mail.\n');
-    p.push('Se voce acha que os tetos estao apertados demais, ajuste `tetosPorDistancia`');
-    p.push('no `config.json`.\n');
+    p.push(`Nenhuma das ${ranking.length} rotas lidas nesta rodada ficou pelo menos ` +
+           `${cfg.folgaMinimaPct}% abaixo do teto da sua faixa de distancia. Passagem cara nao`);
+    p.push('entra aqui — quando aparecer promocao de verdade, ela aparece nesta lista e chega');
+    p.push('por issue no seu e-mail.\n');
+    p.push('Se voce acha que esta apertado demais, ajuste `tetosPorDistancia` ou');
+    p.push('`folgaMinimaPct` no `config.json`.\n');
     return p.join('\n');
   }
 
   p.push('## Abaixo do teto\n');
-  p.push('So entra aqui o que esta **abaixo do teto** da faixa de distancia, e a lista vem');
-  p.push('ordenada pela folga ate esse teto — a maior pechincha primeiro. O preco por km');
-  p.push('voado fica na tabela pra comparar destinos de distancias diferentes.\n');
+  p.push(`So entra aqui o que esta pelo menos **${cfg.folgaMinimaPct}% abaixo do teto** da faixa de`);
+  p.push('distancia — raspar no teto nao e promocao, e o limite. A lista vem ordenada pela');
+  p.push('folga, a maior pechincha primeiro. O preco por km voado fica na tabela pra');
+  p.push('comparar destinos de distancias diferentes.\n');
   p.push(tabela(baratas.slice(0, 20).map(enriquecer), cambio, taxas, cfg));
   p.push('');
   if (caras) {
-    p.push(`_Outras ${caras} rotas foram lidas nesta rodada e ficaram acima do teto. ` +
+    p.push(`_Outras ${caras} rotas foram lidas nesta rodada e ficaram caras demais pro teto. ` +
            'Nao entram no painel de proposito._\n');
   }
 
   for (const [origem, linhas] of Object.entries(porOrigem)) {
-    const boas = linhas.filter((l) => cabeNoTeto(l, cfg))
+    const boas = linhas.filter((l) => eBaratinha(l, cfg))
                        .sort((a, b) => abaixoPct(b, cfg) - abaixoPct(a, cfg));
     if (!boas.length) continue;
     p.push(`## Saindo de ${origem}\n`);

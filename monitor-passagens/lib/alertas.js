@@ -6,7 +6,7 @@
 // desde o primeiro dia ate quando ja existe serie.
 
 const { percentil, mediana, brl } = require('./util');
-const { tetoPorDistancia } = require('./catalogo');
+const { tetoPorDistancia, eBarata } = require('./catalogo');
 
 function janela(historico, filtro, dias) {
   const limite = Date.now() - dias * 86400000;
@@ -28,10 +28,13 @@ function avaliar(obs, historico, cfg) {
     // disparar - e ela e a unica que vale desde a primeira rodada.
     const idaEVolta = obs.tipoTarifa === 'ida-e-volta';
     const teto = tetoPorDistancia(obs.distanciaKm, cfg.tetosPorDistancia) * (idaEVolta ? 2 : 1);
-    if (obs.precoBRL <= teto) {
+    // Mesma regra do painel: tem que ter folga ate o teto. Um preco que raspa
+    // no limite nao merece te acordar com um e-mail.
+    if (eBarata(obs.precoBRL, teto, cfg.folgaMinimaPct)) {
       motivos.push({
         tipo: 'teto',
-        texto: `abaixo do teto de ${brl(teto)} pra ${obs.distanciaKm.toLocaleString('pt-BR')} km ` +
+        texto: `${brl(obs.precoBRL)}, pelo menos ${cfg.folgaMinimaPct}% abaixo do teto de ` +
+               `${brl(teto)} pra ${obs.distanciaKm.toLocaleString('pt-BR')} km ` +
                `${idaEVolta ? 'ida e volta' : 'so ida'}`
       });
     }

@@ -39,6 +39,8 @@
       "tetoBRL": 3200
     }
   ],
+  "folgaMinimaPct": 15,
+  "_folgaMinimaPct": "Barata = abaixo do teto COM esta folga minima, em %. Raspar no teto e o limite do que voce pagaria, nao promocao. Sobe pra ficar mais exigente, desce pra ver mais opcoes.",
   "alertas": {
     "percentilAlvo": 10,
     "minObservacoesParaPercentil": 25,
