@@ -63,7 +63,12 @@ function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId, cfg }) 
   const enriquecer = (l) => ({ ...l, cidade: cidadePorId[l.rota.split('-')[1]] });
   const p = [];
 
-  const baratas = ranking.filter((l) => cabeNoTeto(l, cfg));
+  // Ordena pela FOLGA ate o teto, nao por preco/km. Com o teto filtrando, o
+  // preco/km ja nao responde a pergunta certa: ele diz qual voo custa menos
+  // por quilometro, e o que interessa agora e qual e a maior pechincha. O
+  // teto ja embute a distancia, entao a folga compara direto.
+  const baratas = ranking.filter((l) => cabeNoTeto(l, cfg))
+                         .sort((a, b) => abaixoPct(b, cfg) - abaixoPct(a, cfg));
   const caras = ranking.length - baratas.length;
 
   p.push('# Passagens — o que esta barato agora\n');
@@ -86,9 +91,9 @@ function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId, cfg }) 
   }
 
   p.push('## Abaixo do teto\n');
-  p.push('So entra aqui o que esta **abaixo do teto** da faixa de distancia. Ordenado por');
-  p.push('preco por km voado, que e o jeito de comparar uma pechincha pra Recife com uma');
-  p.push('pra Madri.\n');
+  p.push('So entra aqui o que esta **abaixo do teto** da faixa de distancia, e a lista vem');
+  p.push('ordenada pela folga ate esse teto — a maior pechincha primeiro. O preco por km');
+  p.push('voado fica na tabela pra comparar destinos de distancias diferentes.\n');
   p.push(tabela(baratas.slice(0, 20).map(enriquecer), cambio, taxas, cfg));
   p.push('');
   if (caras) {
@@ -97,7 +102,8 @@ function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId, cfg }) 
   }
 
   for (const [origem, linhas] of Object.entries(porOrigem)) {
-    const boas = linhas.filter((l) => cabeNoTeto(l, cfg));
+    const boas = linhas.filter((l) => cabeNoTeto(l, cfg))
+                       .sort((a, b) => abaixoPct(b, cfg) - abaixoPct(a, cfg));
     if (!boas.length) continue;
     p.push(`## Saindo de ${origem}\n`);
     p.push(tabela(boas.slice(0, 10).map(enriquecer), cambio, taxas, cfg));

@@ -179,6 +179,15 @@ teste('mistura mostra so a barata e conta as caras', () => {
   assert.ok(md.includes('Outras 2 rotas'), 'deveria dizer quantas ficaram de fora');
 });
 
+teste('a maior pechincha vem primeiro, nao a de menor preco/km', () => {
+  // POA: 899 de 1100 -> 18% de folga, mas 0.52/km (voo curto custa mais por km)
+  // FOR: 2457 de 2600 -> 6% de folga, e 0.32/km
+  // Ordenado por folga, POA vem antes.
+  const md = painelCom([linha('MVD-FOR', 2457, 3897), linha('SAO-POA', 899, 866)]);
+  assert.ok(md.indexOf('SAO-POA') < md.indexOf('MVD-FOR'),
+            'a de maior folga tem que vir primeiro');
+});
+
 console.log('\ncatalogo');
 
 teste('distancias batem com a realidade', () => {
