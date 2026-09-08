@@ -58,6 +58,21 @@ Actions. Pra gastar menos, baixe `varredura.consultasPorRodada` no
 As datas tambem giram a cada rodada, entao com o tempo ele cobre o calendario
 todo em vez de bater sempre nos mesmos dias.
 
+## O painel so mostra passagem barata
+
+O teto da faixa de distancia nao vale so pra alerta: **e ele que decide o que
+entra no painel**. Passagem acima do teto nao aparece, nem bem ordenada nem
+com rotulo de aviso - ela e lida, entra no historico (que as regras de
+percentil precisam), e fica de fora da lista.
+
+Quando nada esta abaixo do teto, o painel diz "Nada barato agora" em vez de
+mostrar as menos caras. Painel de promocao que mostra passagem cara nao e
+painel de promocao: a lista bonita faz a pessoa achar que aquilo e
+recomendacao.
+
+Se os tetos estiverem apertados ou frouxos demais pro seu bolso, o lugar de
+mexer e `tetosPorDistancia` no `config.json`.
+
 ## Quando ele te avisa
 
 Com destino aberto, "barato" deixa de ter um numero so: R$ 900 pra Buenos

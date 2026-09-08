@@ -8,14 +8,38 @@
 // puxa, quando bate a vontade de viajar e quer ver o que esta barato).
 
 const { brl } = require('./util');
+const { tetoPorDistancia } = require('./catalogo');
+
+// O painel so mostra o que esta ABAIXO DO TETO da faixa de distancia.
+//
+// Antes ele listava os melhores por preco/km independente do teto, com um
+// rotulo discreto de 'acima do teto'. O efeito era o oposto do proposito:
+// quando nao havia nada barato, ele mostrava caro bem ordenado - Santiago a
+// R$ 1.991 com teto de R$ 1.500 aparecia como se fosse recomendacao.
+//
+// Painel de promocao que mostra passagem cara nao e painel de promocao. Se
+// nao ha nada abaixo do teto, o certo e dizer que nao ha.
+function cabeNoTeto(l, cfg) {
+  if (typeof l.distanciaKm !== 'number' || typeof l.precoBRL !== 'number') return false;
+  return l.precoBRL <= teto(l, cfg);
+}
+
+function teto(l, cfg) {
+  const base = tetoPorDistancia(l.distanciaKm, cfg.tetosPorDistancia);
+  return base * (l.tipoTarifa === 'ida-e-volta' ? 2 : 1);
+}
+
+function abaixoPct(l, cfg) {
+  return Math.round((1 - l.precoBRL / teto(l, cfg)) * 100);
+}
 
 // A coluna de companhia voltou, e agora e verdade: sai do data-gs do proprio
 // itinerario (os numeros de voo), nao mais de varrer nomes de cia pela pagina.
 // Onde a leitura ainda cai no caminho antigo, a celula fica vazia em vez de
 // chutar.
-function tabela(linhas, cambio, taxas) {
-  const cab = '| rota | destino | ida | volta | preco | cia | voos | km | R$/km | abrir |\n' +
-              '|---|---|---|---|---|---|---|---|---|---|';
+function tabela(linhas, cambio, taxas, cfg) {
+  const cab = '| rota | destino | ida | volta | preco | abaixo do teto | cia | voos | km | R$/km | abrir |\n' +
+              '|---|---|---|---|---|---|---|---|---|---|---|';
   const corpo = linhas.map((l) => {
     const conv = cambio && taxas ? cambio(l.precoBRL, taxas) : '';
     // rotulo pelo que a leitura REALMENTE e, nao pelo que a consulta pediu:
@@ -27,16 +51,20 @@ function tabela(linhas, cambio, taxas) {
     const link = l.link ? `[buscar](${l.link})` : '-';
     const cia = l.cias && l.cias.length ? l.cias.join(' + ') : '—';
     const voos = l.voos && l.voos.length ? '`' + l.voos.join('` `') + '`' : '—';
+    const folga = `**${abaixoPct(l, cfg)}%**<br><sub>teto ${brl(teto(l, cfg))}</sub>`;
     return `| \`${l.rota}\` | ${l.cidade || l.rota.split('-')[1]} | ${l.data} | ${volta} | ` +
-           `**${brl(l.precoBRL)}**${conv ? `<br><sub>${conv}</sub>` : ''} | ${cia} | ${voos} | ` +
+           `**${brl(l.precoBRL)}**${conv ? `<br><sub>${conv}</sub>` : ''} | ${folga} | ${cia} | ${voos} | ` +
            `${l.distanciaKm.toLocaleString('pt-BR')} | ${l.precoPorKm.toFixed(2)} | ${link} |`;
   }).join('\n');
   return `${cab}\n${corpo}`;
 }
 
-function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId }) {
+function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId, cfg }) {
   const enriquecer = (l) => ({ ...l, cidade: cidadePorId[l.rota.split('-')[1]] });
   const p = [];
+
+  const baratas = ranking.filter((l) => cabeNoTeto(l, cfg));
+  const caras = ranking.length - baratas.length;
 
   p.push('# Passagens — o que esta barato agora\n');
   p.push(`_Atualizado em ${resumo.quando} · ${resumo.leituras} leituras · ` +
@@ -47,16 +75,32 @@ function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId }) {
     return p.join('\n');
   }
 
-  p.push('## Melhores por preco/km\n');
-  p.push('Preco por km e o unico jeito de comparar uma pechincha pra Recife com uma');
-  p.push('pra Madri. Voo curto sempre custa mais por km — compare dentro da mesma faixa.\n');
-  p.push(tabela(ranking.slice(0, 20).map(enriquecer), cambio, taxas));
+  if (!baratas.length) {
+    p.push('## Nada barato agora\n');
+    p.push(`Nenhuma das ${ranking.length} rotas lidas nesta rodada ficou abaixo do teto da sua`);
+    p.push('faixa de distancia. Passagem cara nao entra aqui — quando aparecer promocao de');
+    p.push('verdade, ela aparece nesta lista e chega por issue no seu e-mail.\n');
+    p.push('Se voce acha que os tetos estao apertados demais, ajuste `tetosPorDistancia`');
+    p.push('no `config.json`.\n');
+    return p.join('\n');
+  }
+
+  p.push('## Abaixo do teto\n');
+  p.push('So entra aqui o que esta **abaixo do teto** da faixa de distancia. Ordenado por');
+  p.push('preco por km voado, que e o jeito de comparar uma pechincha pra Recife com uma');
+  p.push('pra Madri.\n');
+  p.push(tabela(baratas.slice(0, 20).map(enriquecer), cambio, taxas, cfg));
   p.push('');
+  if (caras) {
+    p.push(`_Outras ${caras} rotas foram lidas nesta rodada e ficaram acima do teto. ` +
+           'Nao entram no painel de proposito._\n');
+  }
 
   for (const [origem, linhas] of Object.entries(porOrigem)) {
-    if (!linhas.length) continue;
+    const boas = linhas.filter((l) => cabeNoTeto(l, cfg));
+    if (!boas.length) continue;
     p.push(`## Saindo de ${origem}\n`);
-    p.push(tabela(linhas.slice(0, 10).map(enriquecer), cambio, taxas));
+    p.push(tabela(boas.slice(0, 10).map(enriquecer), cambio, taxas, cfg));
     p.push('');
   }
 

@@ -137,6 +137,48 @@ teste('leitura de precisao baixa nao gera alerta', () => {
   assert.strictEqual(alertas.gerar(obs, [], cfg).length, 0);
 });
 
+console.log('\npainel');
+
+const painel = require('./lib/painel');
+const cambio = require('./lib/cambio');
+
+function linha(rota, precoBRL, distanciaKm) {
+  return { rota, precoBRL, distanciaKm, tipoTarifa: 'ida-e-volta', data: '2026-10-21',
+           dataVolta: '2026-10-28', noites: 7, precoPorKm: precoBRL / (distanciaKm * 2),
+           cias: ['LATAM'], voos: ['LA1'], link: 'https://x' };
+}
+function painelCom(linhas) {
+  return painel.gerar({ ranking: linhas, porOrigem: {}, taxas: { UYU: 7.85, USD: 0.195 },
+                        cambio: cambio.converter, cidadePorId: {}, cfg,
+                        resumo: { quando: 'agora', leituras: 10, paresNoCatalogo: 558, voltaEm: 7 } });
+}
+
+// O painel existe pra mostrar promocao. Mostrar passagem cara bem ordenada e
+// o oposto do proposito - foi o que ele fazia, com um rotulo discreto de
+// 'acima do teto'. Santiago a R$ 1.991 (teto 1.500) aparecia como sugestao.
+teste('passagem acima do teto NAO entra no painel', () => {
+  // 2615 km, faixa ate 3000 -> teto 750 de ida, 1500 ida e volta
+  const md = painelCom([linha('SAO-SCL', 1991, 2615)]);
+  assert.ok(!md.includes('SAO-SCL'), 'rota cara nao pode aparecer');
+  assert.ok(md.includes('Nada barato agora'), 'deveria dizer que nao ha nada barato');
+});
+
+teste('passagem abaixo do teto entra, com a folga', () => {
+  // 866 km, faixa ate 1500 -> teto 550 de ida, 1100 ida e volta
+  const md = painelCom([linha('SAO-POA', 899, 866)]);
+  assert.ok(md.includes('SAO-POA'), 'rota barata tem que aparecer');
+  assert.ok(md.includes('18%'), 'deveria mostrar quanto esta abaixo do teto');
+});
+
+teste('mistura mostra so a barata e conta as caras', () => {
+  const md = painelCom([linha('SAO-SCL', 1991, 2615), linha('SAO-POA', 899, 866),
+                        linha('MVD-SCL', 1357, 1367)]);
+  assert.ok(md.includes('SAO-POA'));
+  assert.ok(!md.includes('SAO-SCL'), 'Santiago a 1.991 tem que sumir');
+  assert.ok(!md.includes('MVD-SCL'), 'Santiago a 1.357 (teto 1.100) tambem');
+  assert.ok(md.includes('Outras 2 rotas'), 'deveria dizer quantas ficaram de fora');
+});
+
 console.log('\ncatalogo');
 
 teste('distancias batem com a realidade', () => {

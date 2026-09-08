@@ -241,7 +241,8 @@ async function main() {
     },
     taxas,
     cambio: cambio.converter,
-    cidadePorId
+    cidadePorId,
+    cfg: CONFIG
   });
   fs.writeFileSync(ARQ_PAINEL, md + '\n');
   log(`\nPainel escrito em RANKING.md (${ranking.length} rotas no ranking).`);
