@@ -250,6 +250,74 @@ teste('a folga minima e a fronteira, nao o teto', () => {
   assert.ok(!painelCom([linha('SAO-FRA', 4081, 9797)]).includes('SAO-FRA'));
 });
 
+console.log('\njanela do painel');
+
+const historico = require('./lib/historico');
+
+// Buenos Aires-Iguazu a R$ 408 (63% abaixo do teto) sumiu do painel na rodada
+// seguinte sem ter encarecido: o rodizio tinha ido pra outro pedaco do
+// catalogo. Painel que so olha a rodada atual joga fora o que achou ontem.
+// voos preenchido por padrao: sem isso a leitura nao entra no painel, e os
+// testes de janela mediriam esse filtro em vez do que querem medir.
+function leitura(rotaId, precoBRL, coletadoEm, extra) {
+  return Object.assign({ rotaId, precoBRL, coletadoEm, precisao: 'alta',
+                         leitura: 'estrutural', voos: ['LA1'] }, extra);
+}
+
+teste('rota lida ontem continua no painel', () => {
+  const m = historico.melhorPorRota([
+    leitura('BUE-IGR', 408, '2026-09-08T04:30:00Z'),
+    leitura('SAO-POA', 708, '2026-09-09T04:30:00Z')
+  ]);
+  assert.deepStrictEqual(Object.keys(m).sort(), ['BUE-IGR', 'SAO-POA']);
+  assert.strictEqual(m['BUE-IGR'].precoBRL, 408);
+});
+
+teste('de cada rota vale a leitura mais recente, nao a mais barata da janela', () => {
+  const m = historico.melhorPorRota([
+    leitura('MVD-LIM', 900, '2026-09-07T04:30:00Z'),
+    leitura('MVD-LIM', 2178, '2026-09-09T04:30:00Z')
+  ]);
+  assert.strictEqual(m['MVD-LIM'].precoBRL, 2178,
+                     'R$ 900 de dois dias atras pode nao existir mais');
+});
+
+teste('dentro da mesma rodada, vale a data mais barata', () => {
+  const m = historico.melhorPorRota([
+    leitura('MVD-LIM', 2178, '2026-09-09T04:30:00Z', { data: '2026-11-22' }),
+    leitura('MVD-LIM', 1890, '2026-09-09T04:41:00Z', { data: '2027-01-15' })
+  ]);
+  assert.strictEqual(m['MVD-LIM'].precoBRL, 1890, 'as duas sao da mesma rodada');
+  assert.strictEqual(m['MVD-LIM'].data, '2027-01-15');
+});
+
+teste('leitura de precisao baixa nao entra no painel', () => {
+  const m = historico.melhorPorRota([
+    leitura('BUE-MXP', 3079, '2026-09-09T04:30:00Z', { precisao: 'baixa' })
+  ]);
+  assert.deepStrictEqual(Object.keys(m), []);
+});
+
+// Preco sem itinerario atras nao da pra verificar. Milao apareceu no topo
+// duas vezes por caminhos diferentes: R$ 1.709 de uma leitura estrutural sem
+// data-gs, e R$ 2.162 de um registro de antes do leitor estrutural existir.
+teste('sem numero de voo nao entra no painel', () => {
+  const m = historico.melhorPorRota([
+    leitura('MVD-MXP', 1709, '2026-09-08T04:30:00Z', { leitura: 'estrutural', voos: [] }),
+    leitura('BUE-MXP', 2162, '2026-09-07T22:59:00Z', { leitura: undefined, voos: undefined }),
+    leitura('MVD-LIM', 2178, '2026-09-09T04:30:00Z', { leitura: 'estrutural', voos: ['AR1391'] })
+  ]);
+  assert.deepStrictEqual(Object.keys(m), ['MVD-LIM'],
+                         'so a que tem itinerario atras');
+});
+
+teste('idade so aparece quando a leitura nao e desta rodada', () => {
+  const agora = Date.parse('2026-09-09T12:00:00Z');
+  assert.strictEqual(painel.idade('2026-09-09T10:00:00Z', agora), '');
+  assert.strictEqual(painel.idade('2026-09-08T10:00:00Z', agora), 'lido ontem');
+  assert.strictEqual(painel.idade('2026-09-07T10:00:00Z', agora), 'lido ha 2 dias');
+});
+
 console.log('\ncatalogo');
 
 teste('distancias batem com a realidade', () => {

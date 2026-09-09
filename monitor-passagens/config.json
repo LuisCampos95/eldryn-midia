@@ -41,6 +41,10 @@
   ],
   "folgaMinimaPct": 15,
   "_folgaMinimaPct": "Barata = abaixo do teto COM esta folga minima, em %. Raspar no teto e o limite do que voce pagaria, nao promocao. Sobe pra ficar mais exigente, desce pra ver mais opcoes.",
+  "painel": {
+    "_comentario": "janelaDias: o painel mostra a melhor leitura recente de cada rota, nao so a da rodada atual. O rodizio leva ~7 rodadas (~2 dias) pra cobrir o catalogo, entao 3 dias cobre uma volta inteira com folga. Cada linha mostra ha quanto tempo foi lida.",
+    "janelaDias": 3
+  },
   "alertas": {
     "percentilAlvo": 10,
     "minObservacoesParaPercentil": 25,

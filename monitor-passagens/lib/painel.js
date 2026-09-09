@@ -40,7 +40,20 @@ function abaixoPct(l, cfg) {
 // itinerario (os numeros de voo), nao mais de varrer nomes de cia pela pagina.
 // Onde a leitura ainda cai no caminho antigo, a celula fica vazia em vez de
 // chutar.
-function tabela(linhas, cambio, taxas, cfg) {
+// Uma linha do painel pode ser de uma rodada anterior: o rodizio varre um
+// pedaco do catalogo por vez, e o painel mostra a ultima leitura de cada rota
+// dentro da janela. Preco de 2 dias atras pode nao existir mais, entao a
+// idade fica visivel em vez de fingir que tudo foi lido agora.
+function idade(coletadoEm, agora) {
+  if (!coletadoEm) return '';
+  const horas = (agora - Date.parse(coletadoEm)) / 3600000;
+  if (!(horas >= 0)) return '';
+  if (horas < 12) return '';
+  if (horas < 36) return 'lido ontem';
+  return `lido ha ${Math.round(horas / 24)} dias`;
+}
+
+function tabela(linhas, cambio, taxas, cfg, agora) {
   const cab = '| rota | destino | ida | volta | preco | abaixo do teto | cia | voos | km | R$/km | abrir |\n' +
               '|---|---|---|---|---|---|---|---|---|---|---|';
   const corpo = linhas.map((l) => {
@@ -55,14 +68,16 @@ function tabela(linhas, cambio, taxas, cfg) {
     const cia = l.cias && l.cias.length ? l.cias.join(' + ') : '—';
     const voos = l.voos && l.voos.length ? '`' + l.voos.join('` `') + '`' : '—';
     const folga = `**${abaixoPct(l, cfg)}%**<br><sub>teto ${brl(teto(l, cfg))}</sub>`;
-    return `| \`${l.rota}\` | ${l.cidade || l.rota.split('-')[1]} | ${l.data} | ${volta} | ` +
+    const quando = idade(l.coletadoEm, agora || Date.now());
+    const rota = `\`${l.rota}\`` + (quando ? `<br><sub>${quando}</sub>` : '');
+    return `| ${rota} | ${l.cidade || l.rota.split('-')[1]} | ${l.data} | ${volta} | ` +
            `**${brl(l.precoBRL)}**${conv ? `<br><sub>${conv}</sub>` : ''} | ${folga} | ${cia} | ${voos} | ` +
            `${l.distanciaKm.toLocaleString('pt-BR')} | ${l.precoPorKm.toFixed(2)} | ${link} |`;
   }).join('\n');
   return `${cab}\n${corpo}`;
 }
 
-function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId, cfg }) {
+function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId, cfg, agora }) {
   const enriquecer = (l) => ({ ...l, cidade: cidadePorId[l.rota.split('-')[1]] });
   const p = [];
 
@@ -99,7 +114,10 @@ function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId, cfg }) 
   p.push('distancia — raspar no teto nao e promocao, e o limite. A lista vem ordenada pela');
   p.push('folga, a maior pechincha primeiro. O preco por km voado fica na tabela pra');
   p.push('comparar destinos de distancias diferentes.\n');
-  p.push(tabela(baratas.slice(0, 20).map(enriquecer), cambio, taxas, cfg));
+  p.push(`Cada rodada varre so um pedaco do catalogo, entao a lista junta o que foi lido nos`);
+  p.push(`ultimos ${cfg.painel.janelaDias} dias — a ultima leitura de cada rota. Linha sem aviso de idade foi lida`);
+  p.push('nesta rodada; as outras dizem de quando sao.\n');
+  p.push(tabela(baratas.slice(0, 20).map(enriquecer), cambio, taxas, cfg, agora));
   p.push('');
   if (caras) {
     p.push(`_Outras ${caras} rotas foram lidas nesta rodada e ficaram caras demais pro teto. ` +
@@ -111,7 +129,7 @@ function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId, cfg }) 
                        .sort((a, b) => abaixoPct(b, cfg) - abaixoPct(a, cfg));
     if (!boas.length) continue;
     p.push(`## Saindo de ${origem}\n`);
-    p.push(tabela(boas.slice(0, 10).map(enriquecer), cambio, taxas, cfg));
+    p.push(tabela(boas.slice(0, 10).map(enriquecer), cambio, taxas, cfg, agora));
     p.push('');
   }
 
@@ -124,4 +142,4 @@ function gerar({ ranking, porOrigem, resumo, taxas, cambio, cidadePorId, cfg }) 
   return p.join('\n');
 }
 
-module.exports = { gerar };
+module.exports = { gerar, idade };

@@ -198,18 +198,19 @@ async function main() {
   estado.ultimaRodadaEm = new Date().toISOString();
   fs.writeFileSync(ARQ_ESTADO, JSON.stringify(estado, null, 2) + '\n');
 
-  // snapshot legivel do estado atual do mercado
+  // Snapshot legivel do estado atual do mercado, sobre a JANELA e nao so
+  // sobre esta rodada: o rodizio varre um pedaco por vez, entao olhar so a
+  // rodada atual apagava do painel a pechincha achada na anterior.
+  // historico.gravar(obs) ja rodou acima, entao esta rodada esta na janela.
+  const janela = historico.carregar(CONFIG.painel.janelaDias);
   const melhorPorRota = {};
-  for (const o of obs) {
-    if (o.precisao === 'baixa') continue;
-    if (!melhorPorRota[o.rotaId] || o.precoBRL < melhorPorRota[o.rotaId].precoBRL) {
-      melhorPorRota[o.rotaId] = {
-        precoBRL: o.precoBRL, data: o.data, dataVolta: o.dataVolta, noites: o.noites,
-        tipoTarifa: o.tipoTarifa,
-        distanciaKm: o.distanciaKm, precoPorKm: o.precoPorKm, regiao: o.regiao,
-        cias: o.cias, voos: o.voos, trechos: o.trechos, leitura: o.leitura, link: o.link
-      };
-    }
+  for (const [rotaId, o] of Object.entries(historico.melhorPorRota(janela))) {
+    melhorPorRota[rotaId] = {
+      precoBRL: o.precoBRL, data: o.data, dataVolta: o.dataVolta, noites: o.noites,
+      tipoTarifa: o.tipoTarifa, coletadoEm: o.coletadoEm,
+      distanciaKm: o.distanciaKm, precoPorKm: o.precoPorKm, regiao: o.regiao,
+      cias: o.cias, voos: o.voos, trechos: o.trechos, leitura: o.leitura, link: o.link
+    };
   }
   // Passa TODAS as rotas lidas pro painel, sem cortar em 20 aqui.
   //
