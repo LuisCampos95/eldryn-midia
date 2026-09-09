@@ -104,7 +104,10 @@
     "SAO-POA|2027-02-05|700": 1788929163187,
     "BUE-SCL|2026-11-22|950": 1788929163187,
     "SAO-POA|2027-04-22|800": 1788929163187,
-    "SAO-MVD|2027-04-22|1725": 1788929163187
+    "SAO-MVD|2027-04-22|1725": 1788929163187,
+    "MVD-LAX|2027-02-10|4025": 1788950529356,
+    "MVD-CUN|2026-11-27|3750": 1788950529356,
+    "SAO-MVD|2027-04-27|1725": 1788950529356
   },
   "feedsVistos": [
     "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
@@ -126,7 +129,7 @@
     "https://pontospravoar.com/nova-flagship-suite-da-american-airlines-estreia-em-voo-para-buenos-aires/",
     "https://pontospravoar.com/azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-to-bonus-transferencia-pontos-mais-15-porcento-off-resgate-passagens/"
   ],
-  "rodadas": 13,
-  "cursorRodizio": 79,
-  "ultimaRodadaEm": "2026-09-09T04:46:03.189Z"
+  "rodadas": 14,
+  "cursorRodizio": 164,
+  "ultimaRodadaEm": "2026-09-09T10:42:09.357Z"
 }
