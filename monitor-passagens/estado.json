@@ -84,16 +84,41 @@
     "BUE-IGR|2027-04-11|550": 1788861492701,
     "BUE-NQN|2027-04-11|550": 1788861492701,
     "BUE-MDZ|2027-01-25|550": 1788861492701,
-    "BUE-FTE|2027-01-25|1200": 1788861492701
+    "BUE-FTE|2027-01-25|1200": 1788861492701,
+    "BUE-MXP|2026-11-17|3075": 1788928547892,
+    "BUE-BCN|2027-04-17|4750": 1788928547892,
+    "BUE-BCN|2026-11-17|5275": 1788928547892,
+    "BUE-MAD|2026-11-17|5175": 1788928547892,
+    "SAO-POA|2027-04-17|650": 1788928547892,
+    "SAO-POA|2027-01-31|700": 1788928547892,
+    "BUE-SCL|2027-01-31|950": 1788928547892,
+    "SAO-POA|2026-11-17|875": 1788928547892,
+    "feed|https://www.melhoresdestinos.com.br/promocao/baixou-passagens-da-latam-los-angeles-08set26": 1788928547892,
+    "feed|https://www.melhoresdestinos.com.br/promocao/chile-pacotes-para-santiago-08set26": 1788928547892,
+    "feed|https://passageirodeprimeira.com/converta-o-cashback-do-picpay-em-milhas-no-latam-pass/": 1788928547892,
+    "feed|https://passageirodeprimeira.com/africa-do-sul-chamando-voe-para-joanesburgo-a-partir-de-80-mil-milhas-smiles-taxas/": 1788928547892
   },
   "feedsVistos": [
     "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
     "https://passageirodeprimeira.com/planejando-a-proxima-viagem-veja-sugestoes-de-resgate-para-roma-miami-e-muito-mais/",
     "https://pontospravoar.com/confira-hoteis-proximos-avenida-paulista-diarias-partir-154-reais/",
     "https://pontospravoar.com/palacios-de-madri-poderao-ser-visitados-de-graca/",
-    "https://pontospravoar.com/confira-ofertas-terminam-hoje-azul-fidelidade-latam-pass/"
+    "https://pontospravoar.com/confira-ofertas-terminam-hoje-azul-fidelidade-latam-pass/",
+    "https://www.melhoresdestinos.com.br/promocao/baixou-passagens-da-latam-los-angeles-08set26",
+    "https://www.melhoresdestinos.com.br/promocao/chile-pacotes-para-santiago-08set26",
+    "https://passageirodeprimeira.com/converta-o-cashback-do-picpay-em-milhas-no-latam-pass/",
+    "https://passageirodeprimeira.com/africa-do-sul-chamando-voe-para-joanesburgo-a-partir-de-80-mil-milhas-smiles-taxas/",
+    "https://passageirodeprimeira.com/latam-anuncia-voo-direto-entre-sao-paulo-e-cusco/",
+    "https://pontospravoar.com/alerta-ppv-latam-pass-passagens-nacionais-partir-4164-milhas-taxas/",
+    "https://pontospravoar.com/picpay-transferencia-cashback-latam-pass/",
+    "https://pontospravoar.com/azul-fidelidade-livelo-milheiro-partir-11-reais-83-centavos-pontos-dinheiro/",
+    "https://pontospravoar.com/latam-voo-direto-sao-paulo-cusco/",
+    "https://pontospravoar.com/grupos-whatsapp-pontos-milhas/",
+    "https://pontospravoar.com/azul-anuncia-novo-voo-direto-entre-pelotas-e-campinas/",
+    "https://pontospravoar.com/nova-flagship-suite-da-american-airlines-estreia-em-voo-para-buenos-aires/",
+    "https://pontospravoar.com/azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-to-bonus-transferencia-pontos-mais-15-porcento-off-resgate-passagens/"
   ],
-  "rodadas": 11,
-  "cursorRodizio": 422,
-  "ultimaRodadaEm": "2026-09-08T09:58:12.702Z"
+  "rodadas": 12,
+  "cursorRodizio": 507,
+  "ultimaRodadaEm": "2026-09-09T04:35:47.893Z"
 }
