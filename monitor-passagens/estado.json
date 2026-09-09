@@ -116,7 +116,19 @@
     "MVD-CUN|2027-02-10|3575": 1788951050711,
     "MVD-CUN|2027-04-27|3575": 1788951050711,
     "MVD-CUN|2026-11-27|3750": 1788951050711,
-    "MVD-MEX|2026-11-27|4075": 1788951050711
+    "MVD-MEX|2026-11-27|4075": 1788951050711,
+    "SAO-CWB|2027-02-15|525": 1788972233435,
+    "SAO-REC|2026-12-02|825": 1788972233435,
+    "SAO-SLZ|2027-02-15|1100": 1788972233435,
+    "SAO-SLZ|2026-12-02|1150": 1788972233435,
+    "SAO-JPA|2026-12-02|1200": 1788972233435,
+    "SAO-POA|2027-02-15|675": 1788972233435,
+    "SAO-CGR|2027-02-15|850": 1788972233435,
+    "SAO-POA|2026-12-02|800": 1788972233435,
+    "SAO-CGR|2027-05-02|850": 1788972233435,
+    "SAO-MVD|2027-05-02|1725": 1788972233435,
+    "SAO-VIX|2027-02-15|800": 1788972233435,
+    "SAO-VIX|2026-12-02|825": 1788972233435
   },
   "feedsVistos": [
     "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
@@ -136,9 +148,12 @@
     "https://pontospravoar.com/grupos-whatsapp-pontos-milhas/",
     "https://pontospravoar.com/azul-anuncia-novo-voo-direto-entre-pelotas-e-campinas/",
     "https://pontospravoar.com/nova-flagship-suite-da-american-airlines-estreia-em-voo-para-buenos-aires/",
-    "https://pontospravoar.com/azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-to-bonus-transferencia-pontos-mais-15-porcento-off-resgate-passagens/"
+    "https://pontospravoar.com/azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-to-bonus-transferencia-pontos-mais-15-porcento-off-resgate-passagens/",
+    "https://passageirodeprimeira.com/como-emitir-voos-tabela-fixa-latam/",
+    "https://passageirodeprimeira.com/classe-executiva-dreams-da-copa-para-orlando-por-r-2-091-ou-176-mil-pontos-azul-taxas/",
+    "https://pontospravoar.com/alerta-ppv-latam-pass-voos-internacionais-partir-17-mil-milhas/"
   ],
-  "rodadas": 14,
-  "cursorRodizio": 164,
-  "ultimaRodadaEm": "2026-09-09T10:50:50.712Z"
+  "rodadas": 15,
+  "cursorRodizio": 249,
+  "ultimaRodadaEm": "2026-09-09T16:43:53.436Z"
 }
