@@ -1,6 +1,6 @@
 # Passagens — o que esta barato agora
 
-_Atualizado em 2026-09-09 04:35 UTC · 101 leituras · 558 pares no catalogo · o catalogo inteiro e varrido a cada ~7 rodadas._
+_Atualizado em 2026-09-09 04:46 UTC · 86 leituras · 558 pares no catalogo · o catalogo inteiro e varrido a cada ~7 rodadas._
 
 ## Abaixo do teto
 
@@ -11,26 +11,31 @@ comparar destinos de distancias diferentes.
 
 | rota | destino | ida | volta | preco | abaixo do teto | cia | voos | km | R$/km | abrir |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `BUE-MXP` | Milao | 2026-11-17 | 2026-12-01<br><sub>14 noites</sub> | **R$ 3.079**<br><sub>$U 24.217 / US$ 603</sub> | **52%**<br><sub>teto R$ 6.400</sub> | — | — | 11.201 | 0.14 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Milao%202026-11-17%20through%202026-12-01&hl=pt-BR&gl=BR&curr=BRL) |
-| `SAO-POA` | Porto Alegre | 2027-04-17 | 2027-05-01<br><sub>14 noites</sub> | **R$ 652**<br><sub>$U 5.128 / US$ 128</sub> | **41%**<br><sub>teto R$ 1.100</sub> | LATAM | `LA4543` | 866 | 0.38 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Porto%20Alegre%202027-04-17%20through%202027-05-01&hl=pt-BR&gl=BR&curr=BRL) |
-| `BUE-BCN` | Barcelona | 2027-04-17 | 2027-05-01<br><sub>14 noites</sub> | **R$ 4.757**<br><sub>$U 37.414 / US$ 932</sub> | **26%**<br><sub>teto R$ 6.400</sub> | LL | `LL2604` | 10.481 | 0.23 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Barcelona%202027-04-17%20through%202027-05-01&hl=pt-BR&gl=BR&curr=BRL) |
-| `BUE-MAD` | Madri | 2026-11-17 | 2026-12-01<br><sub>14 noites</sub> | **R$ 5.187**<br><sub>$U 40.796 / US$ 1.017</sub> | **19%**<br><sub>teto R$ 6.400</sub> | ITA Airways | `AZ681` `AZ58` | 10.085 | 0.26 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Madri%202026-11-17%20through%202026-12-01&hl=pt-BR&gl=BR&curr=BRL) |
+| `SAO-POA` | Porto Alegre | 2027-02-05 | 2027-02-12<br><sub>7 noites</sub> | **R$ 708**<br><sub>$U 5.569 / US$ 139</sub> | **36%**<br><sub>teto R$ 1.100</sub> | LATAM | `LA3281` `LA3765` `LA3972` | 866 | 0.41 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Porto%20Alegre%202027-02-05%20through%202027-02-12&hl=pt-BR&gl=BR&curr=BRL) |
+| `BUE-FRA` | Frankfurt | 2026-11-22 | 2026-11-29<br><sub>7 noites</sub> | **R$ 5.260**<br><sub>$U 41.370 / US$ 1.031</sub> | **18%**<br><sub>teto R$ 6.400</sub> | Air Canada | `AC91` `AC91` `AC840` | 11.502 | 0.23 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Frankfurt%202026-11-22%20through%202026-11-29&hl=pt-BR&gl=BR&curr=BRL) |
+| `MVD-SSA` | Salvador | 2026-11-22 | 2026-11-29<br><sub>7 noites</sub> | **R$ 2.189**<br><sub>$U 17.217 / US$ 429</sub> | **16%**<br><sub>teto R$ 2.600</sub> | LATAM | `LA8119` `LA3346` | 3.020 | 0.36 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Salvador%202026-11-22%20through%202026-11-29&hl=pt-BR&gl=BR&curr=BRL) |
+| `MVD-LIM` | Lima | 2026-11-22 | 2026-11-29<br><sub>7 noites</sub> | **R$ 2.178**<br><sub>$U 17.130 / US$ 427</sub> | **16%**<br><sub>teto R$ 2.600</sub> | Aerolineas Argentinas | `AR1391` `AR1364` | 3.311 | 0.33 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Lima%202026-11-22%20through%202026-11-29&hl=pt-BR&gl=BR&curr=BRL) |
 
-_Outras 14 rotas foram lidas nesta rodada e ficaram caras demais pro teto. Nao entram no painel de proposito._
+_Outras 23 rotas foram lidas nesta rodada e ficaram caras demais pro teto. Nao entram no painel de proposito._
+
+## Saindo de MVD
+
+| rota | destino | ida | volta | preco | abaixo do teto | cia | voos | km | R$/km | abrir |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `MVD-LIM` | Lima | 2026-11-22 | 2026-11-29<br><sub>7 noites</sub> | **R$ 2.178**<br><sub>$U 17.130 / US$ 427</sub> | **16%**<br><sub>teto R$ 2.600</sub> | Aerolineas Argentinas | `AR1391` `AR1364` | 3.311 | 0.33 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Lima%202026-11-22%20through%202026-11-29&hl=pt-BR&gl=BR&curr=BRL) |
+| `MVD-SSA` | Salvador | 2026-11-22 | 2026-11-29<br><sub>7 noites</sub> | **R$ 2.189**<br><sub>$U 17.217 / US$ 429</sub> | **16%**<br><sub>teto R$ 2.600</sub> | LATAM | `LA8119` `LA3346` | 3.020 | 0.36 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Salvador%202026-11-22%20through%202026-11-29&hl=pt-BR&gl=BR&curr=BRL) |
 
 ## Saindo de SAO
 
 | rota | destino | ida | volta | preco | abaixo do teto | cia | voos | km | R$/km | abrir |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `SAO-POA` | Porto Alegre | 2027-04-17 | 2027-05-01<br><sub>14 noites</sub> | **R$ 652**<br><sub>$U 5.128 / US$ 128</sub> | **41%**<br><sub>teto R$ 1.100</sub> | LATAM | `LA4543` | 866 | 0.38 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Porto%20Alegre%202027-04-17%20through%202027-05-01&hl=pt-BR&gl=BR&curr=BRL) |
+| `SAO-POA` | Porto Alegre | 2027-02-05 | 2027-02-12<br><sub>7 noites</sub> | **R$ 708**<br><sub>$U 5.569 / US$ 139</sub> | **36%**<br><sub>teto R$ 1.100</sub> | LATAM | `LA3281` `LA3765` `LA3972` | 866 | 0.41 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Porto%20Alegre%202027-02-05%20through%202027-02-12&hl=pt-BR&gl=BR&curr=BRL) |
 
 ## Saindo de BUE
 
 | rota | destino | ida | volta | preco | abaixo do teto | cia | voos | km | R$/km | abrir |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `BUE-MXP` | Milao | 2026-11-17 | 2026-12-01<br><sub>14 noites</sub> | **R$ 3.079**<br><sub>$U 24.217 / US$ 603</sub> | **52%**<br><sub>teto R$ 6.400</sub> | — | — | 11.201 | 0.14 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Milao%202026-11-17%20through%202026-12-01&hl=pt-BR&gl=BR&curr=BRL) |
-| `BUE-BCN` | Barcelona | 2027-04-17 | 2027-05-01<br><sub>14 noites</sub> | **R$ 4.757**<br><sub>$U 37.414 / US$ 932</sub> | **26%**<br><sub>teto R$ 6.400</sub> | LL | `LL2604` | 10.481 | 0.23 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Barcelona%202027-04-17%20through%202027-05-01&hl=pt-BR&gl=BR&curr=BRL) |
-| `BUE-MAD` | Madri | 2026-11-17 | 2026-12-01<br><sub>14 noites</sub> | **R$ 5.187**<br><sub>$U 40.796 / US$ 1.017</sub> | **19%**<br><sub>teto R$ 6.400</sub> | ITA Airways | `AZ681` `AZ58` | 10.085 | 0.26 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Madri%202026-11-17%20through%202026-12-01&hl=pt-BR&gl=BR&curr=BRL) |
+| `BUE-FRA` | Frankfurt | 2026-11-22 | 2026-11-29<br><sub>7 noites</sub> | **R$ 5.260**<br><sub>$U 41.370 / US$ 1.031</sub> | **18%**<br><sub>teto R$ 6.400</sub> | Air Canada | `AC91` `AC91` `AC840` | 11.502 | 0.23 | [buscar](https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Frankfurt%202026-11-22%20through%202026-11-29&hl=pt-BR&gl=BR&curr=BRL) |
 
 ---
 

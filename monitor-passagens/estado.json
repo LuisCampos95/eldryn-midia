@@ -96,7 +96,15 @@
     "feed|https://www.melhoresdestinos.com.br/promocao/baixou-passagens-da-latam-los-angeles-08set26": 1788928547892,
     "feed|https://www.melhoresdestinos.com.br/promocao/chile-pacotes-para-santiago-08set26": 1788928547892,
     "feed|https://passageirodeprimeira.com/converta-o-cashback-do-picpay-em-milhas-no-latam-pass/": 1788928547892,
-    "feed|https://passageirodeprimeira.com/africa-do-sul-chamando-voe-para-joanesburgo-a-partir-de-80-mil-milhas-smiles-taxas/": 1788928547892
+    "feed|https://passageirodeprimeira.com/africa-do-sul-chamando-voe-para-joanesburgo-a-partir-de-80-mil-milhas-smiles-taxas/": 1788928547892,
+    "BUE-FRA|2026-11-22|5250": 1788929163187,
+    "BUE-FRA|2027-02-05|5400": 1788929163187,
+    "MVD-LIM|2026-11-22|2175": 1788929163187,
+    "MVD-SSA|2026-11-22|2200": 1788929163187,
+    "SAO-POA|2027-02-05|700": 1788929163187,
+    "BUE-SCL|2026-11-22|950": 1788929163187,
+    "SAO-POA|2027-04-22|800": 1788929163187,
+    "SAO-MVD|2027-04-22|1725": 1788929163187
   },
   "feedsVistos": [
     "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
@@ -118,7 +126,7 @@
     "https://pontospravoar.com/nova-flagship-suite-da-american-airlines-estreia-em-voo-para-buenos-aires/",
     "https://pontospravoar.com/azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-to-bonus-transferencia-pontos-mais-15-porcento-off-resgate-passagens/"
   ],
-  "rodadas": 12,
-  "cursorRodizio": 507,
-  "ultimaRodadaEm": "2026-09-09T04:35:47.893Z"
+  "rodadas": 13,
+  "cursorRodizio": 79,
+  "ultimaRodadaEm": "2026-09-09T04:46:03.189Z"
 }
