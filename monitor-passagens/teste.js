@@ -29,6 +29,10 @@ function teste(nome, fn) {
 const GS = 'CjRIcUlzU21QN1dOZTBBQU5XQXdCRy0tLS0tLS0tLXZ0dGYyMEFBQUFBR3FlX1A4RksxODBBEg1BUjEzODN8QVIxMjQwGgsIzOUOEAIaA0JSTDgdcLPxAg==';
 const HTML_ITIN = '<div class="YMlIz FpEdX jLMuyc"><span data-gs="' + GS +
                   '" aria-label="2424 Reais brasileiros" role="text"></span></div>'.padEnd(9000, ' ');
+// preco com aria-label de itinerario mas sem data-gs por perto: e o caso de
+// Buenos Aires-Milao, que virou "pechincha" de R$ 3.079 sem companhia
+const HTML_SEM_VOO = ('<div class="YMlIz FpEdX jLMuyc"><span ' +
+                      'aria-label="3079 Reais brasileiros" role="text"></span></div>').padEnd(9000, ' ');
 const HTML_SO_PRECOS = ('<html>' + '<span>R$ 1.234</span>'.repeat(45) +
                         '<span>R$ 980</span>'.repeat(3) + '</html>').padEnd(9000, ' ');
 const IDA_VOLTA = { dataVolta: '2026-09-28' };
@@ -44,6 +48,15 @@ teste('caminho estrutural devolve preco, cia e voos', () => {
   assert.deepStrictEqual(r.voos, ['AR1383', 'AR1240']);
   assert.strictEqual(r.trechos, 2);
   assert.strictEqual(r.tipoTarifa, 'ida-e-volta');
+});
+
+teste('preco sem itinerario atras cai pra precisao baixa', () => {
+  const r = gf.lerPagina(HTML_SEM_VOO, 'q', IDA_VOLTA);
+  assert.strictEqual(r.preco, 3079, 'o preco continua sendo lido');
+  assert.strictEqual(r.leitura, 'estrutural');
+  assert.deepStrictEqual(r.voos, [], 'nao ha voo pra mostrar');
+  assert.strictEqual(r.precisao, 'baixa',
+                     'sem voo nao da pra afirmar que e ida e volta - fora do ranking');
 });
 
 // o bug que zerou a coleta: `precos` fora de escopo no objeto de retorno.
@@ -118,6 +131,26 @@ teste('prefixo IATA vira nome de companhia', () => {
 
 teste('numero solto na pagina nao vira itinerario', () => {
   assert.strictEqual(it.extrair('<span>R$ 99</span>').length, 0);
+});
+
+// Buenos Aires-Milao entrou no painel a R$ 3.079 como a maior pechincha da
+// rodada, com a companhia em branco: era um preco com aria-label mas sem
+// data-gs por perto - provavelmente um "a partir de", de so ida. Preco sem
+// itinerario nao prova ida e volta.
+teste('entre precos iguais, ganha o que tem voo', () => {
+  const escolhido = it.maisBarato([
+    { precoBRL: 3079, voos: [], cias: [], trechos: 0 },
+    { precoBRL: 5200, voos: ['AZ681'], cias: ['ITA Airways'], trechos: 1 }
+  ]);
+  assert.strictEqual(escolhido.precoBRL, 5200, 'o de R$ 3.079 nao tem itinerario atras');
+});
+
+teste('sem nenhum voo na pagina, ainda escolhe o mais barato', () => {
+  const escolhido = it.maisBarato([
+    { precoBRL: 900, voos: [], cias: [], trechos: 0 },
+    { precoBRL: 700, voos: [], cias: [], trechos: 0 }
+  ]);
+  assert.strictEqual(escolhido.precoBRL, 700, 'nao perde o dado - quem chama marca precisao baixa');
 });
 
 console.log('\nregras de alerta');

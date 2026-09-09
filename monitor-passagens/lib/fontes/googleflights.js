@@ -250,12 +250,16 @@ function lerPagina(html, estrategia, consulta) {
   //    passagem. Rede, nao padrao.
   let leitura;
   let precos = [];
+  let semVoo = false;
   const viaEstrutura = Boolean(melhor);
 
   if (viaEstrutura) {
     const ordenados = itens.map((i) => i.precoBRL).sort((a, b) => a - b);
     leitura = { preco: melhor.precoBRL, descartadosAbaixo: 0,
                 mediana: ordenados[Math.floor(ordenados.length / 2)] };
+    // Nenhum item da pagina tinha voo: o preco existe, mas nao da pra dizer
+    // que e um itinerario de ida e volta. Fica no historico, fora do ranking.
+    if (!melhor.voos.length) semVoo = true;
   } else {
     precos = extrairPrecos(html);
     if (precos.length === 0) return { erro: `nenhum preco na pagina (${html.length} bytes)` };
@@ -267,7 +271,7 @@ function lerPagina(html, estrategia, consulta) {
     ok: true,
     estrategia,
     tipoTarifa: (estrategia === 'q-ida' || !consulta.dataVolta) ? 'ida' : 'ida-e-volta',
-    precisao: estrategia === 'q' ? 'alta' : 'baixa',
+    precisao: (estrategia === 'q' && !semVoo) ? 'alta' : 'baixa',
     leitura: viaEstrutura ? 'estrutural' : 'estatistica',
     preco: leitura.preco,
     precoMediana: leitura.mediana,

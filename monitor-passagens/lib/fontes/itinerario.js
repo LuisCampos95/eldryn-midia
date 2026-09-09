@@ -106,9 +106,22 @@ function extrair(html) {
 }
 
 /** O mais barato, que e o que o monitor reporta. */
+// Prefere o mais barato QUE TENHA VOO.
+//
+// Um item sem voo e um preco com aria-label mas sem data-gs por perto: existe
+// na pagina, mas nada prova que e um itinerario de ida e volta. Foi assim que
+// Buenos Aires-Milao entrou no painel a R$ 3.079 (R$ 0,14/km, 52% de folga,
+// companhia em branco) como a melhor pechincha da rodada - provavelmente um
+// preco "a partir de", de so ida.
+//
+// Cair pro mais barato sem voo so quando nenhum item tem voo; ai quem chama
+// marca a leitura como precisao baixa, e ela fica no historico sem entrar no
+// ranking nem virar alerta.
 function maisBarato(itinerarios) {
   if (!itinerarios.length) return null;
-  return itinerarios.reduce((a, b) => (a.precoBRL <= b.precoBRL ? a : b));
+  const comVoo = itinerarios.filter((i) => i.voos && i.voos.length);
+  const pool = comVoo.length ? comVoo : itinerarios;
+  return pool.reduce((a, b) => (a.precoBRL <= b.precoBRL ? a : b));
 }
 
 module.exports = { extrair, maisBarato, voosDoDataGs, ciaDoVoo, CIAS };
