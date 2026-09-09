@@ -128,7 +128,19 @@
     "SAO-CGR|2027-05-02|850": 1788972233435,
     "SAO-MVD|2027-05-02|1725": 1788972233435,
     "SAO-VIX|2027-02-15|800": 1788972233435,
-    "SAO-VIX|2026-12-02|825": 1788972233435
+    "SAO-VIX|2026-12-02|825": 1788972233435,
+    "SAO-POA|2027-05-07|625": 1788993953211,
+    "SAO-MEX|2027-02-20|2875": 1788993953211,
+    "SAO-BCN|2027-02-20|3975": 1788993953211,
+    "SAO-MIA|2027-05-07|3050": 1788993953211,
+    "SAO-BCN|2027-05-07|4075": 1788993953211,
+    "SAO-MCO|2027-02-20|3300": 1788993953211,
+    "SAO-CUN|2026-12-07|3300": 1788993953211,
+    "SAO-LIM|2026-12-07|2000": 1788993953211,
+    "BUE-SCL|2026-12-07|1075": 1788993953211,
+    "SAO-MVD|2027-05-07|1725": 1788993953211,
+    "feed|https://www.melhoresdestinos.com.br/promocao/passagens-aereas-2-em-1-marrocos-mais-europa-09-09-26": 1788993953211,
+    "feed|https://www.melhoresdestinos.com.br/anac-libera-operacoes-congonhas.html": 1788993953211
   },
   "feedsVistos": [
     "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
@@ -151,9 +163,17 @@
     "https://pontospravoar.com/azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-to-bonus-transferencia-pontos-mais-15-porcento-off-resgate-passagens/",
     "https://passageirodeprimeira.com/como-emitir-voos-tabela-fixa-latam/",
     "https://passageirodeprimeira.com/classe-executiva-dreams-da-copa-para-orlando-por-r-2-091-ou-176-mil-pontos-azul-taxas/",
-    "https://pontospravoar.com/alerta-ppv-latam-pass-voos-internacionais-partir-17-mil-milhas/"
+    "https://pontospravoar.com/alerta-ppv-latam-pass-voos-internacionais-partir-17-mil-milhas/",
+    "https://www.melhoresdestinos.com.br/promocao/passagens-aereas-2-em-1-marrocos-mais-europa-09-09-26",
+    "https://www.melhoresdestinos.com.br/anac-libera-operacoes-congonhas.html",
+    "https://www.melhoresdestinos.com.br/promocao/passagens-para-orlando-09set26",
+    "https://www.melhoresdestinos.com.br/promocao/pacotes-de-viagem-para-florianopolis-09set26",
+    "https://passageirodeprimeira.com/data-unica-trecho-para-lisboa-a-partir-de-r-853-ou-71-mil-pontos-azul-taxas/",
+    "https://passageirodeprimeira.com/governo-de-portugal-avanca-a-privatizacao-da-tap-para-sua-etapa-final/",
+    "https://pontospravoar.com/mais-400-alertas-mes-conheca-grupo-emissoes-ppv/",
+    "https://pontospravoar.com/maroon-5-esquenta-a-noite-do-camarote-santander-no-nubank-parque/"
   ],
-  "rodadas": 15,
-  "cursorRodizio": 249,
-  "ultimaRodadaEm": "2026-09-09T16:43:53.436Z"
+  "rodadas": 16,
+  "cursorRodizio": 334,
+  "ultimaRodadaEm": "2026-09-09T22:45:53.213Z"
 }
