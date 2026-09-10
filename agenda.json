@@ -676,6 +676,22 @@
       "arquivo": "rc263.mp4"
     },
     {
+      "post": "rc265",
+      "hora": "11:45",
+      "quandoUtc": "2026-09-10T14:45:00.000Z",
+      "texto": "🎨 EDITOR DE NÓ GANHOU TELA INICIAL E MINIMAPA, E OS GOBLINS AGORA TÊM MEDO DO VAZIO\n\nSaiu a segunda leva do Update 7 pré-lançamento, com reforma grande na ferramenta de criativo mais avançada do jogo e comportamento novo de IA.\n\n🖥️ EDITOR DE NÓ QUASE OUTRA FERRAMENTA\nAbre direto em uma tela inicial pra escolher o que criar ou voltar em um arquivo recente, lembra o último tipo de workspace usado, e arquivo arrastado abre direto no Windows e Mac. Ganhou tema claro além do escuro. Tem minimapa novo que mostra onde você tá no gráfico inteiro e leva você pra qualquer parte com um clique. Arrastar nó agora encaixa sozinho na linha dos vizinhos, com linha guia mostrando o alinhamento. E os nós de curva (ManualCurve, FunctionForY) ganharam gráfico interativo, clique direito adiciona ponto, Delete remove.\n\n🧌 GOBLIN AGORA FOGE DO VAZIO, OU SEGURA A ONDA SE TIVER REFORÇO\nCriatura do Vazio virou hostil contra goblin. A maioria foge quando encontra uma, só segura a posição se tiver aliado suficiente por perto. Burner, Feastmaster, Guardian, Lobber, Miner e Scrapper pararam de perseguir alvo pra sempre, e o Burner ficou com bem menos empurrão no ataque.\n\n🛠️ ITEM E CONTROLE\nPortal ganha limite de entrada por jogador, mostrado na interface do Portal Ancestral. Gancho foi refeito visualmente, animação de disparo nova. Planador de Sucata ganhou modelo e textura novos, e a asa bate de verdade agora. Controle de habilidade no controle mudou, segura o gatilho direito e aperta botão diferente pra cada habilidade.\n\n🔎 BUSCA DO INVENTÁRIO CRIATIVO ACEITA ERRO DE DIGITAÇÃO\nEscreve \"swrd\" ou \"swodr\" e ainda acha espada. Também ignora acento, \"e\" já encontra item com \"é\". Efígie do Vinculador ganhou passada visual, e runa mostra a etiqueta de habilidade no tooltip.\n\n🔊 ÁUDIO\nSom novo pra quando você bate ferramenta fraca demais em um bloco. Menos som de quebra repetido ao minerar em sequência. Goblin ao redor abaixa o volume quando o Feastmaster grita com eles. Som da Habilidade Marca carregada ficou mais baixo, e a Bota-Foguete ganhou som próprio no pulo duplo.\n\n🔧 CORREÇÃO DE BUG\nEditor de Nó parou de travar ao abrir e fechar gráfico grande, arquivo carrega em segundo plano agora. Resolvido vazamento de memória que deixava todo gráfico aberto preso até fechar o jogo, perda de conexão ao copiar e colar nó, e problema de título de grupo bagunçado. Barril explosivo ganhou aviso de que pode ser carregado. Machado virou jeito alternativo (e nada convencional) de detonar bloco explosivo. Armadilha Presa de Cobra prende por 2 segundos agora, em vez de travar pra sempre. Projétil de gancho parou de ficar perdido no mundo depois de parar de se mover.\n\n🔧 Notas completas no site oficial do Hytale\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "imagem",
+      "arquivo": "rc265.jpg"
+    },
+    {
+      "post": "rc266",
+      "hora": "11:50",
+      "quandoUtc": "2026-09-10T14:50:00.000Z",
+      "texto": "🧹 VAZAMENTO DE MEMÓRIA QUE IA DEIXANDO O JOGO PESADO AO LONGO DA SESSÃO TÁ RESOLVIDO\n\nSaiu a 0.6.5, quinta leva de correções do Update 6.\n\n🔹 Cliente e servidor paravam de liberar memória ao entrar em mundo, trocar de instância ou depois que um mundo descarregava, o que ia acumulando com o tempo\n🔹 Crash ao sair do mundo com cena de machinima carregada, corrigido\n🔹 Recurso social volta sozinho depois de falha de conexão no início, sem precisar reiniciar o jogo\n🔹 Levantar bloco parou de disparar o efeito de quebra dele, tipo explosão\n\n🔧 Notas completas no site oficial do Hytale\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "imagem",
+      "arquivo": "rc266.jpg"
+    },
+    {
       "post": "rc264",
       "hora": "17:00",
       "quandoUtc": "2026-09-10T20:00:00.000Z",
