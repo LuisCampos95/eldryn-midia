@@ -1,0 +1,124 @@
+{
+  "moedaBase": "BRL",
+  "varredura": {
+    "_comentario": "130 consultas/rodada ~= 6 min. 4 rodadas/dia cabem folgado na cota gratuita de 2.000 min/mes do Actions em repo privado. duracoesDias alterna a cada rodada, entao os dois tamanhos de viagem sao amostrados sem dobrar o numero de consultas.",
+    "diasMin": 14,
+    "diasMax": 240,
+    "datasPorParFixo": 3,
+    "datasPorParRodizio": 3,
+    "consultasPorRodada": 130,
+    "tipo": "ida-e-volta",
+    "duracoesDias": [
+      7,
+      14
+    ]
+  },
+  "tetosPorDistancia": [
+    {
+      "ateKm": 500,
+      "tetoBRL": 350
+    },
+    {
+      "ateKm": 1500,
+      "tetoBRL": 550
+    },
+    {
+      "ateKm": 3000,
+      "tetoBRL": 750
+    },
+    {
+      "ateKm": 6000,
+      "tetoBRL": 1300
+    },
+    {
+      "ateKm": 10000,
+      "tetoBRL": 2400
+    },
+    {
+      "ateKm": 99999,
+      "tetoBRL": 3200
+    }
+  ],
+  "folgaMinimaPct": 15,
+  "_folgaMinimaPct": "Barata = abaixo do teto COM esta folga minima, em %. Raspar no teto e o limite do que voce pagaria, nao promocao. Sobe pra ficar mais exigente, desce pra ver mais opcoes.",
+  "painel": {
+    "_comentario": "janelaDias: o painel mostra a melhor leitura recente de cada rota, nao so a da rodada atual. O rodizio leva ~7 rodadas (~2 dias) pra cobrir o catalogo, entao 3 dias cobre uma volta inteira com folga. Cada linha mostra ha quanto tempo foi lida.",
+    "janelaDias": 3
+  },
+  "alertas": {
+    "percentilAlvo": 10,
+    "minObservacoesParaPercentil": 25,
+    "quedaMinimaPct": 25,
+    "janelaHistoricoDias": 90,
+    "regiaoFracaoDaMediana": 0.6,
+    "minObservacoesRegiao": 30,
+    "janelaRegiaoDias": 14,
+    "cooldownHoras": 48,
+    "maxAlertasPorRodada": 12
+  },
+  "milhas": {
+    "programa": "LATAM Pass",
+    "valorPorMilheiroBRL": 20,
+    "taxaEmbarqueEstimadaBRL": 180
+  },
+  "googleFlights": {
+    "ativo": true,
+    "pausaMs": 2200,
+    "tentativas": 2,
+    "timeoutMs": 25000
+  },
+  "feeds": {
+    "ativo": true,
+    "urls": [
+      "https://www.melhoresdestinos.com.br/feed",
+      "https://passageirodeprimeira.com/feed",
+      "https://pontospravoar.com/feed",
+      "https://mestredasmilhas.com/feed",
+      "https://www.viajenaviagem.com/feed"
+    ],
+    "palavrasGeo": [
+      "montevideu",
+      "montevideo",
+      "uruguai",
+      "uruguay",
+      "mvd",
+      "buenos aires",
+      "argentina",
+      "eze",
+      "aeroparque",
+      "ezeiza",
+      "bariloche",
+      "mendoza",
+      "ushuaia",
+      "iguazu",
+      "iguacu",
+      "sao paulo",
+      "guarulhos",
+      "viracopos",
+      "congonhas",
+      "campinas",
+      "gru"
+    ],
+    "palavrasMilhas": [
+      "latam pass",
+      "milhas",
+      "smiles",
+      "tudoazul",
+      "pontos",
+      "transferencia bonificada"
+    ],
+    "maxIdadeHoras": 30,
+    "palavrasPrograma": [
+      "latam pass",
+      "transferencia bonificada",
+      "bonus de milhas",
+      "bonus na transferencia",
+      "milhas latam",
+      "queima de milhas"
+    ]
+  },
+  "travelpayouts": {
+    "ativo": true,
+    "comentario": "Opcional. So roda se o secret TRAVELPAYOUTS_TOKEN existir. Cadastro gratuito em travelpayouts.com."
+  }
+}

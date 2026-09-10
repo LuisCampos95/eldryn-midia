@@ -1,0 +1,127 @@
+name: Monitor de passagens
+
+on:
+  schedule:
+    # de 6 em 6 horas, fora da hora cheia (runner menos disputado)
+    - cron: '17 3,9,15,21 * * *'
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: 'rodada = coleta e alerta | diagnostico = so testa as fontes'
+        type: choice
+        options: [rodada, diagnostico]
+        default: rodada
+      limite:
+        description: 'maximo de consultas de preco (vazio = todas)'
+        type: string
+        default: ''
+      estrategia:
+        description: 'Google Flights: tfs, q, ou vazio para tentar as duas'
+        type: string
+        default: ''
+  # Todo push no branch de desenvolvimento roda o diagnostico: e o smoke test
+  # das fontes, que sao scraping e podem quebrar a qualquer momento.
+  push:
+    branches:
+      - 'claude/flight-price-monitoring**'
+    paths:
+      - 'monitor-passagens/**'
+      - '.github/workflows/passagens.yml'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: passagens
+  cancel-in-progress: false
+
+jobs:
+  monitorar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Smoke test de ponta a ponta: coleta 6 datas de verdade, grava historico
+      # e roda as regras de alerta - so nao notifica nem commita.
+      # Primeiro os testes: sao offline e levam menos de um segundo. Nao faz
+      # sentido gastar 7 minutos de coleta pra descobrir que a leitura quebrou.
+      - name: Testes
+        working-directory: monitor-passagens
+        run: node teste.js
+
+      - name: Rodada de teste (coleta real, sem notificar nem commitar)
+        if: github.event_name == 'push'
+        working-directory: monitor-passagens
+        run: |
+          node monitor.js --sem-alerta
+          echo "===== RANKING.md ====="
+          cat RANKING.md
+
+      # Depois da coleta de proposito: o diagnostico e o que a gente LE quando
+      # algo quebra, e antes da coleta ele ficava soterrado por 130 linhas de
+      # log. No fim, esta sempre nas ultimas linhas.
+      - name: Diagnostico das fontes
+        if: github.event_name == 'push' || github.event.inputs.modo == 'diagnostico'
+        working-directory: monitor-passagens
+        run: node monitor.js --diagnostico
+
+      - name: Rodada de coleta
+        if: github.event_name != 'push' && github.event.inputs.modo != 'diagnostico'
+        working-directory: monitor-passagens
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TRAVELPAYOUTS_TOKEN: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          ARGS=""
+          if [ -n "${{ github.event.inputs.limite }}" ]; then ARGS="$ARGS --limite=${{ github.event.inputs.limite }}"; fi
+          if [ -n "${{ github.event.inputs.estrategia }}" ]; then ARGS="$ARGS --estrategia=${{ github.event.inputs.estrategia }}"; fi
+          node monitor.js $ARGS
+
+      - name: Guardar historico e painel
+        if: github.event.inputs.modo != 'diagnostico'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # habilita o driver 'ours' que o .gitattributes usa nos arquivos
+          # regerados (o 'union' do historico e nativo)
+          git config merge.ours.driver true
+          git add monitor-passagens/historico monitor-passagens/estado.json \
+                  monitor-passagens/ultimo.json monitor-passagens/cambio.json \
+                  monitor-passagens/RANKING.md 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "nada novo pra commitar"
+            exit 0
+          fi
+          git commit -m "monitor de passagens: painel de $(date -u +%Y-%m-%dT%H:%MZ)"
+          # Colisao aqui e a regra, nao a excecao: o Actions faz checkout do
+          # commit que disparou a rodada, entao se a rodada anterior ja
+          # commitou o painel, o push e rejeitado e precisamos integrar.
+          #
+          # Merge, nao rebase: com merge o 'ours' do .gitattributes significa
+          # a NOSSA geracao, que e o que queremos. No rebase os lados se
+          # invertem. E sempre abortar um merge pendente antes de tentar de
+          # novo - sem isso o loop fica preso em 'unmerged files', que foi
+          # exatamente como esta etapa falhou antes.
+          for tentativa in 1 2 3 4; do
+            if git push; then exit 0; fi
+            echo "push rejeitado (tentativa $tentativa): integrando o remoto"
+            git merge --abort 2>/dev/null || true
+            if ! git pull --no-rebase --no-edit origin "${GITHUB_REF_NAME}"; then
+              echo "merge falhou mesmo com os drivers do .gitattributes" >&2
+              git merge --abort 2>/dev/null || true
+              git status --short >&2
+              exit 1
+            fi
+            sleep $((2 ** tentativa))
+          done
+          echo "nao consegui empurrar o painel apos 4 tentativas" >&2
+          exit 1
