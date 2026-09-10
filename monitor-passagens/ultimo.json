@@ -1,14 +1,14 @@
 {
-  "atualizadoEm": "2026-09-10T04:46:56.836Z",
-  "leituras": 125,
-  "falhas": 5,
+  "atualizadoEm": "2026-09-10T10:49:59.067Z",
+  "leituras": 105,
+  "falhas": 25,
   "cambio": {
     "UYU": 7.888753,
     "ARS": 297.283711,
     "USD": 0.196214,
-    "atualizadoEm": "2026-09-10T04:39:29.714Z"
+    "atualizadoEm": "2026-09-10T10:41:42.162Z"
   },
-  "cursorRodizio": 419,
+  "cursorRodizio": 504,
   "catalogo": {
     "pares": 558,
     "voltaEmRodadas": 7
@@ -16,66 +16,67 @@
   "ranking": [
     {
       "rota": "MVD-SAO",
-      "precoBRL": 1996,
-      "data": "2026-12-07",
-      "dataVolta": "2026-12-21",
+      "precoBRL": 1974,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
       "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-09T22:37:27.034Z",
+      "coletadoEm": "2026-09-10T10:41:48.731Z",
       "distanciaKm": 1570,
-      "precoPorKm": 0.636,
+      "precoPorKm": 0.629,
       "regiao": "brasil",
       "cias": [
-        "LATAM"
+        "Aerolineas Argentinas"
       ],
       "voos": [
-        "LA8119"
+        "AR1385",
+        "AR1246"
       ],
-      "trechos": 1,
+      "trechos": 2,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Sao%20Paulo%202026-12-07%20through%202026-12-21&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Sao%20Paulo%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "MVD-BUE",
-      "precoBRL": 928,
-      "data": "2026-09-29",
-      "dataVolta": "2026-10-06",
-      "noites": 7,
+      "precoBRL": 1011,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:39:43.189Z",
+      "coletadoEm": "2026-09-10T10:41:51.350Z",
       "distanciaKm": 229,
-      "precoPorKm": 2.026,
+      "precoPorKm": 2.207,
       "regiao": "cone-sul",
       "cias": [
         "Aerolineas Argentinas"
       ],
       "voos": [
-        "AR1385"
+        "AR1391"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Buenos%20Aires%202026-09-29%20through%202026-10-06&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Buenos%20Aires%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "MVD-GIG",
-      "precoBRL": 1286,
-      "data": "2026-12-13",
-      "dataVolta": "2026-12-20",
-      "noites": 7,
+      "precoBRL": 1633,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:39:55.509Z",
+      "coletadoEm": "2026-09-10T10:42:00.689Z",
       "distanciaKm": 1824,
-      "precoPorKm": 0.353,
+      "precoPorKm": 0.448,
       "regiao": "brasil",
       "cias": [
-        "JetSMART"
+        "Gol"
       ],
       "voos": [
-        "JA763"
+        "G39451"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Rio%20de%20Janeiro%202026-12-13%20through%202026-12-20&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Rio%20de%20Janeiro%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "MVD-POA",
@@ -101,68 +102,68 @@
     },
     {
       "rota": "MVD-SCL",
-      "precoBRL": 1475,
-      "data": "2026-09-29",
-      "dataVolta": "2026-10-06",
-      "noites": 7,
+      "precoBRL": 1804,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:40:11.829Z",
+      "coletadoEm": "2026-09-10T10:42:23.413Z",
       "distanciaKm": 1367,
-      "precoPorKm": 0.54,
+      "precoPorKm": 0.66,
       "regiao": "sul-america",
       "cias": [
-        "Aerolineas Argentinas"
+        "LATAM"
       ],
       "voos": [
-        "AR1385",
-        "AR1286"
-      ],
-      "trechos": 2,
-      "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Santiago%202026-09-29%20through%202026-10-06&hl=pt-BR&gl=BR&curr=BRL"
-    },
-    {
-      "rota": "SAO-MVD",
-      "precoBRL": 2064,
-      "data": "2026-09-29",
-      "dataVolta": "2026-10-06",
-      "noites": 7,
-      "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:40:22.994Z",
-      "distanciaKm": 1570,
-      "precoPorKm": 0.657,
-      "regiao": "cone-sul",
-      "cias": [
-        "Aerolineas Argentinas"
-      ],
-      "voos": [
-        "AR1247",
-        "AR1382"
-      ],
-      "trechos": 2,
-      "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Montevideo%202026-09-29%20through%202026-10-06&hl=pt-BR&gl=BR&curr=BRL"
-    },
-    {
-      "rota": "SAO-BUE",
-      "precoBRL": 1794,
-      "data": "2026-12-13",
-      "dataVolta": "2026-12-20",
-      "noites": 7,
-      "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:40:37.690Z",
-      "distanciaKm": 1723,
-      "precoPorKm": 0.521,
-      "regiao": "cone-sul",
-      "cias": [
-        "Aerolineas Argentinas"
-      ],
-      "voos": [
-        "AR1241"
+        "LA411"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Buenos%20Aires%202026-12-13%20through%202026-12-20&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Santiago%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    {
+      "rota": "SAO-MVD",
+      "precoBRL": 1937,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:42:41.957Z",
+      "distanciaKm": 1570,
+      "precoPorKm": 0.617,
+      "regiao": "cone-sul",
+      "cias": [
+        "Aerolineas Argentinas"
+      ],
+      "voos": [
+        "AR1243",
+        "AR1384"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Montevideo%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    {
+      "rota": "SAO-BUE",
+      "precoBRL": 2437,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:42:48.936Z",
+      "distanciaKm": 1723,
+      "precoPorKm": 0.707,
+      "regiao": "cone-sul",
+      "cias": [
+        "LATAM"
+      ],
+      "voos": [
+        "LA757",
+        "LA425"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Buenos%20Aires%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "SAO-GIG",
@@ -187,78 +188,77 @@
     },
     {
       "rota": "SAO-POA",
-      "precoBRL": 624,
-      "data": "2027-02-26",
-      "dataVolta": "2027-03-05",
-      "noites": 7,
+      "precoBRL": 907,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:41:01.423Z",
+      "coletadoEm": "2026-09-10T10:43:12.510Z",
       "distanciaKm": 866,
-      "precoPorKm": 0.36,
+      "precoPorKm": 0.524,
       "regiao": "brasil",
       "cias": [
         "LATAM"
       ],
       "voos": [
-        "LA4543"
+        "LA3160"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Porto%20Alegre%202027-02-26%20through%202027-03-05&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Porto%20Alegre%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "SAO-SCL",
-      "precoBRL": 1216,
-      "data": "2026-09-29",
-      "dataVolta": "2026-10-06",
-      "noites": 7,
+      "precoBRL": 1657,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:41:04.156Z",
+      "coletadoEm": "2026-09-10T10:43:21.688Z",
       "distanciaKm": 2615,
-      "precoPorKm": 0.233,
+      "precoPorKm": 0.317,
       "regiao": "sul-america",
       "cias": [
         "LATAM"
       ],
       "voos": [
-        "LA715"
+        "LA8038"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Santiago%202026-09-29%20through%202026-10-06&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Santiago%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "BUE-SAO",
-      "precoBRL": 1818,
-      "data": "2027-02-26",
-      "dataVolta": "2027-03-05",
-      "noites": 7,
+      "precoBRL": 1977,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:41:22.589Z",
+      "coletadoEm": "2026-09-10T10:43:31.121Z",
       "distanciaKm": 1723,
-      "precoPorKm": 0.528,
+      "precoPorKm": 0.574,
       "regiao": "brasil",
       "cias": [
-        "LATAM"
+        "Gol"
       ],
       "voos": [
-        "LA2368",
-        "LA8041"
+        "G37649"
       ],
-      "trechos": 2,
+      "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Sao%20Paulo%202027-02-26%20through%202027-03-05&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Sao%20Paulo%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "BUE-MVD",
-      "precoBRL": 1480,
-      "data": "2026-12-13",
-      "dataVolta": "2026-12-20",
-      "noites": 7,
+      "precoBRL": 1481,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:41:28.176Z",
+      "coletadoEm": "2026-09-10T10:43:41.981Z",
       "distanciaKm": 229,
-      "precoPorKm": 3.231,
+      "precoPorKm": 3.234,
       "regiao": "cone-sul",
       "cias": [
         "Aerolineas Argentinas"
@@ -268,28 +268,28 @@
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Montevideo%202026-12-13%20through%202026-12-20&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Montevideo%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "BUE-GIG",
-      "precoBRL": 1953,
-      "data": "2027-02-26",
-      "dataVolta": "2027-03-05",
-      "noites": 7,
+      "precoBRL": 1967,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:41:42.735Z",
+      "coletadoEm": "2026-09-10T10:43:48.322Z",
       "distanciaKm": 1996,
-      "precoPorKm": 0.489,
+      "precoPorKm": 0.493,
       "regiao": "brasil",
       "cias": [
-        "British Airways"
+        "LATAM"
       ],
       "voos": [
-        "BA248"
+        "LA8045"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Rio%20de%20Janeiro%202027-02-26%20through%202027-03-05&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Rio%20de%20Janeiro%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "BUE-POA",
@@ -315,14 +315,14 @@
     },
     {
       "rota": "BUE-SCL",
-      "precoBRL": 957,
-      "data": "2026-12-13",
-      "dataVolta": "2026-12-20",
-      "noites": 7,
+      "precoBRL": 1135,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:42:00.199Z",
+      "coletadoEm": "2026-09-10T10:44:19.101Z",
       "distanciaKm": 1138,
-      "precoPorKm": 0.42,
+      "precoPorKm": 0.499,
       "regiao": "sul-america",
       "cias": [
         "JetSMART"
@@ -332,7 +332,7 @@
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Santiago%202026-12-13%20through%202026-12-20&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Santiago%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "BUE-IST",
@@ -2449,14 +2449,14 @@
     },
     {
       "rota": "BUE-LIM",
-      "precoBRL": 1587,
-      "data": "2026-11-11",
-      "dataVolta": "2026-11-18",
-      "noites": 7,
+      "precoBRL": 1581,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-08T09:58:03.088Z",
+      "coletadoEm": "2026-09-10T10:44:26.323Z",
       "distanciaKm": 3152,
-      "precoPorKm": 0.252,
+      "precoPorKm": 0.251,
       "regiao": "sul-america",
       "cias": [
         "JetSMART"
@@ -2466,51 +2466,51 @@
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Lima%202026-11-11%20through%202026-11-18&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Lima%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "BUE-BOG",
-      "precoBRL": 3385,
-      "data": "2026-11-17",
-      "dataVolta": "2026-12-01",
+      "precoBRL": 2679,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
       "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-09T04:30:41.257Z",
+      "coletadoEm": "2026-09-10T10:44:59.285Z",
       "distanciaKm": 4688,
-      "precoPorKm": 0.361,
+      "precoPorKm": 0.286,
       "regiao": "sul-america",
       "cias": [
-        "JetSMART"
+        "DM"
       ],
       "voos": [
-        "JA5850",
-        "JA5123"
+        "DM6269",
+        "DM1502"
       ],
       "trechos": 2,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Bogota%202026-11-17%20through%202026-12-01&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Bogota%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "BUE-CTG",
-      "precoBRL": 3809,
-      "data": "2027-04-17",
-      "dataVolta": "2027-05-01",
+      "precoBRL": 3874,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
       "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-09T04:31:09.597Z",
+      "coletadoEm": "2026-09-10T10:45:12.067Z",
       "distanciaKm": 5341,
-      "precoPorKm": 0.357,
+      "precoPorKm": 0.363,
       "regiao": "sul-america",
       "cias": [
         "LATAM"
       ],
       "voos": [
         "LA2376",
-        "LA2390"
+        "LA2416"
       ],
       "trechos": 2,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Cartagena%202027-04-17%20through%202027-05-01&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Cartagena%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "BUE-UIO",
@@ -2537,25 +2537,25 @@
     },
     {
       "rota": "BUE-MCO",
-      "precoBRL": 4175,
-      "data": "2027-04-17",
-      "dataVolta": "2027-05-01",
+      "precoBRL": 4191,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
       "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-09T04:32:42.846Z",
+      "coletadoEm": "2026-09-10T10:46:58.867Z",
       "distanciaKm": 7429,
-      "precoPorKm": 0.281,
+      "precoPorKm": 0.282,
       "regiao": "america-norte",
       "cias": [
         "LATAM"
       ],
       "voos": [
         "LA8131",
-        "LA8186"
+        "LA8126"
       ],
       "trechos": 2,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Orlando%202027-04-17%20through%202027-05-01&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Orlando%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "BUE-LAX",
@@ -2581,25 +2581,25 @@
     },
     {
       "rota": "BUE-CUN",
-      "precoBRL": 4149,
-      "data": "2026-11-17",
-      "dataVolta": "2026-12-01",
+      "precoBRL": 2978,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
       "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-09T04:33:54.083Z",
+      "coletadoEm": "2026-09-10T10:48:16.354Z",
       "distanciaKm": 6894,
-      "precoPorKm": 0.301,
+      "precoPorKm": 0.216,
       "regiao": "america-norte",
       "cias": [
-        "Aeromexico"
+        "DM"
       ],
       "voos": [
-        "AM29",
-        "AM512"
+        "DM6201",
+        "DM7006"
       ],
       "trechos": 2,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Cancun%202026-11-17%20through%202026-12-01&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Cancun%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
     },
     {
       "rota": "BUE-OPO",
@@ -2779,68 +2779,266 @@
       "trechos": 2,
       "leitura": "estrutural",
       "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Manaus%202026-09-29%20through%202026-10-06&hl=pt-BR&gl=BR&curr=BRL"
-    }
-  ],
-  "melhorPorRota": {
-    "MVD-SAO": {
-      "precoBRL": 1996,
-      "data": "2026-12-07",
-      "dataVolta": "2026-12-21",
+    },
+    {
+      "rota": "BUE-MDE",
+      "precoBRL": 3098,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
       "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-09T22:37:27.034Z",
-      "distanciaKm": 1570,
-      "precoPorKm": 0.636,
-      "regiao": "brasil",
+      "coletadoEm": "2026-09-10T10:45:02.105Z",
+      "distanciaKm": 4889,
+      "precoPorKm": 0.317,
+      "regiao": "sul-america",
+      "cias": [
+        "JetSMART"
+      ],
+      "voos": [
+        "JA7801",
+        "JA7752"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Medellin%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    {
+      "rota": "BUE-GYE",
+      "precoBRL": 4052,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:45:40.915Z",
+      "distanciaKm": 4250,
+      "precoPorKm": 0.477,
+      "regiao": "sul-america",
+      "cias": [
+        "Avianca"
+      ],
+      "voos": [
+        "AV112",
+        "AV8399"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Guayaquil%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    {
+      "rota": "BUE-ASU",
+      "precoBRL": 1191,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:45:50.747Z",
+      "distanciaKm": 1070,
+      "precoPorKm": 0.557,
+      "regiao": "sul-america",
+      "cias": [
+        "JetSMART"
+      ],
+      "voos": [
+        "JA3796"
+      ],
+      "trechos": 1,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Asuncion%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    {
+      "rota": "BUE-JFK",
+      "precoBRL": 5481,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:47:10.056Z",
+      "distanciaKm": 8535,
+      "precoPorKm": 0.321,
+      "regiao": "america-norte",
       "cias": [
         "LATAM"
       ],
       "voos": [
-        "LA8119"
+        "LA2976",
+        "LA2690"
       ],
-      "trechos": 1,
+      "trechos": 2,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Sao%20Paulo%202026-12-07%20through%202026-12-21&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Nova%20York%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    {
+      "rota": "BUE-ORD",
+      "precoBRL": 5311,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:47:26.115Z",
+      "distanciaKm": 9049,
+      "precoPorKm": 0.293,
+      "regiao": "america-norte",
+      "cias": [
+        "DM"
+      ],
+      "voos": [
+        "DM6207",
+        "DM5420"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Chicago%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    {
+      "rota": "BUE-ATL",
+      "precoBRL": 6301,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:47:42.140Z",
+      "distanciaKm": 8076,
+      "precoPorKm": 0.39,
+      "regiao": "america-norte",
+      "cias": [
+        "LATAM"
+      ],
+      "voos": [
+        "LA2976",
+        "LA2482"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Atlanta%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    {
+      "rota": "BUE-YYZ",
+      "precoBRL": 3877,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:47:57.205Z",
+      "distanciaKm": 8986,
+      "precoPorKm": 0.216,
+      "regiao": "america-norte",
+      "cias": [
+        "American"
+      ],
+      "voos": [
+        "AA982",
+        "AA1246"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Toronto%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    {
+      "rota": "BUE-MEX",
+      "precoBRL": 3138,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:48:07.347Z",
+      "distanciaKm": 7397,
+      "precoPorKm": 0.212,
+      "regiao": "america-norte",
+      "cias": [
+        "DM"
+      ],
+      "voos": [
+        "DM6201",
+        "DM7104"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Cidade%20do%20Mexico%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    {
+      "rota": "BUE-FCO",
+      "precoBRL": 6599,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:49:28.956Z",
+      "distanciaKm": 11156,
+      "precoPorKm": 0.296,
+      "regiao": "europa",
+      "cias": [
+        "Air Europa"
+      ],
+      "voos": [
+        "UX42",
+        "UX1043"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Roma%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
+    }
+  ],
+  "melhorPorRota": {
+    "MVD-SAO": {
+      "precoBRL": 1974,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:41:48.731Z",
+      "distanciaKm": 1570,
+      "precoPorKm": 0.629,
+      "regiao": "brasil",
+      "cias": [
+        "Aerolineas Argentinas"
+      ],
+      "voos": [
+        "AR1385",
+        "AR1246"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Sao%20Paulo%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
     },
     "MVD-BUE": {
-      "precoBRL": 928,
-      "data": "2026-09-29",
-      "dataVolta": "2026-10-06",
-      "noites": 7,
+      "precoBRL": 1011,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:39:43.189Z",
+      "coletadoEm": "2026-09-10T10:41:51.350Z",
       "distanciaKm": 229,
-      "precoPorKm": 2.026,
+      "precoPorKm": 2.207,
       "regiao": "cone-sul",
       "cias": [
         "Aerolineas Argentinas"
       ],
       "voos": [
-        "AR1385"
+        "AR1391"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Buenos%20Aires%202026-09-29%20through%202026-10-06&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Buenos%20Aires%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
     },
     "MVD-GIG": {
-      "precoBRL": 1286,
-      "data": "2026-12-13",
-      "dataVolta": "2026-12-20",
-      "noites": 7,
+      "precoBRL": 1633,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:39:55.509Z",
+      "coletadoEm": "2026-09-10T10:42:00.689Z",
       "distanciaKm": 1824,
-      "precoPorKm": 0.353,
+      "precoPorKm": 0.448,
       "regiao": "brasil",
       "cias": [
-        "JetSMART"
+        "Gol"
       ],
       "voos": [
-        "JA763"
+        "G39451"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Rio%20de%20Janeiro%202026-12-13%20through%202026-12-20&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Rio%20de%20Janeiro%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
     },
     "MVD-POA": {
       "precoBRL": 1773,
@@ -2864,66 +3062,66 @@
       "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Porto%20Alegre%202026-12-13%20through%202026-12-20&hl=pt-BR&gl=BR&curr=BRL"
     },
     "MVD-SCL": {
-      "precoBRL": 1475,
-      "data": "2026-09-29",
-      "dataVolta": "2026-10-06",
-      "noites": 7,
+      "precoBRL": 1804,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:40:11.829Z",
+      "coletadoEm": "2026-09-10T10:42:23.413Z",
       "distanciaKm": 1367,
-      "precoPorKm": 0.54,
+      "precoPorKm": 0.66,
       "regiao": "sul-america",
       "cias": [
-        "Aerolineas Argentinas"
+        "LATAM"
       ],
       "voos": [
-        "AR1385",
-        "AR1286"
-      ],
-      "trechos": 2,
-      "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Santiago%202026-09-29%20through%202026-10-06&hl=pt-BR&gl=BR&curr=BRL"
-    },
-    "SAO-MVD": {
-      "precoBRL": 2064,
-      "data": "2026-09-29",
-      "dataVolta": "2026-10-06",
-      "noites": 7,
-      "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:40:22.994Z",
-      "distanciaKm": 1570,
-      "precoPorKm": 0.657,
-      "regiao": "cone-sul",
-      "cias": [
-        "Aerolineas Argentinas"
-      ],
-      "voos": [
-        "AR1247",
-        "AR1382"
-      ],
-      "trechos": 2,
-      "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Montevideo%202026-09-29%20through%202026-10-06&hl=pt-BR&gl=BR&curr=BRL"
-    },
-    "SAO-BUE": {
-      "precoBRL": 1794,
-      "data": "2026-12-13",
-      "dataVolta": "2026-12-20",
-      "noites": 7,
-      "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:40:37.690Z",
-      "distanciaKm": 1723,
-      "precoPorKm": 0.521,
-      "regiao": "cone-sul",
-      "cias": [
-        "Aerolineas Argentinas"
-      ],
-      "voos": [
-        "AR1241"
+        "LA411"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Buenos%20Aires%202026-12-13%20through%202026-12-20&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Montevideo%20to%20Santiago%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    "SAO-MVD": {
+      "precoBRL": 1937,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:42:41.957Z",
+      "distanciaKm": 1570,
+      "precoPorKm": 0.617,
+      "regiao": "cone-sul",
+      "cias": [
+        "Aerolineas Argentinas"
+      ],
+      "voos": [
+        "AR1243",
+        "AR1384"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Montevideo%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    "SAO-BUE": {
+      "precoBRL": 2437,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:42:48.936Z",
+      "distanciaKm": 1723,
+      "precoPorKm": 0.707,
+      "regiao": "cone-sul",
+      "cias": [
+        "LATAM"
+      ],
+      "voos": [
+        "LA757",
+        "LA425"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Buenos%20Aires%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
     },
     "SAO-GIG": {
       "precoBRL": 702,
@@ -2946,75 +3144,74 @@
       "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Rio%20de%20Janeiro%202026-12-02%20through%202026-12-09&hl=pt-BR&gl=BR&curr=BRL"
     },
     "SAO-POA": {
-      "precoBRL": 624,
-      "data": "2027-02-26",
-      "dataVolta": "2027-03-05",
-      "noites": 7,
+      "precoBRL": 907,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:41:01.423Z",
+      "coletadoEm": "2026-09-10T10:43:12.510Z",
       "distanciaKm": 866,
-      "precoPorKm": 0.36,
+      "precoPorKm": 0.524,
       "regiao": "brasil",
       "cias": [
         "LATAM"
       ],
       "voos": [
-        "LA4543"
+        "LA3160"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Porto%20Alegre%202027-02-26%20through%202027-03-05&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Porto%20Alegre%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
     },
     "SAO-SCL": {
-      "precoBRL": 1216,
-      "data": "2026-09-29",
-      "dataVolta": "2026-10-06",
-      "noites": 7,
+      "precoBRL": 1657,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:41:04.156Z",
+      "coletadoEm": "2026-09-10T10:43:21.688Z",
       "distanciaKm": 2615,
-      "precoPorKm": 0.233,
+      "precoPorKm": 0.317,
       "regiao": "sul-america",
       "cias": [
         "LATAM"
       ],
       "voos": [
-        "LA715"
+        "LA8038"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Santiago%202026-09-29%20through%202026-10-06&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Sao%20Paulo%20to%20Santiago%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-SAO": {
-      "precoBRL": 1818,
-      "data": "2027-02-26",
-      "dataVolta": "2027-03-05",
-      "noites": 7,
+      "precoBRL": 1977,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:41:22.589Z",
+      "coletadoEm": "2026-09-10T10:43:31.121Z",
       "distanciaKm": 1723,
-      "precoPorKm": 0.528,
+      "precoPorKm": 0.574,
       "regiao": "brasil",
       "cias": [
-        "LATAM"
+        "Gol"
       ],
       "voos": [
-        "LA2368",
-        "LA8041"
+        "G37649"
       ],
-      "trechos": 2,
+      "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Sao%20Paulo%202027-02-26%20through%202027-03-05&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Sao%20Paulo%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-MVD": {
-      "precoBRL": 1480,
-      "data": "2026-12-13",
-      "dataVolta": "2026-12-20",
-      "noites": 7,
+      "precoBRL": 1481,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:41:28.176Z",
+      "coletadoEm": "2026-09-10T10:43:41.981Z",
       "distanciaKm": 229,
-      "precoPorKm": 3.231,
+      "precoPorKm": 3.234,
       "regiao": "cone-sul",
       "cias": [
         "Aerolineas Argentinas"
@@ -3024,27 +3221,27 @@
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Montevideo%202026-12-13%20through%202026-12-20&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Montevideo%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-GIG": {
-      "precoBRL": 1953,
-      "data": "2027-02-26",
-      "dataVolta": "2027-03-05",
-      "noites": 7,
+      "precoBRL": 1967,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:41:42.735Z",
+      "coletadoEm": "2026-09-10T10:43:48.322Z",
       "distanciaKm": 1996,
-      "precoPorKm": 0.489,
+      "precoPorKm": 0.493,
       "regiao": "brasil",
       "cias": [
-        "British Airways"
+        "LATAM"
       ],
       "voos": [
-        "BA248"
+        "LA8045"
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Rio%20de%20Janeiro%202027-02-26%20through%202027-03-05&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Rio%20de%20Janeiro%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-POA": {
       "precoBRL": 2221,
@@ -3068,14 +3265,14 @@
       "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Porto%20Alegre%202026-12-13%20through%202026-12-20&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-SCL": {
-      "precoBRL": 957,
-      "data": "2026-12-13",
-      "dataVolta": "2026-12-20",
-      "noites": 7,
+      "precoBRL": 1135,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-10T04:42:00.199Z",
+      "coletadoEm": "2026-09-10T10:44:19.101Z",
       "distanciaKm": 1138,
-      "precoPorKm": 0.42,
+      "precoPorKm": 0.499,
       "regiao": "sul-america",
       "cias": [
         "JetSMART"
@@ -3085,7 +3282,7 @@
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Santiago%202026-12-13%20through%202026-12-20&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Santiago%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-IST": {
       "precoBRL": 6574,
@@ -5104,14 +5301,14 @@
       "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Tucuman%202027-04-11%20through%202027-04-18&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-LIM": {
-      "precoBRL": 1587,
-      "data": "2026-11-11",
-      "dataVolta": "2026-11-18",
-      "noites": 7,
+      "precoBRL": 1581,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-08T09:58:03.088Z",
+      "coletadoEm": "2026-09-10T10:44:26.323Z",
       "distanciaKm": 3152,
-      "precoPorKm": 0.252,
+      "precoPorKm": 0.251,
       "regiao": "sul-america",
       "cias": [
         "JetSMART"
@@ -5121,49 +5318,49 @@
       ],
       "trechos": 1,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Lima%202026-11-11%20through%202026-11-18&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Lima%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-BOG": {
-      "precoBRL": 3385,
-      "data": "2026-11-17",
-      "dataVolta": "2026-12-01",
+      "precoBRL": 2679,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
       "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-09T04:30:41.257Z",
+      "coletadoEm": "2026-09-10T10:44:59.285Z",
       "distanciaKm": 4688,
-      "precoPorKm": 0.361,
+      "precoPorKm": 0.286,
       "regiao": "sul-america",
       "cias": [
-        "JetSMART"
+        "DM"
       ],
       "voos": [
-        "JA5850",
-        "JA5123"
+        "DM6269",
+        "DM1502"
       ],
       "trechos": 2,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Bogota%202026-11-17%20through%202026-12-01&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Bogota%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-CTG": {
-      "precoBRL": 3809,
-      "data": "2027-04-17",
-      "dataVolta": "2027-05-01",
+      "precoBRL": 3874,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
       "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-09T04:31:09.597Z",
+      "coletadoEm": "2026-09-10T10:45:12.067Z",
       "distanciaKm": 5341,
-      "precoPorKm": 0.357,
+      "precoPorKm": 0.363,
       "regiao": "sul-america",
       "cias": [
         "LATAM"
       ],
       "voos": [
         "LA2376",
-        "LA2390"
+        "LA2416"
       ],
       "trechos": 2,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Cartagena%202027-04-17%20through%202027-05-01&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Cartagena%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-UIO": {
       "precoBRL": 2812,
@@ -5188,25 +5385,25 @@
       "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Quito%202027-01-31%20through%202027-02-14&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-MCO": {
-      "precoBRL": 4175,
-      "data": "2027-04-17",
-      "dataVolta": "2027-05-01",
+      "precoBRL": 4191,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
       "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-09T04:32:42.846Z",
+      "coletadoEm": "2026-09-10T10:46:58.867Z",
       "distanciaKm": 7429,
-      "precoPorKm": 0.281,
+      "precoPorKm": 0.282,
       "regiao": "america-norte",
       "cias": [
         "LATAM"
       ],
       "voos": [
         "LA8131",
-        "LA8186"
+        "LA8126"
       ],
       "trechos": 2,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Orlando%202027-04-17%20through%202027-05-01&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Orlando%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-LAX": {
       "precoBRL": 4650,
@@ -5230,25 +5427,25 @@
       "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Los%20Angeles%202026-11-17%20through%202026-12-01&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-CUN": {
-      "precoBRL": 4149,
-      "data": "2026-11-17",
-      "dataVolta": "2026-12-01",
+      "precoBRL": 2978,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
       "noites": 14,
       "tipoTarifa": "ida-e-volta",
-      "coletadoEm": "2026-09-09T04:33:54.083Z",
+      "coletadoEm": "2026-09-10T10:48:16.354Z",
       "distanciaKm": 6894,
-      "precoPorKm": 0.301,
+      "precoPorKm": 0.216,
       "regiao": "america-norte",
       "cias": [
-        "Aeromexico"
+        "DM"
       ],
       "voos": [
-        "AM29",
-        "AM512"
+        "DM6201",
+        "DM7006"
       ],
       "trechos": 2,
       "leitura": "estrutural",
-      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Cancun%202026-11-17%20through%202026-12-01&hl=pt-BR&gl=BR&curr=BRL"
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Cancun%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
     },
     "BUE-OPO": {
       "precoBRL": 5280,
@@ -5420,6 +5617,194 @@
       "trechos": 2,
       "leitura": "estrutural",
       "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Manaus%202026-09-29%20through%202026-10-06&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    "BUE-MDE": {
+      "precoBRL": 3098,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:45:02.105Z",
+      "distanciaKm": 4889,
+      "precoPorKm": 0.317,
+      "regiao": "sul-america",
+      "cias": [
+        "JetSMART"
+      ],
+      "voos": [
+        "JA7801",
+        "JA7752"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Medellin%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    "BUE-GYE": {
+      "precoBRL": 4052,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:45:40.915Z",
+      "distanciaKm": 4250,
+      "precoPorKm": 0.477,
+      "regiao": "sul-america",
+      "cias": [
+        "Avianca"
+      ],
+      "voos": [
+        "AV112",
+        "AV8399"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Guayaquil%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    "BUE-ASU": {
+      "precoBRL": 1191,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:45:50.747Z",
+      "distanciaKm": 1070,
+      "precoPorKm": 0.557,
+      "regiao": "sul-america",
+      "cias": [
+        "JetSMART"
+      ],
+      "voos": [
+        "JA3796"
+      ],
+      "trechos": 1,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Asuncion%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    "BUE-JFK": {
+      "precoBRL": 5481,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:47:10.056Z",
+      "distanciaKm": 8535,
+      "precoPorKm": 0.321,
+      "regiao": "america-norte",
+      "cias": [
+        "LATAM"
+      ],
+      "voos": [
+        "LA2976",
+        "LA2690"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Nova%20York%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    "BUE-ORD": {
+      "precoBRL": 5311,
+      "data": "2026-10-04",
+      "dataVolta": "2026-10-18",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:47:26.115Z",
+      "distanciaKm": 9049,
+      "precoPorKm": 0.293,
+      "regiao": "america-norte",
+      "cias": [
+        "DM"
+      ],
+      "voos": [
+        "DM6207",
+        "DM5420"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Chicago%202026-10-04%20through%202026-10-18&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    "BUE-ATL": {
+      "precoBRL": 6301,
+      "data": "2026-12-18",
+      "dataVolta": "2027-01-01",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:47:42.140Z",
+      "distanciaKm": 8076,
+      "precoPorKm": 0.39,
+      "regiao": "america-norte",
+      "cias": [
+        "LATAM"
+      ],
+      "voos": [
+        "LA2976",
+        "LA2482"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Atlanta%202026-12-18%20through%202027-01-01&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    "BUE-YYZ": {
+      "precoBRL": 3877,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:47:57.205Z",
+      "distanciaKm": 8986,
+      "precoPorKm": 0.216,
+      "regiao": "america-norte",
+      "cias": [
+        "American"
+      ],
+      "voos": [
+        "AA982",
+        "AA1246"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Toronto%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    "BUE-MEX": {
+      "precoBRL": 3138,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:48:07.347Z",
+      "distanciaKm": 7397,
+      "precoPorKm": 0.212,
+      "regiao": "america-norte",
+      "cias": [
+        "DM"
+      ],
+      "voos": [
+        "DM6201",
+        "DM7104"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Cidade%20do%20Mexico%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
+    },
+    "BUE-FCO": {
+      "precoBRL": 6599,
+      "data": "2027-03-03",
+      "dataVolta": "2027-03-17",
+      "noites": 14,
+      "tipoTarifa": "ida-e-volta",
+      "coletadoEm": "2026-09-10T10:49:28.956Z",
+      "distanciaKm": 11156,
+      "precoPorKm": 0.296,
+      "regiao": "europa",
+      "cias": [
+        "Air Europa"
+      ],
+      "voos": [
+        "UX42",
+        "UX1043"
+      ],
+      "trechos": 2,
+      "leitura": "estrutural",
+      "link": "https://www.google.com/travel/flights?q=flights%20from%20Buenos%20Aires%20to%20Roma%202027-03-03%20through%202027-03-17&hl=pt-BR&gl=BR&curr=BRL"
     }
   }
 }

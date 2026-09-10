@@ -152,7 +152,14 @@
     "MVD-GIG|2026-12-13|1275": 1789015616819,
     "BUE-NQN|2027-02-26|700": 1789015616819,
     "BUE-SCL|2026-12-13|950": 1789015616819,
-    "MVD-BUE|2026-09-29|925": 1789015616819
+    "MVD-BUE|2026-09-29|925": 1789015616819,
+    "BUE-MEX|2027-03-03|3150": 1789037399050,
+    "BUE-YYZ|2027-03-03|3875": 1789037399050,
+    "BUE-CUN|2027-03-03|2975": 1789037399050,
+    "BUE-LIM|2026-10-04|1575": 1789037399050,
+    "BUE-MEX|2026-12-18|4050": 1789037399050,
+    "SAO-POA|2026-12-18|900": 1789037399050,
+    "MVD-BUE|2026-10-04|1000": 1789037399050
   },
   "feedsVistos": [
     "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
@@ -185,7 +192,7 @@
     "https://pontospravoar.com/mais-400-alertas-mes-conheca-grupo-emissoes-ppv/",
     "https://pontospravoar.com/maroon-5-esquenta-a-noite-do-camarote-santander-no-nubank-parque/"
   ],
-  "rodadas": 17,
-  "cursorRodizio": 419,
-  "ultimaRodadaEm": "2026-09-10T04:46:56.821Z"
+  "rodadas": 18,
+  "cursorRodizio": 504,
+  "ultimaRodadaEm": "2026-09-10T10:49:59.051Z"
 }
