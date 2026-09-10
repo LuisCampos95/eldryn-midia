@@ -166,7 +166,19 @@
     "feed|https://passageirodeprimeira.com/latam-pass-oferece-25-de-bonus-nas-transferencias-de-pontos-do-c6-bank-3/": 1789059050060,
     "feed|https://passageirodeprimeira.com/voe-para-punta-del-este-a-partir-de-r-474-ou-40-mil-pontos-azul-taxas/": 1789059050060,
     "feed|https://pontospravoar.com/latam-pass-oferece-25-porcento-bonus-transferencia-pontos-c6-bank/": 1789059050060,
-    "feed|https://pontospravoar.com/acaba-hoje-azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-transferencia-pontos/": 1789059050060
+    "feed|https://pontospravoar.com/acaba-hoje-azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-transferencia-pontos/": 1789059050060,
+    "MVD-MIA|2026-10-14|3125": 1789080749283,
+    "MVD-LAX|2026-10-14|5000": 1789080749283,
+    "MVD-MEX|2026-10-14|3825": 1789080749283,
+    "MVD-LAX|2026-12-28|5125": 1789080749283,
+    "MVD-CUN|2026-10-14|3675": 1789080749283,
+    "MVD-MIA|2027-03-13|3800": 1789080749283,
+    "SAO-BUE|2027-03-13|1550": 1789080749283,
+    "BUE-SAO|2027-03-13|1575": 1789080749283,
+    "SAO-POA|2027-03-13|850": 1789080749283,
+    "SAO-MVD|2026-10-14|1600": 1789080749283,
+    "SAO-MVD|2027-03-13|1725": 1789080749283,
+    "MVD-SAO|2027-03-13|1825": 1789080749283
   },
   "feedsVistos": [
     "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
@@ -202,9 +214,13 @@
     "https://passageirodeprimeira.com/latam-pass-oferece-25-de-bonus-nas-transferencias-de-pontos-do-c6-bank-3/",
     "https://passageirodeprimeira.com/voe-para-punta-del-este-a-partir-de-r-474-ou-40-mil-pontos-azul-taxas/",
     "https://pontospravoar.com/latam-pass-oferece-25-porcento-bonus-transferencia-pontos-c6-bank/",
-    "https://pontospravoar.com/acaba-hoje-azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-transferencia-pontos/"
+    "https://pontospravoar.com/acaba-hoje-azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-transferencia-pontos/",
+    "https://passageirodeprimeira.com/partiu-caribe-trecho-para-punta-cana-a-partir-de-r-888-ou-74-mil-pontos-azul-taxas/",
+    "https://pontospravoar.com/ppv-promocoes-confira-melhores-oportunidades-um-so-lugar/",
+    "https://pontospravoar.com/crise-da-flybondi-se-agrava-com-bloqueio-de-contas-na-argentina/",
+    "https://pontospravoar.com/alerta-ppv-viaje-peru-partir-21-mil-milhas-latam-pass/"
   ],
-  "rodadas": 19,
-  "cursorRodizio": 76,
-  "ultimaRodadaEm": "2026-09-10T16:50:50.062Z"
+  "rodadas": 20,
+  "cursorRodizio": 161,
+  "ultimaRodadaEm": "2026-09-10T22:52:29.284Z"
 }
