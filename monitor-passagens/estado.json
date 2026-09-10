@@ -159,7 +159,14 @@
     "BUE-LIM|2026-10-04|1575": 1789037399050,
     "BUE-MEX|2026-12-18|4050": 1789037399050,
     "SAO-POA|2026-12-18|900": 1789037399050,
-    "MVD-BUE|2026-10-04|1000": 1789037399050
+    "MVD-BUE|2026-10-04|1000": 1789037399050,
+    "SAO-POA|2027-03-08|625": 1789059050060,
+    "BUE-SCL|2027-03-08|1075": 1789059050060,
+    "feed|https://passageirodeprimeira.com/trecho-para-sao-francisco-a-partir-de-r-1-327-ou-112-mil-pontos-azul-taxas/": 1789059050060,
+    "feed|https://passageirodeprimeira.com/latam-pass-oferece-25-de-bonus-nas-transferencias-de-pontos-do-c6-bank-3/": 1789059050060,
+    "feed|https://passageirodeprimeira.com/voe-para-punta-del-este-a-partir-de-r-474-ou-40-mil-pontos-azul-taxas/": 1789059050060,
+    "feed|https://pontospravoar.com/latam-pass-oferece-25-porcento-bonus-transferencia-pontos-c6-bank/": 1789059050060,
+    "feed|https://pontospravoar.com/acaba-hoje-azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-transferencia-pontos/": 1789059050060
   },
   "feedsVistos": [
     "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
@@ -190,9 +197,14 @@
     "https://passageirodeprimeira.com/data-unica-trecho-para-lisboa-a-partir-de-r-853-ou-71-mil-pontos-azul-taxas/",
     "https://passageirodeprimeira.com/governo-de-portugal-avanca-a-privatizacao-da-tap-para-sua-etapa-final/",
     "https://pontospravoar.com/mais-400-alertas-mes-conheca-grupo-emissoes-ppv/",
-    "https://pontospravoar.com/maroon-5-esquenta-a-noite-do-camarote-santander-no-nubank-parque/"
+    "https://pontospravoar.com/maroon-5-esquenta-a-noite-do-camarote-santander-no-nubank-parque/",
+    "https://passageirodeprimeira.com/trecho-para-sao-francisco-a-partir-de-r-1-327-ou-112-mil-pontos-azul-taxas/",
+    "https://passageirodeprimeira.com/latam-pass-oferece-25-de-bonus-nas-transferencias-de-pontos-do-c6-bank-3/",
+    "https://passageirodeprimeira.com/voe-para-punta-del-este-a-partir-de-r-474-ou-40-mil-pontos-azul-taxas/",
+    "https://pontospravoar.com/latam-pass-oferece-25-porcento-bonus-transferencia-pontos-c6-bank/",
+    "https://pontospravoar.com/acaba-hoje-azul-fidelidade-livelo-oferecem-ate-120-porcento-bonus-transferencia-pontos/"
   ],
-  "rodadas": 18,
-  "cursorRodizio": 504,
-  "ultimaRodadaEm": "2026-09-10T10:49:59.051Z"
+  "rodadas": 19,
+  "cursorRodizio": 76,
+  "ultimaRodadaEm": "2026-09-10T16:50:50.062Z"
 }
