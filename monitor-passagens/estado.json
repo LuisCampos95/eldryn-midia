@@ -140,7 +140,19 @@
     "BUE-SCL|2026-12-07|1075": 1788993953211,
     "SAO-MVD|2027-05-07|1725": 1788993953211,
     "feed|https://www.melhoresdestinos.com.br/promocao/passagens-aereas-2-em-1-marrocos-mais-europa-09-09-26": 1788993953211,
-    "feed|https://www.melhoresdestinos.com.br/anac-libera-operacoes-congonhas.html": 1788993953211
+    "feed|https://www.melhoresdestinos.com.br/anac-libera-operacoes-congonhas.html": 1788993953211,
+    "SAO-SCL|2026-09-29|1225": 1789015616819,
+    "SAO-POA|2027-02-26|625": 1789015616819,
+    "BUE-IGR|2026-09-29|500": 1789015616819,
+    "BUE-IGR|2027-02-26|550": 1789015616819,
+    "BUE-SLA|2027-02-26|675": 1789015616819,
+    "BUE-MDZ|2027-02-26|500": 1789015616819,
+    "BUE-MDZ|2026-12-13|575": 1789015616819,
+    "BUE-NQN|2026-09-29|600": 1789015616819,
+    "MVD-GIG|2026-12-13|1275": 1789015616819,
+    "BUE-NQN|2027-02-26|700": 1789015616819,
+    "BUE-SCL|2026-12-13|950": 1789015616819,
+    "MVD-BUE|2026-09-29|925": 1789015616819
   },
   "feedsVistos": [
     "https://passageirodeprimeira.com/flying-blue-oferece-descontos-de-ate-25-para-resgates-em-destinos-selecionados/",
@@ -173,7 +185,7 @@
     "https://pontospravoar.com/mais-400-alertas-mes-conheca-grupo-emissoes-ppv/",
     "https://pontospravoar.com/maroon-5-esquenta-a-noite-do-camarote-santander-no-nubank-parque/"
   ],
-  "rodadas": 16,
-  "cursorRodizio": 334,
-  "ultimaRodadaEm": "2026-09-09T22:45:53.213Z"
+  "rodadas": 17,
+  "cursorRodizio": 419,
+  "ultimaRodadaEm": "2026-09-10T04:46:56.821Z"
 }
