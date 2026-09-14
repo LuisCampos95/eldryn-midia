@@ -791,6 +791,30 @@
       "texto": "🚢 O NAVIO NUNCA VIU O MAR\n\nO Defias Juggernaut é o couraçado que a irmandade ergueu escondida pra incendiar uma capital inteira, um dos cenários mais lembrados de World of Warcraft. A equipe do WoWTale está refazendo ele bloco a bloco.\n\n🔹 O casco fica em um estaleiro fechado, cercado de andaime e neblina pesada\n🔹 Os canhões gigantes já apontam pra cima, com a obra ainda em andamento\n\n🎨 @WoWTaleTeam\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
       "tipo": "video",
       "arquivo": "rc276.mp4"
+    },
+    {
+      "post": "rc277",
+      "hora": "12:00",
+      "quandoUtc": "2026-09-16T15:00:00.000Z",
+      "texto": "📦 AGORA A CAIXA CAI, ROLA E DERRUBA O RESTO\n\nMod novo liga física de corpo rígido de verdade nos objetos, com a simulação rodando no servidor. Vem com physgun e gravity gun, do mesmo jeito que Garry's Mod faz.\n\n🔹 A physgun segura o objeto no ar, congela no lugar e gira no eixo que você quiser\n🔹 Ninguém precisa instalar nada no cliente, só o servidor, e outro mod pode usar a mesma física por API\n\n🎨 NomadLabs, no CurseForge\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "carrossel",
+      "arquivo": "rc277_1.jpg",
+      "arquivos": [
+        "rc277_1.jpg",
+        "rc277_2.jpg"
+      ]
+    },
+    {
+      "post": "rc278",
+      "hora": "16:00",
+      "quandoUtc": "2026-09-16T19:00:00.000Z",
+      "texto": "🪝 ELE FEZ O GANCHO ANTES DO JOGO LANÇAR\n\nO Hookshot é item da 0.7.0, que ainda está em pré-lançamento. Esse mod já entrega o gancho funcionando na 0.6, e o autor ainda garante que ficou melhor que o original.\n\n🔹 Joga o gancho, prende no alvo e te puxa na hora pra lugar alto ou distante\n🔹 Dá pra fabricar na Bigorna do Ferreiro com 2 barras de ferro e 3 fibras de planta\n\n🎨 NALOlevrai, no CurseForge\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "carrossel",
+      "arquivo": "rc278_1.jpg",
+      "arquivos": [
+        "rc278_1.jpg",
+        "rc278_2.jpg"
+      ]
     }
   ]
 }
