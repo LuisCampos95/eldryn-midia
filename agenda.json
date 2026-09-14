@@ -777,6 +777,14 @@
       "arquivo": "rc274.mp4"
     },
     {
+      "post": "rc279",
+      "hora": "17:16",
+      "quandoUtc": "2026-09-14T20:15:12.697Z",
+      "texto": "🔴 ISSO NÃO É MOD, É OUTRO JOGO\n\nPokeWorlds Online é um Pokémon 2D multijogador rodando inteiro dentro do Hytale, com cidade, Centro Pokémon, captura e ficha completa de cada bicho.\n\n🔹 A ficha do Charmeleon traz natureza, grupo de ovo, felicidade, local e nível de captura, e a tabela de golpe por nível\n🔹 A ideia do autor é provar que o Hytale serve de engine de jogo, não só de mundo pra construir em cima\n\n🎥 @pokeworldonlin\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "video",
+      "arquivo": "rc279.mp4"
+    },
+    {
       "post": "rc275",
       "hora": "12:00",
       "quandoUtc": "2026-09-15T15:00:00.000Z",
@@ -817,12 +825,20 @@
       ]
     },
     {
-      "post": "rc279",
-      "hora": "17:16",
-      "quandoUtc": "2026-09-14T20:15:12.697Z",
-      "texto": "🔴 ISSO NÃO É MOD, É OUTRO JOGO\n\nPokeWorlds Online é um Pokémon 2D multijogador rodando inteiro dentro do Hytale, com cidade, Centro Pokémon, captura e ficha completa de cada bicho.\n\n🔹 A ficha do Charmeleon traz natureza, grupo de ovo, felicidade, local e nível de captura, e a tabela de golpe por nível\n🔹 A ideia do autor é provar que o Hytale serve de engine de jogo, não só de mundo pra construir em cima\n\n🎥 @pokeworldonlin\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "post": "rc280",
+      "hora": "12:00",
+      "quandoUtc": "2026-09-17T15:00:00.000Z",
+      "texto": "🗡️ A MASTER SWORD ESTÁ FINCADA NA PEDRA\n\nTrailer novo de um projeto que recria o mundo de Zelda em voxel, com floresta tomada de névoa, vagalume e ruína coberta de mato.\n\n🔹 A espada aparece no fundo de um salão escuro, iluminada só por uma fresta no teto\n🔹 A floresta lembra a Floresta Perdida, com tronco gigante e clareira de ruína no meio\n\n🎥 @CheewawaDev\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
       "tipo": "video",
-      "arquivo": "rc279.mp4"
+      "arquivo": "rc280.mp4"
+    },
+    {
+      "post": "rc281",
+      "hora": "16:00",
+      "quandoUtc": "2026-09-17T19:00:00.000Z",
+      "texto": "🕷️ A MÃE MANDA AS FILHOTES CATAREM ITEM\n\nNPC novo do mod Hexcode Evoke, a Chest Spider tem baú no lugar do corpo e trabalha em bando. A mãe dá a ordem e as filhotes se espalham pra procurar item e guardar.\n\n🔹 Cada aranha tem ficha própria, com inventário e botão de transferir item\n🔹 Modelo e textura são do Gwentor, autor do Tea Time\n\n🎥 @_Lexem_\n\n🌟 Use o código de criador BRASIL ou HYBR ao comprar no site do Hytale!\n\n#Hytale #HytaleBrasil #HytaleGame #HytaleNews",
+      "tipo": "video",
+      "arquivo": "rc281.mp4"
     }
   ]
 }
