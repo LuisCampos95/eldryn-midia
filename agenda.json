@@ -879,6 +879,14 @@
       "texto": "Morreu 100 vezes e ainda pediu para deixar MAIS difícil. Eu estaria chorando 😭\n\n🎥 bravoxv_",
       "tipo": "video",
       "arquivo": "rc286.mp4"
+    },
+    {
+      "post": "rc289",
+      "hora": "12:05",
+      "tipo": "imagem",
+      "arquivo": "rc289.jpg",
+      "quandoUtc": "2026-09-17T14:58:36.400Z",
+      "texto": "Saiu a Parte 3 da pre-release do Update 7, e tem coisa boa para quem joga 🔥\n\n⚔️ Combate e criaturas\n🔹 Algumas criaturas agora precisam ser derrotadas em combate para liberar a Memória delas\n🔹 O Skeleton Elite ficou mais rápido e ganhou sons novos\n🔹 O Feastmaster ganhou animação para escalar, nadar, voar e dormir\n🔹 Predadores grandes atacam aranhas assim que veem\n🔹 O Ground Slam agora funciona com machado de batalha\n\n🌀 Mundo e itens\n🔹 Mundos de portal podem ficar abertos sem limite de tempo\n🔹 O Barril Explosivo agora é arremessado com o clique esquerdo\n🔹 As Runas agora dizem se são de Habilidade ou Modificadoras\n🔹 O Scrap Glider ganhou modelo novo, e não dá mais para ganhar altura pulando sem parar\n🔹 Os kits de ferro e adamantita agora vêm com comida e poção de vida\n\n💻 Desempenho e correções\n🔹 Mundos salvos ocupam menos espaço no disco\n🔹 O jogo não volta mais para o inglês quando o sistema está em português do Brasil\n🔹 Corrigido o travamento ao entrar em um mundo novo\n🔹 Corrigidos vazamentos de memória e crashes no Windows e com placa de vídeo integrada da Intel\n\n🔧 Para quem faz mod\n🔹 Blocos podem mostrar nome e descrição sem precisar quebrar\n🔹 Explosões podem definir o tipo de dano, e os marcadores do mapa podem ficar maiores"
     }
   ]
 }
